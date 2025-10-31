@@ -1,0 +1,4248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VE2C(PT) Writing Instructions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3B82F6;
+            --primary-light: #60A5FA;
+            --primary-dark: #2563EB;
+            --accent: #8B5CF6;
+            --accent-light: #A78BFA;
+            --accent-dark: #7C3AED;
+            --success: #10B981;
+            --success-light: #34D399;
+            --success-dark: #059669;
+            --error: #EF4444;
+            --error-light: #F87171;
+            --error-dark: #DC2626;
+            --warning: #F59E0B;
+            --warning-light: #FBBF24;
+            --bg: #FFFFFF;
+            --bg-light: #F0F9FF;
+            --bg-secondary: #E0F2FE;
+            --text-primary: #1E293B;
+            --text-secondary: #475569;
+            --border: #BAE6FD;
+            --table-header: #BFDBFE;
+            --table-border: #DBEAFE;
+            --sidebar-width: 35%;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-light);
+        }
+        
+        /* Enhanced Cover Page Styles */
+        .cover-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Background Elements */
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .cover-page::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        .cover-container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cover-header {
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-icon {
+            font-size: 80px;
+            color: white;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: bounce 2s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .cover-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            line-height: 1.3;
+        }
+
+        .cover-description {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Cards Container */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            animation: fadeInUp 1s ease 0.3s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .section-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .section-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(59, 130, 246, 0.4);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .section-card:hover .card-icon {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
+        .card-description {
+            font-size: 16px;
+            color: #64748B;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .card-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .card-features li {
+            padding: 8px 0;
+            color: #475569;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-features li i {
+            color: var(--primary);
+            font-size: 12px;
+        }
+
+        .start-button {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .start-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+        }
+
+        .start-button:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        .cover-footer {
+            margin-top: 60px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            animation: fadeIn 1s ease 0.6s backwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .exercise-page {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        .exercise-page.active {
+            display: flex;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--bg);
+            border-right: 1px solid var(--border);
+            padding: 25px 0;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(59, 130, 246, 0.08);
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+        
+        .back-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .back-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .sidebar-header h1 {
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-header p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 25px;
+        }
+        
+        .sidebar-title {
+            padding: 0 20px;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+        
+        .tab-container {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .tab-button {
+            padding: 15px 20px;
+            background-color: transparent;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            border-left: 3px solid transparent;
+        }
+        
+        .tab-button i {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        
+        .tab-button.active {
+            color: var(--primary);
+            background-color: var(--bg-light);
+            border-left: 3px solid var(--primary);
+        }
+        
+        .tab-button:hover:not(.active) {
+            background-color: rgba(59, 130, 246, 0.05);
+            color: var(--text-primary);
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 30px;
+            width: 65%;
+        }
+        
+        .main-header {
+            margin-bottom: 30px;
+        }
+        
+        .main-header h2 {
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+        
+        .main-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        
+        .card {
+            background-color: var(--bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border);
+        }
+        
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(59, 130, 246, 0.12);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .button-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .action-button {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .action-button i {
+            margin-right: 8px;
+        }
+        
+        .check-button {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .check-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .check-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .reset-button {
+            background-color: var(--bg);
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+        
+        .reset-button:hover {
+            background-color: var(--error);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Work Plan Table Styles */
+        .work-plan-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            border: 1px solid var(--table-border);
+        }
+        
+        .work-plan-table th {
+            background-color: var(--table-header);
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: bold;
+            border: 1px solid var(--table-border);
+            color: var(--text-primary);
+        }
+        
+        .work-plan-table td {
+            padding: 12px 15px;
+            border: 1px solid var(--table-border);
+            vertical-align: top;
+            background-color: white;
+        }
+        
+        .work-plan-table tr:nth-child(even) td {
+            background-color: #EFF6FF;
+        }
+
+        /* Fill in the Blanks Styles */
+        .fill-blank-table-wrapper {
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+
+        .fill-blank-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border: 2px solid var(--table-border);
+        }
+
+        .fill-blank-table th {
+            background-color: var(--table-header);
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: bold;
+            border: 1px solid var(--table-border);
+            color: var(--text-primary);
+        }
+
+        .fill-blank-table td {
+            padding: 12px 15px;
+            border: 1px solid var(--table-border);
+            vertical-align: top;
+            background-color: white;
+            line-height: 1.8;
+        }
+
+        .fill-blank-table tr.row-highlight td {
+            background-color: #FEF3C7;
+            border: 2px solid var(--warning);
+        }
+
+        .fill-blank-table tr:nth-child(even):not(.row-highlight) td {
+            background-color: #EFF6FF;
+        }
+
+        .fill-blank-item {
+            margin-bottom: 35px;
+            padding: 25px;
+            background-color: var(--bg-light);
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .fill-blank-item:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
+        }
+
+        .fill-blank-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .item-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+
+        .fill-blank-sentence {
+            font-size: 18px;
+            line-height: 2.5;
+            color: var(--text-primary);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .blank-input {
+            display: inline-block;
+            min-width: 60px;
+            max-width: 120px;
+            padding: 6px 10px;
+            border: none;
+            border-bottom: 2px solid var(--border);
+            background-color: rgba(59, 130, 246, 0.05);
+            font-size: 16px;
+            font-family: inherit;
+            color: var(--text-primary);
+            transition: all 0.3s;
+            border-radius: 4px 4px 0 0;
+            outline: none;
+        }
+
+        .blank-input:focus {
+            border-bottom-color: var(--primary);
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .blank-input.correct {
+            border-bottom-color: var(--success);
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .blank-input.incorrect {
+            border-bottom-color: var(--error);
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+            animation: shake 0.4s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .progress-tracker {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+        }
+
+        .progress-tracker h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: var(--text-primary);
+        }
+
+        .progress-tracker h3 i {
+            margin-right: 8px;
+            color: var(--primary);
+        }
+
+        .progress-stats {
+            text-align: center;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: var(--border);
+            border-radius: 20px;
+            height: 8px;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 20px;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .feedback-fill {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background-color: var(--bg);
+            display: none;
+            animation: slideIn 0.5s ease;
+            border: 1px solid var(--border);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-fill h3 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .answer-review {
+            margin-top: 20px;
+        }
+
+        .answer-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: var(--bg-light);
+            border-left: 4px solid var(--border);
+        }
+
+        .answer-item.correct {
+            border-left-color: var(--success);
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+
+        .answer-item.incorrect {
+            border-left-color: var(--error);
+            background-color: rgba(239, 68, 68, 0.05);
+        }
+
+        .answer-label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-secondary);
+        }
+
+        .your-answer {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .correct-answer-text {
+            font-size: 16px;
+            color: var(--success);
+            font-weight: 500;
+        }
+
+        .complete-sentence {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(16, 185, 129, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid var(--success);
+        }
+
+        .complete-sentence h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .complete-sentence p {
+            font-size: 18px;
+            line-height: 2;
+            color: var(--text-primary);
+        }
+
+        .work-plan-heading {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+        
+        .proofreading-text {
+            line-height: 2;
+            font-size: 18px;
+        }
+        
+        .proofreading-text h3 {
+            text-align: center;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border);
+            color: var(--primary);
+        }
+        
+     
+.proofreading-text span {
+    padding: 2px 4px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted transparent;
+}
+
+.proofreading-text span:hover {
+    background-color: rgba(59, 130, 246, 0.08);
+    border-bottom: 1px dotted var(--primary);
+}
+
+
+        
+        .proofreading-text span.corrected {
+            color: var(--success);
+            font-weight: 500;
+        }
+        
+        .proofreading-text span.wrong-correction {
+            color: var(--error);
+            font-weight: 500;
+        }
+        
+        .proofreading-text span.clicked {
+            background-color: rgba(59, 130, 246, 0.15);
+        }
+        
+        .proofreading-text span.highlight-error {
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+        
+        .proofreading-text span.highlight-correct {
+            background-color: rgba(16, 185, 129, 0.15);
+        }
+        
+        .error-tracker {
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .error-tracker h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: var(--text-primary);
+        }
+        
+        .error-tracker h3 i {
+            margin-right: 8px;
+            color: var(--primary);
+        }
+        
+        .error-circles {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+            gap: 12px;
+        }
+        
+        .error-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .error-circle.found {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .popup {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 2px solid var(--primary);
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            z-index: 100;
+            animation: popIn 0.3s ease;
+        }
+        
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .popup input {
+            width: 180px;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .popup input:focus {
+            border-color: var(--primary);
+        }
+        
+        .popup button {
+            margin-left: 5px;
+            padding: 10px 15px;
+            background-color: var(--primary);
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .popup button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .feedback {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background-color: var(--bg);
+            display: none;
+            animation: slideIn 0.5s ease;
+            border: 1px solid var(--border);
+        }
+        
+        .feedback h3 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .correct-answer {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .white-bg td {
+            background-color: white !important;
+        }
+        
+        .gray-bg td {
+            background-color: #EFF6FF !important;
+        }
+        
+        .work-plan-section {
+            margin-bottom: 25px;
+        }
+        
+        .instruction-steps {
+            margin: 30px 0;
+        }
+        
+        .instruction-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .instruction-step-number {
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .instruction-step-content {
+            flex: 1;
+        }
+        
+        .instruction-step-content h4 {
+            margin-bottom: 5px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+        
+        .instruction-step-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Listening Exercise Styles */
+        .listening-item {
+            padding: 20px 0;
+        }
+
+        .listening-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .audio-button {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(59, 130, 246, 0.3);
+            margin-left: auto;
+        }
+
+        .audio-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .audio-button:active {
+            transform: scale(0.95);
+        }
+
+        .audio-button.playing {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+        }
+
+        .word-bank {
+            background-color: var(--bg-light);
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            min-height: 120px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: flex-start;
+            align-content: flex-start;
+        }
+
+        .word-tile {
+            background-color: white;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: grab;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(59, 130, 246, 0.15);
+            user-select: none;
+        }
+
+        .word-tile:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25);
+        }
+
+        .word-tile.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .drop-zone {
+            background-color: white;
+            border: 3px dashed var(--primary);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            min-height: 150px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: flex-start;
+            align-content: flex-start;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone.drag-over {
+            background-color: rgba(59, 130, 246, 0.05);
+            border-color: var(--primary-dark);
+            border-style: solid;
+        }
+
+        .drop-placeholder {
+            color: var(--text-secondary);
+            font-style: italic;
+            width: 100%;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .drop-zone .word-tile {
+            border-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .listening-feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        .listening-feedback.show {
+            display: block;
+        }
+
+        .listening-feedback.correct {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 2px solid var(--success);
+        }
+
+        .listening-feedback.incorrect {
+            background-color: rgba(239, 68, 68, 0.05);
+            border: 2px solid var(--error);
+        }
+
+        .listening-feedback h4 {
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .listening-feedback.correct h4 {
+            color: var(--success);
+        }
+
+        .listening-feedback.incorrect h4 {
+            color: var(--error);
+        }
+
+        .listening-feedback p {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+
+        .correct-sentence {
+            background-color: rgba(16, 185, 129, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--success);
+            margin-top: 15px;
+        }
+
+        .correct-sentence strong {
+            color: var(--success);
+        }
+        
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 40%;
+            }
+            .main-content {
+                margin-left: 40%;
+                width: 60%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .cover-title {
+                font-size: 32px;
+            }
+
+            .cover-description {
+                font-size: 16px;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .section-card {
+                padding: 30px 20px;
+            }
+
+            .logo-icon {
+                font-size: 60px;
+            }
+            
+            .exercise-page {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 15px;
+            }
+            
+            .sidebar-header {
+                margin-bottom: 15px;
+            }
+            
+            .sidebar-title {
+                padding: 0 10px;
+            }
+            
+            .tab-container {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 5px;
+            }
+            
+            .tab-button {
+                flex: 0 0 auto;
+                padding: 10px 15px;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+            
+            .tab-button.active {
+                border-left: none;
+                border-bottom: 3px solid var(--primary);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 15px;
+            }
+
+            .listening-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .audio-button {
+                margin-left: 0;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .word-tile {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+  
+
+<!-- Cover Page -->
+<div class="cover-page" id="coverPage">
+    <div class="cover-container">
+        <div class="cover-header">
+            <div class="logo-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h1 class="cover-title">VE2C(PT) Writing Instructions</h1>
+            <p class="cover-description">
+                Enhance your English writing skills through interactive exercises designed for common workplace tasks.
+            </p>
+        </div>
+
+        <div class="cards-container">
+            <!-- Fill in the Blanks Card -->
+            <div class="section-card" onclick="showFillInBlanks()">
+                <div class="card-icon">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <h2 class="card-title">Fill in the Blanks</h2>
+                <p class="card-description">
+                    Complete workplace instructions with appropriate words to build communication skills.
+                </p>
+                <ul class="card-features">
+                    <li><i class="fas fa-check-circle"></i> 3 practical exercises</li>
+                    <li><i class="fas fa-check-circle"></i> Auto-checking function</li>
+                    <li><i class="fas fa-check-circle"></i> Practice writing skills</li>
+                    <li><i class="fas fa-check-circle"></i> Prepare for assessment</li>
+                </ul>
+                <button class="start-button">
+                    Start Practicing <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Proofreading Card -->
+            <div class="section-card" onclick="showProofreadingExercise()">
+                <div class="card-icon">
+                    <i class="fas fa-spell-check"></i>
+                </div>
+                <h2 class="card-title">Proofreading</h2>
+                <p class="card-description">
+                    Identify and correct errors in workplace instructions to improve accuracy.
+                </p>
+                <ul class="card-features">
+                    <li><i class="fas fa-check-circle"></i> 3 proofreading exercises</li>
+                    <li><i class="fas fa-check-circle"></i> Interactive error correction</li>
+                    <li><i class="fas fa-check-circle"></i> Common student mistakes</li>
+                    <li><i class="fas fa-check-circle"></i> Grammar, spelling & articles</li>
+                </ul>
+                <button class="start-button">
+                    Start Proofreading <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Listening Card -->
+            <div class="section-card" onclick="showListeningExercise()">
+                <div class="card-icon">
+                    <i class="fas fa-headphones"></i>
+                </div>
+                <h2 class="card-title">Listening & Writing</h2>
+                <p class="card-description">
+                    Listen to spoken sentences and arrange words in the correct order.
+                </p>
+                <ul class="card-features">
+                    <li><i class="fas fa-check-circle"></i> Multiple listening exercises</li>
+                    <li><i class="fas fa-check-circle"></i> Audio playback feature</li>
+                    <li><i class="fas fa-check-circle"></i> Drag and drop interface</li>
+                    <li><i class="fas fa-check-circle"></i> Self answer checking</li>
+                </ul>
+                <button class="start-button">
+                    Start Listening <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="cover-footer">
+            <p>© 2025 VE2C(PT) Learning Platform.</p>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Fill in the Blanks Page -->
+    <div class="exercise-page" id="fillBlanksPage">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <button class="back-button" onclick="backToCover()">
+                    <i class="fas fa-arrow-left"></i> Back to Main Menu
+                </button>
+                <h1>Fill in the Blanks</h1>
+                <p>Complete the sentences</p>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <div class="tab-container">
+                    <button class="tab-button" onclick="switchFillTab('fill-instructions')">
+                        <i class="fas fa-info-circle"></i> How to Complete
+                    </button>
+                    <button class="tab-button active" onclick="switchFillTab('fill-tab1')">
+                        <i class="fas fa-file-alt"></i> 1. Event Registration
+                    </button>
+                    <button class="tab-button" onclick="switchFillTab('fill-tab2')">
+                        <i class="fas fa-microphone"></i> 2. Inviting a Speaker
+                    </button>
+                    <button class="tab-button" onclick="switchFillTab('fill-tab3')">
+                        <i class="fas fa-handshake"></i> 3. Arranging a Meeting
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div id="fill-instructions" class="tab-content">
+                <div class="main-header">
+                    <h2>How to Complete This Exercise</h2>
+                    <p>Follow the steps below to master workplace instruction writing</p>
+                </div>
+                
+                <div class="card">
+                    <h3 style="margin-bottom: 20px; color: var(--primary);">About This Exercise</h3>
+                    <p>This exercise helps you understand how to transform brief work plan items into complete, professional instructions. You'll practice adding necessary connecting words, articles, and phrases.</p>
+                    
+                    <div class="instruction-steps">
+                        <div class="instruction-step">
+                            <div class="instruction-step-number">1</div>
+                            <div class="instruction-step-content">
+                                <h4>Review the Complete Work Plan</h4>
+                                <p>First, familiarize yourself with the entire work plan table to understand the context.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-step">
+                            <div class="instruction-step-number">2</div>
+                            <div class="instruction-step-content">
+                                <h4>View the Row Being Tested</h4>
+                                <p>Each question highlights the specific row from the work plan that you'll work with.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-step">
+                            <div class="instruction-step-number">3</div>
+                            <div class="instruction-step-content">
+                                <h4>Fill in the Blanks</h4>
+                                <p>Type appropriate words into the blank spaces to create complete, grammatically correct sentences.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-step">
+                            <div class="instruction-step-number">4</div>
+                            <div class="instruction-step-content">
+                                <h4>Check Your Work</h4>
+                                <p>Click "Check My Work" to see if your answers are correct and receive feedback.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 20px; padding: 15px; background-color: var(--bg-light); border-radius: 8px; border-left: 4px solid var(--primary);">
+                        <i class="fas fa-lightbulb" style="color: var(--primary); margin-right: 8px;"></i>
+                        <strong>Tip:</strong> Think about action verbs (submit, send), modals (should), articles (a, an, the) and prepositions (such as, to, for) that make the sentence flow naturally.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Exercise 1: Event Registration -->
+            <div id="fill-tab1" class="tab-content active">
+                <div class="main-header">
+                    <h2>Event Registration Instructions</h2>
+                    <p>Fill in the blanks to complete each instruction</p>
+                </div>
+
+                <div class="card progress-tracker">
+                    <h3><i class="fas fa-tasks"></i> Progress Tracker</h3>
+                    <div class="progress-stats">
+                        <span id="fillProgress1">0</span> of 6 sentences completed
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" id="fillProgressBar1"></div>
+                    </div>
+                </div>
+
+                <!-- Work Plan -->
+                <div class="card">
+                    <h3 class="work-plan-heading">Complete Work Plan</h3>
+                    <div class="fill-blank-table-wrapper">
+                        <table class="work-plan-table">
+                            <tr>
+                                <th>Action Item</th>
+                                <th>Remark</th>
+                            </tr>
+                            <tr>
+                                <td>1. Decide list of information needed</td>
+                                <td>e.g. age range, gender</td>
+                            </tr>
+                            <tr>
+                                <td>2. Event Assistant: create online registration form</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>3. Send QR codes and links to target schools</td>
+                                <td>at least 2 weeks before event</td>
+                            </tr>
+                            <tr>
+                                <td>4. Participant list</td>
+                                <td>→ Manager's review</td>
+                            </tr>
+                            <tr>
+                                <td>5. Send confirmation emails to participants</td>
+                                <td>if receive enough registrations</td>
+                            </tr>
+                            <tr>
+                                <td>Extend registration deadline</td>
+                                <td>if receive limited registrations</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <!-- Item 1 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">1</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>1. Decide list of information needed</td>
+                                    <td>e.g. age range, gender</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            Decide <input type="text" class="blank-input ex1" data-answer="the" data-id="1-1"> list of <input type="text" class="blank-input ex1" data-answer="the" data-id="1-2"> information needed <input type="text" class="blank-input ex1" data-answer="such" data-id="1-3" style="min-width: 80px;"> <input type="text" class="blank-input ex1" data-answer="as" data-id="1-4" style="min-width: 80px;"> <input type="text" class="blank-input ex1" data-answer="the" data-id="1-5"> age range <input type="text" class="blank-input ex1" data-answer="and" data-id="1-6"> gender.
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">2</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>2. Event Assistant: create online registration form</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            Then, <input type="text" class="blank-input ex1" data-answer="the" data-id="2-1"> Event Assistant <input type="text" class="blank-input ex1" data-answer="should" data-id="2-2"> create <input type="text" class="blank-input ex1" data-answer="an" data-id="2-3"> online registration form.
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">3</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>3. Send QR codes and links to target schools</td>
+                                    <td>at least 2 weeks before event</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            After that, send QR codes and links to target schools at least two weeks before <input type="text" class="blank-input ex1" data-answer="the" data-id="3-2"> event.
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">4</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>4. Participant list</td>
+                                    <td>→ Manager's review</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            <input type="text" class="blank-input ex1" data-answer="Submit" data-id="4-1"> <input type="text" class="blank-input ex1" data-answer="the" data-id="4-2"> participant list <input type="text" class="blank-input ex1" data-answer="for" data-id="4-3"> <input type="text" class="blank-input ex1" data-answer="the" data-id="4-4"> Manager's review.
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">5</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>5. Send confirmation emails to participants</td>
+                                    <td>if receive enough registrations</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            Finally, send confirmation emails to <input type="text" class="blank-input ex1" data-answer="the" data-id="5-1"> participants if <input type="text" class="blank-input ex1" data-answer="you" data-id="5-2"> receive enough registrations.
+                        </div>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">6</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>Extend registration deadline</td>
+                                    <td>if receive limited registrations</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            Extend <input type="text" class="blank-input ex1" data-answer="the" data-id="6-1"> registration deadline if <input type="text" class="blank-input ex1" data-answer="you" data-id="6-2"> receive limited registrations.
+                        </div>
+                    </div>
+
+                    <div class="button-container">
+                        <button class="action-button check-button" id="checkFillButton1">
+                            <i class="fas fa-clipboard-check"></i> Check My Work
+                        </button>
+                        <button class="action-button reset-button" onclick="resetFillBlanks(1)">
+                            <i class="fas fa-redo-alt"></i> Reset Exercise
+                        </button>
+                    </div>
+                </div>
+
+                <div class="feedback-fill" id="fillFeedback1"></div>
+            </div>
+
+            <!-- Exercise 2: Inviting a Speaker -->
+            <div id="fill-tab2" class="tab-content">
+                <div class="main-header">
+                    <h2>Inviting a Speaker</h2>
+                    <p>Fill in the blanks to complete each instruction</p>
+                </div>
+
+                <div class="card progress-tracker">
+                    <h3><i class="fas fa-tasks"></i> Progress Tracker</h3>
+                    <div class="progress-stats">
+                        <span id="fillProgress2">0</span> of 6 sentences completed
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" id="fillProgressBar2"></div>
+                    </div>
+                </div>
+
+                <!-- Complete Work Plan -->
+                <div class="card">
+                    <h3 class="work-plan-heading">Complete Work Plan</h3>
+                    <div class="fill-blank-table-wrapper">
+                        <table class="work-plan-table">
+                            <tr>
+                                <th>Action Item</th>
+                                <th>Remark</th>
+                            </tr>
+                            <tr>
+                                <td>1. Identify suitable topics</td>
+                                <td>e.g. healthcare, technology</td>
+                            </tr>
+                            <tr>
+                                <td>2. Speaker details and topics</td>
+                                <td>→ Manager's selection</td>
+                            </tr>
+                            <tr>
+                                <td>3. Event Coordinator: contact speaker</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>4. Invitation email → confirmed speaker</td>
+                                <td>at least 2 weeks before event</td>
+                            </tr>
+                            <tr>
+                                <td>5. Arrange microphone and projector</td>
+                                <td>if hold face-to-face workshop</td>
+                            </tr>
+                            <tr>
+                                <td>Prepare internet connection and meeting link</td>
+                                <td>if hold online workshop</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <!-- Item 1 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">1</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>1. Identify suitable topics</td>
+                                    <td>e.g. healthcare, technology</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            Identify suitable topics <input type="text" class="blank-input ex2" data-answer="such" data-id="1-1" style="min-width: 80px;"> <input type="text" class="blank-input ex2" data-answer="as" data-id="1-2" style="min-width: 80px;"> healthcare <input type="text" class="blank-input ex2" data-answer="AND" data-id="1-3" style="min-width: 80px;"> technology.
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">2</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>2. Speaker details and topics</td>
+                                    <td>→ Manager's selection</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            Then, <input type="text" class="blank-input ex2" data-answer="submit" data-id="2-1"> <input type="text" class="blank-input ex2" data-answer="the" data-id="2-2"> speaker details and topics <input type="text" class="blank-input ex2" data-answer="for" data-id="2-3"> <input type="text" class="blank-input ex2" data-answer="the" data-id="2-4"> Manager's selection.
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">3</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>3. Event Coordinator: contact speaker</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            Following that, <input type="text" class="blank-input ex2" data-answer="the" data-id="3-1"> Event Coordinator <input type="text" class="blank-input ex2" data-answer="should" data-id="3-2"> contact <input type="text" class="blank-input ex2" data-answer="the" data-id="3-3"> speaker.
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">4</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>4. Invitation email → confirmed speaker</td>
+                                    <td>at least 2 weeks before event</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            Send <input type="text" class="blank-input ex2" data-answer="an" data-id="4-1"> invitation email to <input type="text" class="blank-input ex2" data-answer="the" data-id="4-2"> confirmed speaker at least 2 weeks before <input type="text" class="blank-input ex2" data-answer="the" data-id="4-4"> event.
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">5</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>5. Arrange microphone and projector</td>
+                                    <td>if hold face-to-face workshop</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            Finally, arrange <input type="text" class="blank-input ex2" data-answer="a" data-id="5-1"> microphone and <input type="text" class="blank-input ex2" data-answer="a" data-id="5-2"> projector if <input type="text" class="blank-input ex2" data-answer="you" data-id="5-3"> hold <input type="text" class="blank-input ex2" data-answer="a" data-id="5-4"> face-to-face workshop.
+                        </div>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">6</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>Prepare internet connection and meeting link</td>
+                                    <td>if hold online workshop</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            Prepare Internet connection and <input type="text" class="blank-input ex2" data-answer="a" data-id="6-1"> meeting link if <input type="text" class="blank-input ex2" data-answer="you" data-id="6-2"> hold <input type="text" class="blank-input ex2" data-answer="an" data-id="6-3"> online workshop.
+                        </div>
+                    </div>
+
+                    <div class="button-container">
+                        <button class="action-button check-button" id="checkFillButton2">
+                            <i class="fas fa-clipboard-check"></i> Check My Work
+                        </button>
+                        <button class="action-button reset-button" onclick="resetFillBlanks(2)">
+                            <i class="fas fa-redo-alt"></i> Reset Exercise
+                        </button>
+                    </div>
+                </div>
+
+                <div class="feedback-fill" id="fillFeedback2"></div>
+            </div>
+
+            <!-- Exercise 3: Arranging a Meeting -->
+            <div id="fill-tab3" class="tab-content">
+                <div class="main-header">
+                    <h2>Arranging a Meeting</h2>
+                    <p>Fill in the blanks to complete each instruction</p>
+                </div>
+
+                <div class="card progress-tracker">
+                    <h3><i class="fas fa-tasks"></i> Progress Tracker</h3>
+                    <div class="progress-stats">
+                        <span id="fillProgress3">0</span> of 6 sentences completed
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" id="fillProgressBar3"></div>
+                    </div>
+                </div>
+
+                <!-- Complete Work Plan -->
+                <div class="card">
+                    <h3 class="work-plan-heading">Complete Work Plan</h3>
+                    <div class="fill-blank-table-wrapper">
+                        <table class="work-plan-table">
+                            <tr>
+                                <th>Action Item</th>
+                                <th>Remark</th>
+                            </tr>
+                            <tr>
+                                <td>1. Coordinator: prepare meeting documents</td>
+                                <td>e.g. sponsorship contracts, event rundown</td>
+                            </tr>
+                            <tr>
+                                <td>2. Drafted meeting documents</td>
+                                <td>→ sponsors' review</td>
+                            </tr>
+                            <tr>
+                                <td>3. Confirm details of meeting</td>
+                                <td>at least 3 days before meeting</td>
+                            </tr>
+                            <tr>
+                                <td>4. Book conference facilities</td>
+                                <td>if hold in-person meeting</td>
+                            </tr>
+                            <tr>
+                                <td>Prepare meeting link</td>
+                                <td>if hold virtual meeting</td>
+                            </tr>
+                            <tr>
+                                <td>5. Invitation email</td>
+                                <td>→ members of meeting</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <!-- Item 1 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">1</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>1. Coordinator: prepare meeting documents</td>
+                                    <td>e.g. sponsorship contracts, event rundown</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            <input type="text" class="blank-input ex3" data-answer="The" data-id="1-1"> Coordinator <input type="text" class="blank-input ex3" data-answer="should" data-id="1-2"> prepare meeting documents <input type="text" class="blank-input ex3" data-answer="such" data-id="1-3" style="min-width: 80px;"> <input type="text" class="blank-input ex3" data-answer="as" data-id="1-4" style="min-width: 80px;"> sponsorship contracts <input type="text" class="blank-input ex3" data-answer="and" data-id="1-5" style="min-width: 80px;"> <input type="text" class="blank-input ex3" data-answer="an" data-id="1-6"> event rundown.
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">2</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>2. Drafted meeting documents</td>
+                                    <td>→ sponsors' review</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            <input type="text" class="blank-input ex3" data-answer="Submit" data-id="2-1"> <input type="text" class="blank-input ex3" data-answer="the" data-id="2-2">drafted meeting documents <input type="text" class="blank-input ex3" data-answer="for" data-id="2-2"> sponsors' review.
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">3</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>3. Confirm details of meeting</td>
+                                    <td>at least 3 days before meeting</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            After that, confirm <input type="text" class="blank-input ex3" data-answer="the" data-id="3-1"> details of <input type="text" class="blank-input ex3" data-answer="the" data-id="3-2"> meeting at least 3 days before <input type="text" class="blank-input ex3" data-answer="the" data-id="3-3"> meeting.
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">4</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>4. Book conference facilities</td>
+                                    <td>if hold in-person meeting</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            Book conference facilities if <input type="text" class="blank-input ex3" data-answer="you" data-id="4-1"> hold <input type="text" class="blank-input ex3" data-answer="an" data-id="4-2"> in-person meeting.
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">5</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>Prepare meeting link</td>
+                                    <td>if hold virtual meeting</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            Prepare <input type="text" class="blank-input ex3" data-answer="a" data-id="5-1"> meeting link if <input type="text" class="blank-input ex3" data-answer="you" data-id="5-2"> hold <input type="text" class="blank-input ex3" data-answer="a" data-id="5-3"> virtual meeting.
+                        </div>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="fill-blank-item">
+                        <div class="fill-blank-header">
+                            <div class="item-number">6</div>
+                            <h4 style="margin: 0; color: var(--text-primary);">Complete the instruction based on the row below:</h4>
+                        </div>
+                        
+                        <div class="fill-blank-table-wrapper">
+                            <table class="fill-blank-table">
+                                <tr>
+                                    <th>Action Item</th>
+                                    <th>Remark</th>
+                                </tr>
+                                <tr class="row-highlight">
+                                    <td>5. Invitation email</td>
+                                    <td>→ members of meeting</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="fill-blank-sentence">
+                            Finally, <input type="text" class="blank-input ex3" data-answer="Send" data-id="6-1"> invitation emails  <input type="text" class="blank-input ex3" data-answer="to" data-id="6-2"> <input type="text" class="blank-input ex3" data-answer="the" data-id="6-3"> members of <input type="text" class="blank-input ex3" data-answer="the" data-id="6-4"> meeting.
+                        </div>
+                    </div>
+
+                    <div class="button-container">
+                        <button class="action-button check-button" id="checkFillButton3">
+                            <i class="fas fa-clipboard-check"></i> Check My Work
+                        </button>
+                        <button class="action-button reset-button" onclick="resetFillBlanks(3)">
+                            <i class="fas fa-redo-alt"></i> Reset Exercise
+                        </button>
+                    </div>
+                </div>
+
+                <div class="feedback-fill" id="fillFeedback3"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Proofreading Exercise Page -->
+    <div class="exercise-page" id="proofreadingPage">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <button class="back-button" onclick="backToCover()">
+                    <i class="fas fa-arrow-left"></i> Back to Main Menu
+                </button>
+                <h1>Proofreading Challenge</h1>
+                <p>Find and correct the errors</p>
+            </div>
+            
+            <div class="sidebar-section">
+                <div class="sidebar-title">Content</div>
+                <div class="tab-container">
+                    <button class="tab-button" onclick="switchTab('instructions')">
+                        <i class="fas fa-info-circle"></i> How to Complete
+                    </button>
+                    <button class="tab-button active" onclick="switchTab('tab1')">
+                        <i class="fas fa-file-alt"></i> 1. Event Registration
+                    </button>
+                    <button class="tab-button" onclick="switchTab('tab2')">
+                        <i class="fas fa-microphone"></i> 2. Inviting a Speaker
+                    </button>
+                    <button class="tab-button" onclick="switchTab('tab3')">
+                        <i class="fas fa-handshake"></i> 3. Arranging a Meeting
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div id="instructions" class="tab-content">
+                <div class="main-header">
+                    <h2>How to Complete This Exercise</h2>
+                    <p>Follow the steps below to improve your proofreading skills</p>
+                </div>
+                
+                <div class="card">
+                    <h3 style="margin-bottom: 20px; color: var(--primary);">About This Exercise</h3>
+                    <p>This interactive material helps you practice writing instructions for common workplace tasks. Each exercise has 8 errors with a work plan provided. Click on words you think are wrong and type the correct answers.</p>
+                    
+                    <div class="instruction-steps">
+                        <div class="instruction-step">
+                            <div class="instruction-step-number">1</div>
+                            <div class="instruction-step-content">
+                                <h4>Identify Errors</h4>
+                                <p>Click on any word you believe is incorrect in the text.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-step">
+                            <div class="instruction-step-number">2</div>
+                            <div class="instruction-step-content">
+                                <h4>Make Corrections</h4>
+                                <p>Type your correction in the popup box that appears.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="instruction-step">
+                            <div class="instruction-step-number">3</div>
+                            <div class="instruction-step-content">
+                                <h4>Submit Your Answer</h4>
+                                <p>Click Submit or press Enter to confirm your correction.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 20px;">Use the tabs in the sidebar to navigate between exercises. When ready, click "Check My Work" below the text.</p>
+                </div>
+            </div>
+            
+            <div id="tab1" class="tab-content active">
+                <div class="main-header">
+                    <h2>Arranging Event Registration</h2>
+                    <p>Identify and correct errors in the text below</p>
+                </div>
+                
+                <div class="work-plan-section card">
+                    <h3 class="work-plan-heading">Work Plan</h3>
+                    <table class="work-plan-table">
+                        <tr>
+                            <th>Action Item</th>
+                            <th>Remark</th>
+                        </tr>
+                        <tr>
+                            <td>1. Decide list of information needed</td>
+                            <td>e.g. age range, gender</td>
+                        </tr>
+                        <tr>
+                            <td>2. Event Assistant: create online registration form</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>3. Send QR codes and links to target schools</td>
+                            <td>at least 2 weeks before event</td>
+                        </tr>
+                        <tr>
+                            <td>4. Participant list</td>
+                            <td>→ Manager's review</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">5. Send confirmation emails to participants<br><br>Extend registration deadline</td>
+                            <td>if receive enough registrations<br><br>if receive limited registrations</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <div class="proofreading-text" id="proofreadingText1">
+                        <h3>Procedure for Arranging Event Registration</h3>
+                        <span>To</span> <span class="error" data-correct="arrange" data-alternatives="organize|plan">arange</span> <span>registration</span> <span>for</span> <span>an</span> <span>event</span><span>,</span> <span class="error" data-correct="first">frist</span><span>,</span> <span>decide</span> <span>the</span> <span>list</span> <span>of</span> <span>the</span> <span>information</span> <span>needed</span> <span class="error" data-correct="such as" data-alternatives="like|for example|for instance|including">example</span> <span>the</span> <span>age</span> <span>range</span> <span>and</span> <span>gender</span><span>.</span> <span>Then</span><span>,</span> <span>the</span> <span>Event</span> <span>Assistant</span> <span class="error" data-correct="should" data-alternatives="must|will|can">to</span> <span>create</span> <span>an</span> <span>online</span> <span class="error" data-correct="registration">registation</span> <span>form</span><span>.</span> <span>After</span> <span>that</span><span>,</span> <span>send</span> <span>QR</span> <span>codes</span> <span>and</span> <span>links</span> <span>to</span> <span>target</span> <span>schools</span> <span>at</span> <span>least</span> <span>two</span> <span>weeks</span> <span>before</span> <span>the</span> <span>event</span><span>.</span> <span class="error" data-correct="Submit">Summit</span> <span>the</span> <span>participant</span> <span>list</span> <span>for</span> <span>the</span> <span class="error" data-correct="Manager's">Managers</span> <span>review</span><span>.</span> <span>Finally</span><span>,</span> <span class="error" data-correct="send">sent</span> <span>confirmation</span> <span>emails</span> <span>to</span> <span>the</span> <span>participants</span> <span>if</span> <span>you</span> <span>receive</span> <span>enough</span> <span>registrations</span><span>.</span> <span>Extend</span> <span>the</span> <span>registration</span> <span>deadline</span> <span>if</span> <span>you</span> <span>receive</span> <span>limited</span> <span>registrations</span><span>.</span>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" id="checkButton1">
+                            <i class="fas fa-clipboard-check"></i> Check My Work
+                        </button>
+                        <button class="action-button reset-button" id="resetButton1" onclick="resetCurrentTab(1)">
+                            <i class="fas fa-redo-alt"></i> Reset Exercise
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="error-tracker">
+                        <h3><i class="fas fa-search"></i> Error Tracker</h3>
+                        
+                        <div class="error-circles" id="errorCircles1">
+                            <div class="error-circle">1</div>
+                            <div class="error-circle">2</div>
+                            <div class="error-circle">3</div>
+                            <div class="error-circle">4</div>
+                            <div class="error-circle">5</div>
+                            <div class="error-circle">6</div>
+                            <div class="error-circle">7</div>
+                            <div class="error-circle">8</div>
+                        </div>
+                        
+                        <div class="progress-stats">
+                            <span id="errorCount1">0</span> of 8 errors found
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" id="progressBar1"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feedback" id="feedback1"></div>
+            </div>
+            
+            <div id="tab2" class="tab-content">
+                <div class="main-header">
+                    <h2>Inviting a Speaker</h2>
+                    <p>Identify and correct errors in the text below</p>
+                </div>
+                
+                <div class="work-plan-section card">
+                    <h3 class="work-plan-heading">Work Plan</h3>
+                    <table class="work-plan-table">
+                        <tr>
+                            <th>Action Item</th>
+                            <th>Remark</th>
+                        </tr>
+                        <tr>
+                            <td>1. Identify suitable topics</td>
+                            <td>e.g. healthcare, technology</td>
+                        </tr>
+                        <tr>
+                            <td>2. Speaker details and topics</td>
+                            <td>→ Manager's selection</td>
+                        </tr>
+                        <tr>
+                            <td>3. Event Coordinator: contact speaker</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>4. Invitation email → confirmed speaker</td>
+                            <td>at least 2 weeks before event</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">5. Arrange microphone and projector<br><br>Prepare internet connection and meeting link</td>
+                            <td>if hold face-to-face workshop<br><br>if hold online workshop</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <div class="proofreading-text" id="proofreadingText2">
+                        <h3>Procedure for Inviting a Speaker</h3>
+                        <span>To</span> <span class="error" data-correct="invite">inviting</span> <span>a</span> <span>speaker</span> <span>for</span> <span>the</span> <span>workshop</span><span>,</span> <span>first</span><span>,</span> <span>identify</span> <span>suitable</span> <span>topics</span> <span>such</span> <span>as</span> <span>healthcare</span> <span class="error" data-correct="and">or</span> <span class="error" data-correct="technology">technolgy</span><span>.</span> <span>Then</span><span>,</span> <span>submit</span> <span>the</span> <span>speaker</span> <span>details</span> <span>and</span> <span>topics</span> <span class="error" data-correct="for">to</span> <span>the</span> <span>Manager's</span> <span>selection</span><span>.</span> <span class="error" data-correct="Following">Followin</span> <span>that</span><span>,</span> <span>the</span> <span>Event</span> <span>Coordinator</span> <span>should</span> <span>contact</span> <span>the</span> <span>speaker</span><span>.</span> <span>Send</span> <span class="error" data-correct="an">a</span> <span>invitation</span> <span>email</span> <span>to</span> <span>the</span> <span class="error" data-correct="confirmed">confirm</span> <span>speaker</span> <span>at</span> <span>least</span> <span>2</span> <span>weeks</span> <span>before</span> <span>the</span> <span>workshop</span><span>.</span> <span>Finally</span><span>,</span> <span>arrange</span> <span>a</span> <span>microphone</span> <span>and</span> <span>a</span> <span>projector</span> <span>if</span> <span class="error" data-correct="you">to</span> <span>hold</span> <span>a</span> <span>face-to-face</span> <span>workshop</span><span>.</span> <span>Prepare</span> <span>Internet</span> <span>connection</span> <span>and</span> <span>a</span> <span>meeting</span> <span>link</span> <span>if</span> <span>you</span> <span>hold</span> <span>an</span> <span>online</span> <span>workshop</span><span>.</span>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" id="checkButton2">
+                            <i class="fas fa-clipboard-check"></i> Check My Work
+                        </button>
+                        <button class="action-button reset-button" id="resetButton2" onclick="resetCurrentTab(2)">
+                            <i class="fas fa-redo-alt"></i> Reset Exercise
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="error-tracker">
+                        <h3><i class="fas fa-search"></i> Error Tracker</h3>
+                        
+                        <div class="error-circles" id="errorCircles2">
+                            <div class="error-circle">1</div>
+                            <div class="error-circle">2</div>
+                            <div class="error-circle">3</div>
+                            <div class="error-circle">4</div>
+                            <div class="error-circle">5</div>
+                            <div class="error-circle">6</div>
+                            <div class="error-circle">7</div>
+                            <div class="error-circle">8</div>
+                        </div>
+                        
+                        <div class="progress-stats">
+                            <span id="errorCount2">0</span> of 8 errors found
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" id="progressBar2"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feedback" id="feedback2"></div>
+            </div>
+            
+            <div id="tab3" class="tab-content">
+                <div class="main-header">
+                    <h2>Arranging a Meeting</h2>
+                    <p>Identify and correct errors in the text below</p>
+                </div>
+                
+                <div class="work-plan-section card">
+                    <h3 class="work-plan-heading">Work Plan</h3>
+                    <table class="work-plan-table">
+                        <tr>
+                            <th>Action Item</th>
+                            <th>Remark</th>
+                        </tr>
+                        <tr>
+                            <td>1. Coordinator: prepare meeting documents</td>
+                            <td>e.g. sponsorship contracts, event rundown</td>
+                        </tr>
+                        <tr>
+                            <td>2. Drafted meeting documents</td>
+                            <td>→ sponsors' review</td>
+                        </tr>
+                        <tr>
+                            <td>3. Confirm details of meeting</td>
+                            <td>at least 3 days before meeting</td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td>4. Book conference facilities</td>
+                            <td>if hold in-person meeting</td>
+                        </tr>
+                        <tr class="white-bg">
+                            <td>Prepare meeting link</td>
+                            <td>if hold virtual meeting</td>
+                        </tr>
+                        <tr class="gray-bg">
+                            <td>5. Invitation email</td>
+                            <td>→ members of meeting</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="card">
+                    <div class="proofreading-text" id="proofreadingText3">
+                        <h3>Procedure for Arranging a Meeting</h3>
+                        <span>To</span> <span>arrange</span> <span>a</span> <span>meeting</span> <span>with</span> <span>sponsors</span><span>,</span> <span class="error" data-correct="first">frist</span><span>,</span> <span>the</span> <span>Coordinator</span> <span class="error" data-correct="should" data-alternatives="must|will|can">for</span> <span>prepare</span> <span>meeting</span> <span>documents</span> <span>such</span> <span>as</span> <span class="error" data-correct="sponsorship">sponship</span> <span>contracts</span> <span>and</span> <span class="error" data-correct="an">a</span> <span>event</span> <span>rundown</span><span>.</span> <span>Drafted</span> <span>materials</span> <span>should</span> <span>be</span> <span class="error" data-correct="sent">send</span> <span>for</span> <span>sponsors'</span> <span>review</span><span>.</span> <span class="error" data-correct="After that">After than</span><span>,</span> <span class="error" data-correct="confirm">confirmed</span> <span>the</span> <span>details</span> <span>of</span> <span>the</span> <span>meeting</span> <span>at</span> <span>least</span> <span>3</span> <span>days</span> <span>before</span> <span>the</span> <span>meeting</span><span>.</span> <span>Book</span> <span class="error" data-correct="conference">confernce</span> <span>facilities</span> <span>if</span> <span>you</span> <span>hold</span> <span>an</span> <span>in-person</span> <span>meeting</span><span>.</span> <span>Prepare</span> <span>a</span> <span>meeting</span> <span>link</span> <span>if</span> <span>you</span> <span>hold</span> <span>a</span> <span>virtual</span> <span>meeting</span><span>.</span> <span>Finally</span><span>,</span> <span>invitation</span> <span>emails</span> <span>should</span> <span>be</span> <span>submitted</span> <span>to</span> <span>the</span> <span>members</span> <span>of</span> <span>the</span> <span>meeting</span><span>.</span>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" id="checkButton3">
+                            <i class="fas fa-clipboard-check"></i> Check My Work
+                        </button>
+                        <button class="action-button reset-button" id="resetButton3" onclick="resetCurrentTab(3)">
+                            <i class="fas fa-redo-alt"></i> Reset Exercise
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="error-tracker">
+                        <h3><i class="fas fa-search"></i> Error Tracker</h3>
+                        
+                        <div class="error-circles" id="errorCircles3">
+                            <div class="error-circle">1</div>
+                            <div class="error-circle">2</div>
+                            <div class="error-circle">3</div>
+                            <div class="error-circle">4</div>
+                            <div class="error-circle">5</div>
+                            <div class="error-circle">6</div>
+                            <div class="error-circle">7</div>
+                            <div class="error-circle">8</div>
+                        </div>
+                        
+                        <div class="progress-stats">
+                            <span id="errorCount3">0</span> of 8 errors found
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" id="progressBar3"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="feedback" id="feedback3"></div>
+            </div>
+        </div>
+    </div>
+
+<!-- Listening Exercise Page -->
+<div class="exercise-page" id="listeningPage">
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <button class="back-button" onclick="backToCover()">
+                <i class="fas fa-arrow-left"></i> Back to Main Menu
+            </button>
+            <h1>Listening & Arrange</h1>
+            <p>Listen and arrange words</p>
+        </div>
+        
+        <div class="sidebar-section">
+            <div class="sidebar-title">Content</div>
+            <div class="tab-container">
+                <button class="tab-button" onclick="switchListeningTab('listening-instructions')">
+                    <i class="fas fa-info-circle"></i> How to Complete
+                </button>
+                <button class="tab-button active" onclick="switchListeningTab('listening-tab1')">
+                    <i class="fas fa-file-alt"></i> 1. Event Registration
+                </button>
+                <button class="tab-button" onclick="switchListeningTab('listening-tab2')">
+                    <i class="fas fa-microphone"></i> 2. Inviting a Speaker
+                </button>
+                <button class="tab-button" onclick="switchListeningTab('listening-tab3')">
+                    <i class="fas fa-handshake"></i> 3. Arranging a Meeting
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <!-- Instructions Tab -->
+        <div id="listening-instructions" class="tab-content">
+            <div class="main-header">
+                <h2>How to Complete This Exercise</h2>
+                <p>Follow the steps below to master listening and sentence construction</p>
+            </div>
+            
+            <div class="card">
+                <h3 style="margin-bottom: 20px; color: var(--primary);">About This Exercise</h3>
+                <p>This interactive listening exercise helps you practice understanding workplace instructions and arranging words in the correct order. Each sentence uses vocabulary from your Fill in the Blanks and Proofreading exercises.</p>
+                
+                <div class="instruction-steps">
+                    <div class="instruction-step">
+                        <div class="instruction-step-number">1</div>
+                        <div class="instruction-step-content">
+                            <h4>Listen to Each Sentence</h4>
+                            <p>Click the speaker icon to hear the complete sentence. You can replay it as many times as you need.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="instruction-step">
+                        <div class="instruction-step-number">2</div>
+                        <div class="instruction-step-content">
+                            <h4>Drag and Drop Words</h4>
+                            <p>Drag the shuffled words from the word bank into the answer area in the correct order.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="instruction-step">
+                        <div class="instruction-step-number">3</div>
+                        <div class="instruction-step-content">
+                            <h4>Check Your Answer</h4>
+                            <p>Click "Check Answer" for each sentence to see if you've arranged the words correctly.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="instruction-step">
+                        <div class="instruction-step-number">4</div>
+                        <div class="instruction-step-content">
+                            <h4>Complete All Sentences</h4>
+                            <p>Work through all 6 sentences on the page to finish the exercise.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 20px; padding: 15px; background-color: var(--bg-light); border-radius: 8px; border-left: 4px solid var(--primary);">
+                    <i class="fas fa-lightbulb" style="color: var(--primary); margin-right: 8px;"></i>
+                    <strong>Tip:</strong> Listen carefully to the word order and punctuation. Pay attention to articles, prepositions, and linking words.
+                </p>
+            </div>
+        </div>
+
+        <!-- Exercise 1: Event Registration -->
+        <div id="listening-tab1" class="tab-content active">
+            <div class="main-header">
+                <h2>Event Registration - Listening Exercise</h2>
+                <p>Listen and arrange the words in the correct order</p>
+            </div>
+
+            <div class="card progress-tracker">
+                <h3><i class="fas fa-tasks"></i> Progress Tracker</h3>
+                <div class="progress-stats">
+                    <span id="listeningProgress1">0</span> of 6 sentences completed
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" id="listeningProgressBar1"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 1 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">1</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(1, 1)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank1-1">
+                        <div class="word-tile" draggable="true">needed</div>
+                        <div class="word-tile" draggable="true">such</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">list</div>
+                        <div class="word-tile" draggable="true">as</div>
+                        <div class="word-tile" draggable="true">Decide</div>
+                        <div class="word-tile" draggable="true">information</div>
+                        <div class="word-tile" draggable="true">age</div>
+                        <div class="word-tile" draggable="true">range</div>
+                        <div class="word-tile" draggable="true">of</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">and</div>
+                        <div class="word-tile" draggable="true">gender.</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone1-1">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(1, 1)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(1, 1)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback1-1"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 2 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">2</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(1, 2)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank1-2">
+                        <div class="word-tile" draggable="true">Assistant</div>
+                        <div class="word-tile" draggable="true">should</div>
+                        <div class="word-tile" draggable="true">Event</div>
+                        <div class="word-tile" draggable="true">Then,</div>
+                        <div class="word-tile" draggable="true">create</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">registration</div>
+                        <div class="word-tile" draggable="true">online</div>
+                        <div class="word-tile" draggable="true">form.</div>
+                        <div class="word-tile" draggable="true">an</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone1-2">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(1, 2)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(1, 2)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback1-2"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 3 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">3</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(1, 3)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank1-3">
+                        <div class="word-tile" draggable="true">that,</div>
+                        <div class="word-tile" draggable="true">send</div>
+                        <div class="word-tile" draggable="true">QR</div>
+                        <div class="word-tile" draggable="true">codes</div>
+                        <div class="word-tile" draggable="true">and</div>
+                        <div class="word-tile" draggable="true">links</div>
+                        <div class="word-tile" draggable="true">to</div>
+                        <div class="word-tile" draggable="true">target</div>
+                        <div class="word-tile" draggable="true">schools</div>
+                        <div class="word-tile" draggable="true">at</div>
+                        <div class="word-tile" draggable="true">least</div>
+                        <div class="word-tile" draggable="true">two</div>
+                        <div class="word-tile" draggable="true">weeks</div>
+                        <div class="word-tile" draggable="true">before</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">event.</div>
+                        <div class="word-tile" draggable="true">After</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone1-3">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(1, 3)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(1, 3)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback1-3"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 4 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">4</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(1, 4)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank1-4">
+                        <div class="word-tile" draggable="true">Submit</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">participant</div>
+                        <div class="word-tile" draggable="true">list</div>
+                        <div class="word-tile" draggable="true">for</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">Manager's</div>
+                        <div class="word-tile" draggable="true">review.</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone1-4">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(1, 4)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(1, 4)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback1-4"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 5 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">5</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(1, 5)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank1-5">
+                        <div class="word-tile" draggable="true">Finally,</div>
+                        <div class="word-tile" draggable="true">send</div>
+                        <div class="word-tile" draggable="true">confirmation</div>
+                        <div class="word-tile" draggable="true">emails</div>
+                        <div class="word-tile" draggable="true">to</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">participants</div>
+                        <div class="word-tile" draggable="true">if</div>
+                        <div class="word-tile" draggable="true">you</div>
+                        <div class="word-tile" draggable="true">receive</div>
+                        <div class="word-tile" draggable="true">enough</div>
+                        <div class="word-tile" draggable="true">registrations.</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone1-5">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(1, 5)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(1, 5)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback1-5"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 6 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">6</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(1, 6)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank1-6">
+                        <div class="word-tile" draggable="true">Extend</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">registration</div>
+                        <div class="word-tile" draggable="true">deadline</div>
+                        <div class="word-tile" draggable="true">if</div>
+                        <div class="word-tile" draggable="true">you</div>
+                        <div class="word-tile" draggable="true">receive</div>
+                        <div class="word-tile" draggable="true">limited</div>
+                        <div class="word-tile" draggable="true">registrations.</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone1-6">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(1, 6)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(1, 6)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback1-6"></div>
+                </div>
+            </div>
+
+            <!-- Reset All Button -->
+            <div class="card">
+                <div class="button-container">
+                    <button class="action-button reset-button" onclick="resetListeningExercise(1)" style="width: 100%;">
+                        <i class="fas fa-redo-alt"></i> Reset All Sentences
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise 2: Inviting a Speaker -->
+        <div id="listening-tab2" class="tab-content">
+            <div class="main-header">
+                <h2>Inviting a Speaker - Listening Exercise</h2>
+                <p>Listen and arrange the words in the correct order</p>
+            </div>
+
+            <div class="card progress-tracker">
+                <h3><i class="fas fa-tasks"></i> Progress Tracker</h3>
+                <div class="progress-stats">
+                    <span id="listeningProgress2">0</span> of 6 sentences completed
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" id="listeningProgressBar2"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 1 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">1</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(2, 1)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank2-1">
+                        <div class="word-tile" draggable="true">suitable</div>
+                        <div class="word-tile" draggable="true">topics</div>
+                        <div class="word-tile" draggable="true">such</div>
+                        <div class="word-tile" draggable="true">as</div>
+                        <div class="word-tile" draggable="true">healthcare</div>
+                        <div class="word-tile" draggable="true">and</div>
+                        <div class="word-tile" draggable="true">technology.</div>
+                        <div class="word-tile" draggable="true">Identify</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone2-1">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(2, 1)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(2, 1)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback2-1"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 2 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">2</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(2, 2)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank2-2">
+                        <div class="word-tile" draggable="true">Then,</div>
+                        <div class="word-tile" draggable="true">submit</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">speaker</div>
+                        <div class="word-tile" draggable="true">details</div>
+                        <div class="word-tile" draggable="true">and</div>
+                        <div class="word-tile" draggable="true">topics</div>
+                        <div class="word-tile" draggable="true">for</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">Manager's</div>
+                        <div class="word-tile" draggable="true">selection.</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone2-2">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(2, 2)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(2, 2)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback2-2"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 3 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">3</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(2, 3)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank2-3">
+                        <div class="word-tile" draggable="true">Following</div>
+                        <div class="word-tile" draggable="true">that,</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">Event</div>
+                        <div class="word-tile" draggable="true">Coordinator</div>
+                        <div class="word-tile" draggable="true">should</div>
+                        <div class="word-tile" draggable="true">contact</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">speaker.</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone2-3">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(2, 3)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(2, 3)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback2-3"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 4 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">4</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(2, 4)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank2-4">
+                        <div class="word-tile" draggable="true">Send</div>
+                        <div class="word-tile" draggable="true">an</div>
+                        <div class="word-tile" draggable="true">invitation</div>
+                        <div class="word-tile" draggable="true">email</div>
+                        <div class="word-tile" draggable="true">to</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">confirmed</div>
+                        <div class="word-tile" draggable="true">speaker</div>
+                        <div class="word-tile" draggable="true">at</div>
+                        <div class="word-tile" draggable="true">least</div>
+                        <div class="word-tile" draggable="true">2</div>
+                        <div class="word-tile" draggable="true">weeks</div>
+                        <div class="word-tile" draggable="true">before</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">workshop.</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone2-4">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(2, 4)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(2, 4)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback2-4"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 5 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">5</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(2, 5)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank2-5">
+                        <div class="word-tile" draggable="true">Finally,</div>
+                        <div class="word-tile" draggable="true">arrange</div>
+                        <div class="word-tile" draggable="true">a</div>
+                        <div class="word-tile" draggable="true">microphone</div>
+                        <div class="word-tile" draggable="true">and</div>
+                        <div class="word-tile" draggable="true">a</div>
+                        <div class="word-tile" draggable="true">projector</div>
+                        <div class="word-tile" draggable="true">if</div>
+                        <div class="word-tile" draggable="true">you</div>
+                        <div class="word-tile" draggable="true">hold</div>
+                        <div class="word-tile" draggable="true">a</div>
+                        <div class="word-tile" draggable="true">face-to-face</div>
+                        <div class="word-tile" draggable="true">workshop.</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone2-5">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(2, 5)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(2, 5)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback2-5"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 6 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">6</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(2, 6)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank2-6">
+                        <div class="word-tile" draggable="true">Prepare</div>
+                        <div class="word-tile" draggable="true">Internet</div>
+                        <div class="word-tile" draggable="true">connection</div>
+                        <div class="word-tile" draggable="true">and</div>
+                        <div class="word-tile" draggable="true">a</div>
+                        <div class="word-tile" draggable="true">meeting</div>
+                        <div class="word-tile" draggable="true">link</div>
+                        <div class="word-tile" draggable="true">if</div>
+                        <div class="word-tile" draggable="true">you</div>
+                        <div class="word-tile" draggable="true">hold</div>
+                        <div class="word-tile" draggable="true">an</div>
+                        <div class="word-tile" draggable="true">online</div>
+                        <div class="word-tile" draggable="true">workshop.</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone2-6">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(2, 6)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(2, 6)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback2-6"></div>
+                </div>
+            </div>
+
+            <!-- Reset All Button -->
+            <div class="card">
+                <div class="button-container">
+                    <button class="action-button reset-button" onclick="resetListeningExercise(2)" style="width: 100%;">
+                        <i class="fas fa-redo-alt"></i> Reset All Sentences
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise 3: Arranging a Meeting -->
+        <div id="listening-tab3" class="tab-content">
+            <div class="main-header">
+                <h2>Arranging a Meeting - Listening Exercise</h2>
+                <p>Listen and arrange the words in the correct order</p>
+            </div>
+
+            <div class="card progress-tracker">
+                <h3><i class="fas fa-tasks"></i> Progress Tracker</h3>
+                <div class="progress-stats">
+                    <span id="listeningProgress3">0</span> of 6 sentences completed
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" id="listeningProgressBar3"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 1 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">1</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(3, 1)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank3-1">
+                        <div class="word-tile" draggable="true">The</div>
+                        <div class="word-tile" draggable="true">Coordinator</div>
+                        <div class="word-tile" draggable="true">should</div>
+                        <div class="word-tile" draggable="true">prepare</div>
+                        <div class="word-tile" draggable="true">meeting</div>
+                        <div class="word-tile" draggable="true">documents</div>
+                        <div class="word-tile" draggable="true">such</div>
+                        <div class="word-tile" draggable="true">as</div>
+                        <div class="word-tile" draggable="true">sponsorship</div>
+                        <div class="word-tile" draggable="true">contracts</div>
+                        <div class="word-tile" draggable="true">and</div>
+                        <div class="word-tile" draggable="true">an</div>
+                        <div class="word-tile" draggable="true">event</div>
+                        <div class="word-tile" draggable="true">rundown.</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone3-1">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(3, 1)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(3, 1)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback3-1"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 2 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">2</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(3, 2)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank3-2">
+                        <div class="word-tile" draggable="true">Drafted</div>
+                        <div class="word-tile" draggable="true">materials</div>
+                        <div class="word-tile" draggable="true">should</div>
+                        <div class="word-tile" draggable="true">be</div>
+                        <div class="word-tile" draggable="true">sent</div>
+                        <div class="word-tile" draggable="true">for</div>
+                        <div class="word-tile" draggable="true">sponsors'</div>
+                        <div class="word-tile" draggable="true">review.</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone3-2">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(3, 2)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(3, 2)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback3-2"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 3 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">3</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(3, 3)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank3-3">
+                        <div class="word-tile" draggable="true">After</div>
+                        <div class="word-tile" draggable="true">that,</div>
+                        <div class="word-tile" draggable="true">confirm</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">details</div>
+                        <div class="word-tile" draggable="true">of</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">meeting</div>
+                        <div class="word-tile" draggable="true">at</div>
+                        <div class="word-tile" draggable="true">least</div>
+                        <div class="word-tile" draggable="true">3</div>
+                        <div class="word-tile" draggable="true">days</div>
+                        <div class="word-tile" draggable="true">before</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">meeting.</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone3-3">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(3, 3)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(3, 3)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback3-3"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 4 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">4</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(3, 4)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank3-4">
+                        <div class="word-tile" draggable="true">Book</div>
+                        <div class="word-tile" draggable="true">conference</div>
+                        <div class="word-tile" draggable="true">facilities</div>
+                        <div class="word-tile" draggable="true">if</div>
+                        <div class="word-tile" draggable="true">you</div>
+                        <div class="word-tile" draggable="true">hold</div>
+                        <div class="word-tile" draggable="true">an</div>
+                        <div class="word-tile" draggable="true">in-person</div>
+                        <div class="word-tile" draggable="true">meeting.</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone3-4">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(3, 4)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(3, 4)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback3-4"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 5 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">5</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(3, 5)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank3-5">
+                        <div class="word-tile" draggable="true">Prepare</div>
+                        <div class="word-tile" draggable="true">a</div>
+                        <div class="word-tile" draggable="true">meeting</div>
+                        <div class="word-tile" draggable="true">link</div>
+                        <div class="word-tile" draggable="true">if</div>
+                        <div class="word-tile" draggable="true">you</div>
+                        <div class="word-tile" draggable="true">hold</div>
+                        <div class="word-tile" draggable="true">a</div>
+                        <div class="word-tile" draggable="true">virtual</div>
+                        <div class="word-tile" draggable="true">meeting.</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone3-5">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(3, 5)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(3, 5)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback3-5"></div>
+                </div>
+            </div>
+
+            <!-- Sentence 6 -->
+            <div class="card">
+                <div class="listening-item">
+                    <div class="listening-header">
+                        <div class="item-number">6</div>
+                        <h3 style="margin: 0; color: var(--text-primary);">Listen and Arrange</h3>
+                        <button class="audio-button" onclick="playAudio(3, 6)">
+                            <i class="fas fa-volume-up"></i> Play Audio
+                        </button>
+                    </div>
+                    
+                    <div class="word-bank" id="wordBank3-6">
+                        <div class="word-tile" draggable="true">Finally,</div>
+                        <div class="word-tile" draggable="true">invitation</div>
+                        <div class="word-tile" draggable="true">emails</div>
+                        <div class="word-tile" draggable="true">should</div>
+                        <div class="word-tile" draggable="true">be</div>
+                        <div class="word-tile" draggable="true">submitted</div>
+                        <div class="word-tile" draggable="true">to</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">members</div>
+                        <div class="word-tile" draggable="true">of</div>
+                        <div class="word-tile" draggable="true">the</div>
+                        <div class="word-tile" draggable="true">meeting.</div>
+                    </div>
+                    
+                    <div class="drop-zone" id="dropZone3-6">
+                        <div class="drop-placeholder">Drag words here in the correct order</div>
+                    </div>
+                    
+                    <div class="button-container">
+                        <button class="action-button check-button" onclick="checkListeningAnswer(3, 6)">
+                            <i class="fas fa-check-circle"></i> Check Answer
+                        </button>
+                        <button class="action-button reset-button" onclick="resetListeningSentence(3, 6)">
+                            <i class="fas fa-redo-alt"></i> Reset
+                        </button>
+                    </div>
+                    
+                    <div class="listening-feedback" id="listeningFeedback3-6"></div>
+                </div>
+            </div>
+
+            <!-- Reset All Button -->
+            <div class="card">
+                <div class="button-container">
+                    <button class="action-button reset-button" onclick="resetListeningExercise(3)" style="width: 100%;">
+                        <i class="fas fa-redo-alt"></i> Reset All Sentences
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+    
+    <div class="popup" id="popup">
+        <input type="text" id="correctionInput">
+        <button id="submitCorrection"><i class="fas fa-check"></i> Submit</button>
+    </div>
+    
+    <script>
+        // Store original text content for each tab
+        const originalTexts = {
+            tab1: '',
+            tab2: '',
+            tab3: ''
+        };
+
+        // Fill in the Blanks - Complete sentences for Exercise 1
+        const completeSentences1 = {
+            1: "Decide the list of the information needed such as the age range and gender.",
+            2: "Then, the Event Assistant should create an online registration form.",
+            3: "After that, send QR codes and links to target schools at least two weeks before the event.",
+            4: "Submit the participant list for the Manager's review.",
+            5: "Finally, send confirmation emails to the participants if you receive enough registrations.",
+            6: "Extend the registration deadline if you receive limited registrations."
+        };
+
+        // Fill in the Blanks - Complete sentences for Exercise 2
+        const completeSentences2 = {
+            1: "Identify suitable topics such as healthcare and technology.",
+            2: "Then, submit the speaker details and topics for the Manager's selection.",
+            3: "Following that, the Event Coordinator should contact the speaker.",
+            4: "Send an invitation email to the confirmed speaker at least 2 weeks before the workshop.",
+            5: "Finally, arrange a microphone and a projector if you hold a face-to-face workshop.",
+            6: "Prepare Internet connection and a meeting link if you hold an online workshop."
+        };
+
+        // Fill in the Blanks - Complete sentences for Exercise 3
+        const completeSentences3 = {
+            1: "The Coordinator should prepare meeting documents such as sponsorship contracts and an event rundown.",
+            2: "Submit the drafted meeting documents for sponsors' review.",
+            3: "After that, confirm the details of the meeting at least 3 days before the meeting.",
+            4: "Book conference facilities if you hold an in-person meeting.",
+            5: "Prepare a meeting link if you hold a virtual meeting.",
+            6: "Finally, send invitation emails to the members of the meeting."
+        };
+
+        // Listening Exercise Data - Correct Sentences
+        const listeningSentences = {
+            1: {
+                1: "Decide the list of the information needed such as the age range and gender.",
+                2: "Then, the Event Assistant should create an online registration form.",
+                3: "After that, send QR codes and links to target schools at least two weeks before the event.",
+                4: "Submit the participant list for the Manager's review.",
+                5: "Finally, send confirmation emails to the participants if you receive enough registrations.",
+                6: "Extend the registration deadline if you receive limited registrations."
+            },
+            2: {
+                1: "Identify suitable topics such as healthcare and technology.",
+                2: "Then, submit the speaker details and topics for the Manager's selection.",
+                3: "Following that, the Event Coordinator should contact the speaker.",
+                4: "Send an invitation email to the confirmed speaker at least 2 weeks before the workshop.",
+                5: "Finally, arrange a microphone and a projector if you hold a face-to-face workshop.",
+                6: "Prepare Internet connection and a meeting link if you hold an online workshop."
+            },
+            3: {
+                1: "The Coordinator should prepare meeting documents such as sponsorship contracts and an event rundown.",
+                2: "Submit the drafted meeting documents for sponsors' review.",
+                3: "After that, confirm the details of the meeting at least 3 days before the meeting.",
+                4: "Book conference facilities if you hold an in-person meeting.",
+                5: "Prepare a meeting link if you hold a virtual meeting.",
+                6: "Finally, send invitation emails  to the members of the meeting."
+            }
+        };
+
+        // Listening Exercise Progress
+        let listeningProgress = {1: 0, 2: 0, 3: 0};
+        let currentListeningSentence = {1: 1, 2: 1, 3: 1};
+        
+        // Navigation functions
+        function showProofreadingExercise() {
+            document.getElementById('coverPage').style.display = 'none';
+            document.getElementById('fillBlanksPage').classList.remove('active');
+            document.getElementById('listeningPage').classList.remove('active');
+            document.getElementById('proofreadingPage').classList.add('active');
+        }
+        
+        function showFillInBlanks() {
+            document.getElementById('coverPage').style.display = 'none';
+            document.getElementById('proofreadingPage').classList.remove('active');
+            document.getElementById('listeningPage').classList.remove('active');
+            document.getElementById('fillBlanksPage').classList.add('active');
+        }
+
+        function showListeningExercise() {
+            document.getElementById('coverPage').style.display = 'none';
+            document.getElementById('fillBlanksPage').classList.remove('active');
+            document.getElementById('proofreadingPage').classList.remove('active');
+            document.getElementById('listeningPage').classList.add('active');
+            setTimeout(() => initializeDragAndDrop(), 100);
+        }
+        
+        function backToCover() {
+            document.getElementById('proofreadingPage').classList.remove('active');
+            document.getElementById('fillBlanksPage').classList.remove('active');
+            document.getElementById('listeningPage').classList.remove('active');
+            document.getElementById('coverPage').style.display = 'flex';
+        }
+
+        // Fill in the Blanks Tab Switching
+        function switchFillTab(tabId) {
+            document.querySelectorAll('#fillBlanksPage .tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.querySelectorAll('#fillBlanksPage .tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`#fillBlanksPage button[onclick="switchFillTab('${tabId}')"]`).classList.add('active');
+        }
+
+        // Fill in the Blanks - Check answers
+        document.getElementById('checkFillButton1').addEventListener('click', function() {
+            checkFillBlanks(1);
+        });
+
+        document.getElementById('checkFillButton2').addEventListener('click', function() {
+            checkFillBlanks(2);
+        });
+
+        document.getElementById('checkFillButton3').addEventListener('click', function() {
+            checkFillBlanks(3);
+        });
+
+        function checkFillBlanks(exerciseNum) {
+            const inputs = document.querySelectorAll(`.blank-input.ex${exerciseNum}`);
+            let correctCount = 0;
+            let answers = [];
+            const completeSentences = exerciseNum === 1 ? completeSentences1 : (exerciseNum === 2 ? completeSentences2 : completeSentences3);
+
+            inputs.forEach(input => {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = input.getAttribute('data-answer').toLowerCase();
+                const itemId = input.getAttribute('data-id');
+
+                if (userAnswer === correctAnswer) {
+                    input.classList.add('correct');
+                    input.classList.remove('incorrect');
+                    correctCount++;
+                    answers.push({
+                        id: itemId,
+                        correct: true,
+                        userAnswer: input.value.trim(),
+                        correctAnswer: input.getAttribute('data-answer')
+                    });
+                } else {
+                    input.classList.add('incorrect');
+                    input.classList.remove('correct');
+                    answers.push({
+                        id: itemId,
+                        correct: false,
+                        userAnswer: input.value.trim(),
+                        correctAnswer: input.getAttribute('data-answer')
+                    });
+                }
+                input.disabled = true;
+            });
+
+            // Calculate total blanks
+            const totalBlanks = inputs.length;
+            const score = Math.round((correctCount / totalBlanks) * 100);
+
+            // Update progress bar
+            document.getElementById(`fillProgress${exerciseNum}`).textContent = correctCount;
+            document.getElementById(`fillProgressBar${exerciseNum}`).style.width = score + '%';
+
+            // Show feedback
+            const feedbackDiv = document.getElementById(`fillFeedback${exerciseNum}`);
+            let feedbackHTML = '<h3><i class="fas fa-clipboard-check"></i> Your Results</h3>';
+            
+            feedbackHTML += `<div style="text-align: center; margin-bottom: 20px;">
+                <div style="font-size: 36px; font-weight: bold; color: ${score >= 80 ? 'var(--success)' : score >= 60 ? 'var(--accent)' : 'var(--error)'}">
+                    ${score}%
+                </div>
+                <p style="font-size: 18px; margin: 5px 0; color: var(--text-secondary);">Your Score</p>
+            </div>`;
+
+            feedbackHTML += `<p>You got <strong>${correctCount}</strong> out of <strong>${totalBlanks}</strong> blanks correct.</p>`;
+
+            if (score === 100) {
+                feedbackHTML += '<div style="background-color: rgba(76, 175, 80, 0.1); padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid var(--success);"><p><i class="fas fa-trophy" style="color: var(--success); margin-right: 8px;"></i> <strong>Perfect!</strong> You have mastered writing workplace instructions!</p></div>';
+            } else if (score >= 80) {
+                feedbackHTML += '<div style="background-color: rgba(67, 160, 71, 0.1); padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid var(--accent);"><p><i class="fas fa-star" style="color: var(--accent); margin-right: 8px;"></i> <strong>Great job!</strong> You have a strong understanding of instruction writing.</p></div>';
+            } else if (score >= 60) {
+                feedbackHTML += '<div style="background-color: rgba(67, 160, 71, 0.1); padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid var(--accent);"><p><i class="fas fa-thumbs-up" style="color: var(--accent); margin-right: 8px;"></i> <strong>Good effort!</strong> Review the correct answers and try again.</p></div>';
+            } else {
+                feedbackHTML += '<div style="background-color: rgba(198, 40, 40, 0.1); padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid var(--error);"><p><i class="fas fa-exclamation-circle" style="color: var(--error); margin-right: 8px;"></i> <strong>Keep practicing!</strong> Pay attention to articles, prepositions, and linking words.</p></div>';
+            }
+
+            // Group answers by sentence
+            const answersBySentence = {};
+            answers.forEach(ans => {
+                const sentenceNum = ans.id.split('-')[0];
+                if (!answersBySentence[sentenceNum]) {
+                    answersBySentence[sentenceNum] = [];
+                }
+                answersBySentence[sentenceNum].push(ans);
+            });
+
+            feedbackHTML += '<div class="answer-review">';
+            for (let sentenceNum in answersBySentence) {
+                const sentenceAnswers = answersBySentence[sentenceNum];
+                const allCorrect = sentenceAnswers.every(ans => ans.correct);
+                
+                feedbackHTML += `<div class="answer-item ${allCorrect ? 'correct' : 'incorrect'}">`;
+                feedbackHTML += `<div class="answer-label">Sentence ${sentenceNum}:</div>`;
+                
+                sentenceAnswers.forEach(ans => {
+                    if (!ans.correct) {
+                        feedbackHTML += `<div class="your-answer">Your answer: "${ans.userAnswer}" <span style="color: var(--error);">✗</span></div>`;
+                        feedbackHTML += `<div class="correct-answer-text">Correct answer: "${ans.correctAnswer}" <span style="color: var(--success);">✓</span></div>`;
+                    }
+                });
+                
+                // Show complete correct sentence
+                feedbackHTML += `<div class="complete-sentence">`;
+                feedbackHTML += `<h4>Complete Sentence:</h4>`;
+                feedbackHTML += `<p>${completeSentences[sentenceNum]}</p>`;
+                feedbackHTML += `</div>`;
+                
+                feedbackHTML += '</div>';
+            }
+            feedbackHTML += '</div>';
+
+            feedbackDiv.innerHTML = feedbackHTML;
+            feedbackDiv.style.display = 'block';
+            
+            // Disable check button
+            document.getElementById(`checkFillButton${exerciseNum}`).disabled = true;
+        }
+
+        function resetFillBlanks(exerciseNum) {
+            const inputs = document.querySelectorAll(`.blank-input.ex${exerciseNum}`);
+            inputs.forEach(input => {
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+                input.disabled = false;
+            });
+            
+            document.getElementById(`fillFeedback${exerciseNum}`).style.display = 'none';
+            document.getElementById(`fillProgress${exerciseNum}`).textContent = '0';
+            document.getElementById(`fillProgressBar${exerciseNum}`).style.width = '0%';
+            document.getElementById(`checkFillButton${exerciseNum}`).disabled = false;
+        }
+
+        // Proofreading Exercise Tab Switching
+        function switchTab(tabId) {
+            document.querySelectorAll('#proofreadingPage .tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.querySelectorAll('#proofreadingPage .tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`#proofreadingPage button[onclick="switchTab('${tabId}')"]`).classList.add('active');
+        }
+
+        // Listening Exercise Tab Switching
+        function switchListeningTab(tabId) {
+            document.querySelectorAll('#listeningPage .tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.querySelectorAll('#listeningPage .tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`#listeningPage button[onclick="switchListeningTab('${tabId}')"]`).classList.add('active');
+        }
+
+        // Initialize original texts and set up proofreading
+        document.addEventListener('DOMContentLoaded', function() {
+            ['tab1', 'tab2', 'tab3'].forEach(tabId => {
+                const textElem = document.getElementById('proofreadingText' + tabId.slice(-1));
+                if (textElem) {
+                    originalTexts[tabId] = textElem.innerHTML;
+                    setupProofreading(tabId);
+                }
+            });
+        });
+
+
+function setupProofreading(tabId) {
+    const tabNumber = tabId.slice(-1);
+    const text = document.getElementById(`proofreadingText${tabNumber}`);
+    
+    // Add click listeners to ALL spans (both errors and correct words)
+    text.querySelectorAll('span').forEach(span => {
+        span.addEventListener('click', function(e) {
+            // Allow clicking on any word, not just errors
+            showPopup(this, e);
+        });
+        
+        // Add a subtle hover effect for all clickable words
+        span.style.cursor = 'pointer';
+    });
+}
+
+
+
+
+
+        let currentErrorSpan = null;
+
+        function showPopup(span, event) {
+            const popup = document.getElementById('popup');
+            const input = document.getElementById('correctionInput');
+            
+            currentErrorSpan = span;
+            
+            popup.style.display = 'block';
+            popup.style.left = event.pageX + 'px';
+            popup.style.top = (event.pageY + 20) + 'px';
+            
+            input.value = '';
+            input.focus();
+        }
+
+        document.getElementById('submitCorrection').addEventListener('click', submitCorrection);
+        document.getElementById('correctionInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                submitCorrection();
+            }
+        });
+
+ function submitCorrection() {
+    const input = document.getElementById('correctionInput');
+    const userAnswer = input.value.trim().toLowerCase();
+    
+    // Check if the clicked span is an error
+    const isError = currentErrorSpan.classList.contains('error');
+    
+    if (isError) {
+        // This is an actual error - check if correction is right
+        const correctAnswer = currentErrorSpan.getAttribute('data-correct').toLowerCase();
+        const alternatives = currentErrorSpan.getAttribute('data-alternatives');
+        
+        let isCorrect = userAnswer === correctAnswer;
+        
+        if (!isCorrect && alternatives) {
+            const altList = alternatives.toLowerCase().split('|');
+            isCorrect = altList.includes(userAnswer);
+        }
+        
+        if (isCorrect) {
+            currentErrorSpan.textContent = input.value.trim();
+            currentErrorSpan.classList.add('corrected');
+            currentErrorSpan.classList.add('clicked');
+            currentErrorSpan.classList.remove('error');
+            
+            // Find which tab we're on
+            let tabNumber = 1;
+            for (let i = 1; i <= 3; i++) {
+                if (document.getElementById(`proofreadingText${i}`).contains(currentErrorSpan)) {
+                    tabNumber = i;
+                    break;
+                }
+            }
+            
+            updateErrorCount(tabNumber);
+        } else {
+            currentErrorSpan.classList.add('wrong-correction');
+            currentErrorSpan.classList.add('clicked');
+        }
+    } else {
+        // This is a correct word - student clicked it thinking it's wrong
+        const originalText = currentErrorSpan.textContent;
+        
+        if (userAnswer === originalText.toLowerCase() || userAnswer === '') {
+            // Student realized it's correct and typed the same word or nothing
+            currentErrorSpan.classList.add('clicked');
+            // Don't mark it as wrong
+        } else {
+            // Student changed a correct word - mark as unnecessary change
+            currentErrorSpan.classList.add('wrong-correction');
+            currentErrorSpan.classList.add('clicked');
+            currentErrorSpan.setAttribute('data-original', originalText);
+            currentErrorSpan.setAttribute('data-user-change', input.value.trim());
+        }
+    }
+    
+    document.getElementById('popup').style.display = 'none';
+    currentErrorSpan = null;
+}
+        function updateErrorCount(tabNumber) {
+            const text = document.getElementById(`proofreadingText${tabNumber}`);
+            const totalErrors = text.querySelectorAll('.error, .corrected, .wrong-correction').length;
+            const correctedErrors = text.querySelectorAll('.corrected').length;
+            
+            document.getElementById(`errorCount${tabNumber}`).textContent = correctedErrors;
+            const percentage = (correctedErrors / totalErrors) * 100;
+            document.getElementById(`progressBar${tabNumber}`).style.width = percentage + '%';
+            
+            // Update error circles
+            const circles = document.querySelectorAll(`#errorCircles${tabNumber} .error-circle`);
+            circles.forEach((circle, index) => {
+                if (index < correctedErrors) {
+                    circle.classList.add('found');
+                }
+            });
+        }
+
+        // Check button functionality for proofreading
+        ['1', '2', '3'].forEach(num => {
+            document.getElementById(`checkButton${num}`).addEventListener('click', function() {
+                checkProofreadingWork(num);
+            });
+        });
+
+ 
+function checkProofreadingWork(tabNumber) {
+    const text = document.getElementById(`proofreadingText${tabNumber}`);
+    const feedback = document.getElementById(`feedback${tabNumber}`);
+    
+    const allErrors = text.querySelectorAll('.error, .corrected, .wrong-correction');
+    const correctedErrors = text.querySelectorAll('.corrected');
+    const wrongCorrections = text.querySelectorAll('.wrong-correction');
+    const missedErrors = text.querySelectorAll('.error');
+    
+    // Count unnecessary changes (correct words that were changed)
+    const unnecessaryChanges = Array.from(wrongCorrections).filter(span => 
+        span.hasAttribute('data-original')
+    );
+    
+    const totalErrors = text.querySelectorAll('.error, .corrected, .wrong-correction[data-correct]').length;
+    const foundCorrect = correctedErrors.length;
+    const foundWrong = Array.from(wrongCorrections).filter(span => 
+        span.hasAttribute('data-correct')
+    ).length;
+    const missed = missedErrors.length;
+    
+    const score = Math.round((foundCorrect / totalErrors) * 100);
+    
+    let feedbackHTML = '<h3>Results</h3>';
+    feedbackHTML += `<p>You correctly identified and fixed <strong>${foundCorrect}</strong> out of <strong>${totalErrors}</strong> errors.</p>`;
+    feedbackHTML += `<p>Your score: <strong style="font-size: 24px; color: ${score >= 80 ? 'var(--success)' : score >= 60 ? 'var(--accent)' : 'var(--error)'};">${score}%</strong></p>`;
+    
+    if (foundWrong > 0) {
+        feedbackHTML += `<p style="color: var(--error);">You made <strong>${foundWrong}</strong> incorrect correction(s) on actual errors.</p>`;
+    }
+    
+    if (unnecessaryChanges.length > 0) {
+        feedbackHTML += `<p style="color: var(--warning);">You changed <strong>${unnecessaryChanges.length}</strong> word(s) that were already correct.</p>`;
+    }
+    
+    if (missed > 0) {
+        feedbackHTML += `<p style="color: var(--error);">You missed <strong>${missed}</strong> error(s).</p>`;
+        feedbackHTML += '<p><strong>Missed errors (highlighted in red):</strong></p>';
+        feedbackHTML += '<ul>';
+        missedErrors.forEach(span => {
+            span.classList.add('highlight-error');
+            const correct = span.getAttribute('data-correct');
+            feedbackHTML += `<li>"${span.textContent}" should be "<span class="correct-answer">${correct}</span>"</li>`;
+        });
+        feedbackHTML += '</ul>';
+    }
+    
+    if (foundWrong > 0) {
+        feedbackHTML += '<p><strong>Your incorrect corrections on errors:</strong></p>';
+        feedbackHTML += '<ul>';
+        Array.from(wrongCorrections).filter(span => span.hasAttribute('data-correct')).forEach(span => {
+            const correct = span.getAttribute('data-correct');
+            feedbackHTML += `<li>"${span.textContent}" should be "<span class="correct-answer">${correct}</span>"</li>`;
+        });
+        feedbackHTML += '</ul>';
+    }
+    
+    if (unnecessaryChanges.length > 0) {
+        feedbackHTML += '<p><strong>Unnecessary changes (these words were correct):</strong></p>';
+        feedbackHTML += '<ul>';
+        unnecessaryChanges.forEach(span => {
+            const original = span.getAttribute('data-original');
+            const userChange = span.getAttribute('data-user-change');
+            feedbackHTML += `<li>"${original}" was correct. You changed it to "${userChange}"</li>`;
+        });
+        feedbackHTML += '</ul>';
+    }
+    
+    if (score === 100 && unnecessaryChanges.length === 0) {
+        feedbackHTML += '<p style="color: var(--success); font-size: 18px; font-weight: bold; margin-top: 20px;"><i class="fas fa-trophy"></i> Perfect! You found all errors and made no unnecessary changes!</p>';
+    } else if (score === 100 && unnecessaryChanges.length > 0) {
+        feedbackHTML += '<p style="color: var(--accent); font-size: 18px; font-weight: bold; margin-top: 20px;"><i class="fas fa-star"></i> You found all errors, but made some unnecessary changes to correct words.</p>';
+    } else if (score >= 80) {
+        feedbackHTML += '<p style="color: var(--accent); margin-top: 20px;"><i class="fas fa-star"></i> Great job! Keep practicing to perfect your skills.</p>';
+    } else {
+        feedbackHTML += '<p style="color: var(--accent); margin-top: 20px;"><i class="fas fa-info-circle"></i> Keep practicing! Review the errors above and try again.</p>';
+    }
+    
+    correctedErrors.forEach(span => {
+        span.classList.add('highlight-correct');
+    });
+    
+    feedback.innerHTML = feedbackHTML;
+    feedback.style.display = 'block';
+    
+    document.getElementById(`checkButton${tabNumber}`).disabled = true;
+}
+
+
+
+
+        function resetCurrentTab(tabNumber) {
+            const text = document.getElementById(`proofreadingText${tabNumber}`);
+            text.innerHTML = originalTexts[`tab${tabNumber}`];
+            
+            setupProofreading(`tab${tabNumber}`);
+            
+            document.getElementById(`errorCount${tabNumber}`).textContent = '0';
+            document.getElementById(`progressBar${tabNumber}`).style.width = '0%';
+            document.getElementById(`feedback${tabNumber}`).style.display = 'none';
+            
+            const circles = document.querySelectorAll(`#errorCircles${tabNumber} .error-circle`);
+            circles.forEach(circle => {
+                circle.classList.remove('found');
+            });
+            
+            document.getElementById(`checkButton${tabNumber}`).disabled = false;
+        }
+
+        // Hide popup when clicking outside
+        document.addEventListener('click', function(e) {
+            const popup = document.getElementById('popup');
+            if (popup.style.display === 'block' && 
+                !popup.contains(e.target) && 
+                !e.target.classList.contains('error')) {
+                popup.style.display = 'none';
+            }
+        });
+
+// Listening Exercise - Text-to-Speech Function
+function playAudio(exercise, sentence) {
+    const text = listeningSentences[exercise][sentence];
+    const button = event.target.closest('.audio-button');
+    
+    // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.8;
+    utterance.pitch = 1.0;
+    utterance.volume = 1.0;
+    
+    const voices = window.speechSynthesis.getVoices();
+    const englishVoice = voices.find(voice => voice.lang.startsWith('en'));
+    if (englishVoice) {
+        utterance.voice = englishVoice;
+    }
+    
+    button.classList.add('playing');
+    button.querySelector('i').classList.remove('fa-volume-up');
+    button.querySelector('i').classList.add('fa-volume-down');
+    
+    utterance.onend = function() {
+        button.classList.remove('playing');
+        button.querySelector('i').classList.remove('fa-volume-down');
+        button.querySelector('i').classList.add('fa-volume-up');
+    };
+    
+    window.speechSynthesis.speak(utterance);
+}
+
+window.speechSynthesis.onvoiceschanged = function() {
+    window.speechSynthesis.getVoices();
+};
+
+// Check Listening Answer
+function checkListeningAnswer(exercise, sentence) {
+    const dropZone = document.getElementById(`dropZone${exercise}-${sentence}`);
+    const tiles = dropZone.querySelectorAll('.word-tile');
+    
+    if (tiles.length === 0) {
+        alert('Please arrange the words first!');
+        return;
+    }
+    
+    const userAnswer = Array.from(tiles).map(tile => tile.textContent).join(' ');
+    const correctAnswer = listeningSentences[exercise][sentence];
+    
+    const feedbackDiv = document.getElementById(`listeningFeedback${exercise}-${sentence}`);
+    
+    if (userAnswer === correctAnswer) {
+        feedbackDiv.className = 'listening-feedback show correct';
+        feedbackDiv.innerHTML = `
+            <h4><i class="fas fa-check-circle"></i> Correct!</h4>
+            <p>Great job! You arranged the words correctly.</p>
+            <div class="correct-sentence">
+                <strong>Correct Sentence:</strong> ${correctAnswer}
+            </div>
+        `;
+        
+        // Update progress only if not already marked correct
+        if (!dropZone.dataset.correct) {
+            dropZone.dataset.correct = 'true';
+            listeningProgress[exercise]++;
+            document.getElementById(`listeningProgress${exercise}`).textContent = listeningProgress[exercise];
+            const progressPercent = (listeningProgress[exercise] / 6) * 100;
+            document.getElementById(`listeningProgressBar${exercise}`).style.width = progressPercent + '%';
+        }
+        
+    } else {
+        feedbackDiv.className = 'listening-feedback show incorrect';
+        feedbackDiv.innerHTML = `
+            <h4><i class="fas fa-times-circle"></i> Not Quite Right</h4>
+            <p><strong>Your Answer:</strong> ${userAnswer}</p>
+            <div class="correct-sentence">
+                <strong>Correct Sentence:</strong> ${correctAnswer}
+            </div>
+            <p>Try again or click the reset button to rearrange the words.</p>
+        `;
+    }
+}
+// ===== ADD THIS NEW FUNCTION - This is what was missing! =====
+// Drag and Drop Functionality for Listening Exercise
+function initializeDragAndDrop() {
+    const wordTiles = document.querySelectorAll('.word-tile');
+    const dropZones = document.querySelectorAll('.drop-zone');
+    const wordBanks = document.querySelectorAll('.word-bank');
+    
+    let draggedElement = null;
+    
+    // Add drag event listeners to word tiles
+    wordTiles.forEach(tile => {
+        tile.setAttribute('draggable', 'true');
+        
+        tile.addEventListener('dragstart', function(e) {
+            draggedElement = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
+        });
+        
+        tile.addEventListener('dragend', function(e) {
+            this.classList.remove('dragging');
+        });
+    });
+    
+    // Add drag event listeners to drop zones
+    dropZones.forEach(zone => {
+        zone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            this.classList.add('drag-over');
+            
+            const afterElement = getDragAfterElement(zone, e.clientX);
+            if (afterElement == null) {
+                zone.appendChild(draggedElement);
+            } else {
+                zone.insertBefore(draggedElement, afterElement);
+            }
+        });
+        
+        zone.addEventListener('dragleave', function(e) {
+            this.classList.remove('drag-over');
+        });
+        
+        zone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('drag-over');
+            
+            // Remove placeholder if exists
+            const placeholder = this.querySelector('.drop-placeholder');
+            if (placeholder) {
+                placeholder.remove();
+            }
+        });
+    });
+    
+    // Add drag event listeners to word banks
+    wordBanks.forEach(bank => {
+        bank.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            this.classList.add('drag-over');
+            
+            const afterElement = getDragAfterElement(bank, e.clientX);
+            if (afterElement == null) {
+                bank.appendChild(draggedElement);
+            } else {
+                bank.insertBefore(draggedElement, afterElement);
+            }
+        });
+        
+        bank.addEventListener('dragleave', function(e) {
+            this.classList.remove('drag-over');
+        });
+        
+        bank.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('drag-over');
+        });
+    });
+}
+
+// ===== ADD THIS HELPER FUNCTION =====
+function getDragAfterElement(container, x) {
+    const draggableElements = [...container.querySelectorAll('.word-tile:not(.dragging)')];
+    
+    return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = x - box.left - box.width / 2;
+        
+        if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+        } else {
+            return closest;
+        }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+
+// ===== ADD THIS EVENT LISTENER =====
+// Initialize drag and drop when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initializeDragAndDrop();
+});
+
+// ===== KEEP YOUR ORIGINAL CODE BELOW (unchanged) =====
+
+// Listening Exercise - Text-to-Speech Function
+function playAudio(exercise, sentence) {
+    const text = listeningSentences[exercise][sentence];
+    const button = event.target.closest('.audio-button');
+    
+    // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.8;
+    utterance.pitch = 1.0;
+    utterance.volume = 1.0;
+    
+    const voices = window.speechSynthesis.getVoices();
+    const englishVoice = voices.find(voice => voice.lang.startsWith('en'));
+    if (englishVoice) {
+        utterance.voice = englishVoice;
+    }
+    
+    button.classList.add('playing');
+    button.querySelector('i').classList.remove('fa-volume-up');
+    button.querySelector('i').classList.add('fa-volume-down');
+    
+    utterance.onend = function() {
+        button.classList.remove('playing');
+        button.querySelector('i').classList.remove('fa-volume-down');
+        button.querySelector('i').classList.add('fa-volume-up');
+    };
+    
+    window.speechSynthesis.speak(utterance);
+}
+
+window.speechSynthesis.onvoiceschanged = function() {
+    window.speechSynthesis.getVoices();
+};
+
+// Check Listening Answer
+function checkListeningAnswer(exercise, sentence) {
+    const dropZone = document.getElementById(`dropZone${exercise}-${sentence}`);
+    const tiles = dropZone.querySelectorAll('.word-tile');
+    
+    if (tiles.length === 0) {
+        alert('Please arrange the words first!');
+        return;
+    }
+    
+    const userAnswer = Array.from(tiles).map(tile => tile.textContent).join(' ');
+    const correctAnswer = listeningSentences[exercise][sentence];
+    
+    const feedbackDiv = document.getElementById(`listeningFeedback${exercise}-${sentence}`);
+    
+    if (userAnswer === correctAnswer) {
+        feedbackDiv.className = 'listening-feedback show correct';
+        feedbackDiv.innerHTML = `
+            <h4><i class="fas fa-check-circle"></i> Correct!</h4>
+            <p>Great job! You arranged the words correctly.</p>
+            <div class="correct-sentence">
+                <strong>Correct Sentence:</strong> ${correctAnswer}
+            </div>
+        `;
+        
+        // Update progress only if not already marked correct
+        if (!dropZone.dataset.correct) {
+            dropZone.dataset.correct = 'true';
+            listeningProgress[exercise]++;
+            document.getElementById(`listeningProgress${exercise}`).textContent = listeningProgress[exercise];
+            const progressPercent = (listeningProgress[exercise] / 6) * 100;
+            document.getElementById(`listeningProgressBar${exercise}`).style.width = progressPercent + '%';
+        }
+        
+    } else {
+        feedbackDiv.className = 'listening-feedback show incorrect';
+        feedbackDiv.innerHTML = `
+            <h4><i class="fas fa-times-circle"></i> Not Quite Right</h4>
+            <p><strong>Your Answer:</strong> ${userAnswer}</p>
+            <div class="correct-sentence">
+                <strong>Correct Sentence:</strong> ${correctAnswer}
+            </div>
+            <p>Try again or click the reset button to rearrange the words.</p>
+        `;
+    }
+}
+
+// Reset Listening Sentence
+function resetListeningSentence(exercise, sentence) {
+    const wordBank = document.getElementById(`wordBank${exercise}-${sentence}`);
+    const dropZone = document.getElementById(`dropZone${exercise}-${sentence}`);
+    const tiles = dropZone.querySelectorAll('.word-tile');
+    
+    tiles.forEach(tile => {
+        wordBank.appendChild(tile);
+    });
+    
+    if (!dropZone.querySelector('.drop-placeholder')) {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'drop-placeholder';
+        placeholder.textContent = 'Drag words here in the correct order';
+        dropZone.appendChild(placeholder);
+    }
+    
+    document.getElementById(`listeningFeedback${exercise}-${sentence}`).classList.remove('show');
+    
+    // If was correct, decrease progress
+    if (dropZone.dataset.correct === 'true') {
+        delete dropZone.dataset.correct;
+        listeningProgress[exercise]--;
+        document.getElementById(`listeningProgress${exercise}`).textContent = listeningProgress[exercise];
+        const progressPercent = (listeningProgress[exercise] / 6) * 100;
+        document.getElementById(`listeningProgressBar${exercise}`).style.width = progressPercent + '%';
+    }
+    
+    initializeDragAndDrop();
+}
+
+// Reset Entire Listening Exercise
+function resetListeningExercise(exercise) {
+    for (let i = 1; i <= 6; i++) {
+        resetListeningSentence(exercise, i);
+    }
+}
+
+// Reset Listening Sentence
+function resetListeningSentence(exercise, sentence) {
+    const wordBank = document.getElementById(`wordBank${exercise}-${sentence}`);
+    const dropZone = document.getElementById(`dropZone${exercise}-${sentence}`);
+    const tiles = dropZone.querySelectorAll('.word-tile');
+    
+    tiles.forEach(tile => {
+        wordBank.appendChild(tile);
+    });
+    
+    if (!dropZone.querySelector('.drop-placeholder')) {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'drop-placeholder';
+        placeholder.textContent = 'Drag words here in the correct order';
+        dropZone.appendChild(placeholder);
+    }
+    
+    document.getElementById(`listeningFeedback${exercise}-${sentence}`).classList.remove('show');
+    
+    // If was correct, decrease progress
+    if (dropZone.dataset.correct === 'true') {
+        delete dropZone.dataset.correct;
+        listeningProgress[exercise]--;
+        document.getElementById(`listeningProgress${exercise}`).textContent = listeningProgress[exercise];
+        const progressPercent = (listeningProgress[exercise] / 6) * 100;
+        document.getElementById(`listeningProgressBar${exercise}`).style.width = progressPercent + '%';
+    }
+    
+    initializeDragAndDrop();
+}
+
+// Reset Entire Listening Exercise
+function resetListeningExercise(exercise) {
+    for (let i = 1; i <= 6; i++) {
+        resetListeningSentence(exercise, i);
+    }
+}
+    </script>
+</body>
+</html>
