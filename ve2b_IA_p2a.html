@@ -7,46 +7,81 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
+            margin: 0;
+            padding: 0;
         }
         .card {
-            border: 2px solid #000;
-            padding: 20px;
+            border: 1px solid #000;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 10px;
+            box-sizing: border-box;
             position: relative;
         }
         h1 {
-            font-size: 1.3em;
+            font-size: 1.2em;
             text-align: center;
-            margin-top: 0;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 20px;
         }
         .highlight {
             background-color: #ffff00;
             cursor: pointer;
-            padding: 2px;
+            padding: 0 2px;
         }
         .highlight:hover {
             background-color: #ffdb58;
         }
-        .suggestion-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            margin-bottom: 20px;
+        .suggestions {
+            font-style: italic;
+            text-decoration: underline;
+            margin-bottom: 5px;
+        }
+        .preferences {
+            font-style: italic;
+            text-decoration: underline;
+            margin-bottom: 5px;
+        }
+        p {
+            margin: 8px 0;
+            line-height: 1.4;
         }
         .special-offer {
             margin-top: 30px;
             font-weight: bold;
+            text-decoration: underline;
         }
         .lightbulb {
             font-size: 1.5em;
-            margin-right: 10px;
+            margin-right: 5px;
+            display: inline-block;
+            vertical-align: middle;
         }
-        .audio-control {
+        .suggestion-prompt {
+            font-style: italic;
+        }
+        .status-indicator {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
             display: none;
+            z-index: 1000;
+        }
+        .two-column {
+            display: flex;
+        }
+        .column-left {
+            width: 50%;
+            padding-right: 10px;
+        }
+        .column-right {
+            width: 50%;
         }
     </style>
 </head>
@@ -54,84 +89,106 @@
     <div class="card">
         <h1>Promoting the new mobile game</h1>
 
-        <div class="suggestion-grid">
-            <div>
-                <strong>Suggestions:</strong>
-                <p>1. Free <span class="highlight" onclick="playAudio('game')">game</span> <span class="highlight" onclick="playAudio('demo')">demo</span></p>
-                <p>2. <span class="highlight" onclick="playAudio('online')">Online</span> <span class="highlight" onclick="playAudio('promotion')">promotion</span> <span class="highlight" onclick="playAudio('event')">event</span></p>
-                <p>3. 1-month <span class="highlight" onclick="playAudio('game')">game</span> <span class="highlight" onclick="playAudio('trial')">trial</span></p>
-                <p>4. <span class="highlight" onclick="playAudio('lucky')">Lucky</span> <span class="highlight" onclick="playAudio('draw')">draw</span></p>
+        <div class="two-column">
+            <div class="column-left">
+                <div class="suggestions">Suggestions:</div>
+                
+                <p>1. Free <span class="highlight" onclick="speak('game')">game</span> <span class="highlight" onclick="speak('demo')">demo</span></p>
+                
+                <p>2. <span class="highlight" onclick="speak('online')">Online</span> <span class="highlight" onclick="speak('promotion')">promotion</span> <span class="highlight" onclick="speak('event')">event</span></p>
+                
+                <p>3. 1-month <span class="highlight" onclick="speak('game')">game</span> <span class="highlight" onclick="speak('trial')">trial</span></p>
+                
+                <p>4. <span class="highlight" onclick="speak('lucky')">Lucky</span> <span class="highlight" onclick="speak('draw')">draw</span></p>
             </div>
-            <div>
-                <strong>My Preferences:</strong>
-                <p>× → <span class="highlight" onclick="playAudio('show')">show</span> <span class="highlight" onclick="playAudio('limited')">limited</span> <span class="highlight" onclick="playAudio('features')">features</span></p>
-                <p>✓ → <span class="highlight" onclick="playAudio('easy')">easy</span> to <span class="highlight" onclick="playAudio('reach')">reach</span> <span class="highlight" onclick="playAudio('young')">young</span> <span class="highlight" onclick="playAudio('audience')">audience</span></p>
-                <p>✓/× → <span class="highlight" onclick="playAudio('reduce')">reduce</span> <span class="highlight" onclick="playAudio('profit')">profit</span> BUT <span class="highlight" onclick="playAudio('increase')">increase</span> <span class="highlight" onclick="playAudio('download')">download</span> <span class="highlight" onclick="playAudio('rate')">rate</span></p>
-                <p>✓ → <span class="highlight" onclick="playAudio('affordable')">affordable</span> and <span class="highlight" onclick="playAudio('common')">common</span></p>
+            
+            <div class="column-right">
+                <div class="preferences">My Preferences:</div>
+                
+                <p>× → <span class="highlight" onclick="speak('show')">show</span> <span class="highlight" onclick="speak('limited')">limited</span> <span class="highlight" onclick="speak('features')">features</span></p>
+                
+                <p>✓ → <span class="highlight" onclick="speak('easy')">easy</span> to <span class="highlight" onclick="speak('reach')">reach</span> <span class="highlight" onclick="speak('young')">young</span> <span class="highlight" onclick="speak('audience')">audience</span></p>
+                
+                <p>✓/× → <span class="highlight" onclick="speak('reduce')">reduce</span> <span class="highlight" onclick="speak('profit')">profit</span> BUT <span class="highlight" onclick="speak('increase')">increase</span> <span class="highlight" onclick="speak('download')">download</span> <span class="highlight" onclick="speak('rate')">rate</span></p>
+                
+                <p>✓ → <span class="highlight" onclick="speak('affordable')">affordable</span> and <span class="highlight" onclick="speak('common')">common</span></p>
             </div>
         </div>
 
         <div class="special-offer">
             <p>Special Offer to New Gamers:</p>
-            <p><span class="lightbulb">💡</span> Any suggestion? Any reason?</p>
+            <p><span class="lightbulb">💡</span><span class="suggestion-prompt">Any suggestion? Any reason?</span></p>
         </div>
     </div>
 
-    <audio id="audioPlayer" class="audio-control" controls></audio>
+    <div id="statusIndicator" class="status-indicator">Playing...</div>
 
     <script>
-        // Dictionary of words and their audio file paths
-        const audioPaths = {
-            'game': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/game--_gb_1.mp3',
-            'demo': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/demo--_gb_1.mp3',
-            'online': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/online--_gb_1.mp3',
-            'promotion': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/promotion--_gb_1.mp3',
-            'event': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/event--_gb_1.mp3',
-            'trial': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/trial--_gb_1.mp3',
-            'lucky': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/lucky--_gb_1.mp3',
-            'draw': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/draw--_gb_1.mp3',
-            'show': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/show--_gb_1.mp3',
-            'limited': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/limited--_gb_1.mp3',
-            'features': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/features--_gb_1.mp3',
-            'easy': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/easy--_gb_1.mp3',
-            'reach': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/reach--_gb_1.mp3',
-            'young': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/young--_gb_1.mp3',
-            'audience': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/audience--_gb_1.mp3',
-            'reduce': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/reduce--_gb_1.mp3',
-            'profit': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/profit--_gb_1.mp3',
-            'increase': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/increase--_gb_1.mp3',
-            'download': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/download--_gb_1.mp3',
-            'rate': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/rate--_gb_1.mp3',
-            'affordable': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/affordable--_gb_1.mp3',
-            'common': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/common--_gb_1.mp3'
-        };
-
-        function playAudio(word) {
-            const audioPlayer = document.getElementById('audioPlayer');
-            
-            // Set the audio source
-            if (audioPaths[word]) {
-                audioPlayer.src = audioPaths[word];
-                audioPlayer.style.display = 'block';
-                
-                // Play the audio
-                audioPlayer.play()
-                    .then(() => {
-                        console.log(`Playing: ${word}`);
-                    })
-                    .catch(error => {
-                        console.error(`Error playing audio for ${word}:`, error);
-                        alert(`Unable to play pronunciation for "${word}". Your device may block autoplay.`);
-                    });
-            } else {
-                console.error(`No audio path defined for: ${word}`);
-            }
+        // Initialize speech synthesis
+        let synth = window.speechSynthesis;
+        let voices = [];
+        
+        // Load voices when they're available
+        function loadVoices() {
+            voices = synth.getVoices();
         }
-
-        // Add event listener to hide audio player when finished
-        document.getElementById('audioPlayer').addEventListener('ended', function() {
-            this.style.display = 'none';
-        });
+        
+        if (synth.onvoiceschanged !== undefined) {
+            synth.onvoiceschanged = loadVoices;
+        }
+        
+        // Load voices immediately as well (for browsers that don't fire the event)
+        loadVoices();
+        
+        // Function to speak the word
+        function speak(word) {
+            // Cancel any ongoing speech
+            synth.cancel();
+            
+            // Create new utterance
+            let utterance = new SpeechSynthesisUtterance(word);
+            
+            // Set language to British English
+            utterance.lang = 'en-GB';
+            
+            // Try to find a British English voice
+            let voice = voices.find(v => v.lang.includes('en-GB'));
+            if (voice) {
+                utterance.voice = voice;
+            }
+            
+            // Set properties for clear pronunciation
+            utterance.rate = 0.9;  // slightly slower
+            utterance.pitch = 1;
+            
+            // Show status indicator
+            const statusIndicator = document.getElementById('statusIndicator');
+            statusIndicator.textContent = `Playing: ${word}`;
+            statusIndicator.style.display = 'block';
+            
+            // Hide status indicator when done speaking
+            utterance.onend = function() {
+                statusIndicator.style.display = 'none';
+            };
+            
+            // Handle errors
+            utterance.onerror = function() {
+                statusIndicator.textContent = 'Error playing pronunciation';
+                setTimeout(() => {
+                    statusIndicator.style.display = 'none';
+                }, 2000);
+            };
+            
+            // Speak the word
+            synth.speak(utterance);
+        }
+        
+        // Force voice loading after a short delay
+        setTimeout(() => {
+            if (voices.length === 0) {
+                loadVoices();
+            }
+        }, 1000);
     </script>
 </body>
 </html>
