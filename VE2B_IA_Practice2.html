@@ -10,41 +10,64 @@
             margin: 0;
             padding: 0;
             background-color: #f5f5f5;
+            font-size: 14px;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
         }
         h1 {
             color: #333;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            font-size: 24px;
         }
         .button-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 40px;
+            gap: 15px;
+            margin-bottom: 25px;
         }
         .role-button {
-            padding: 15px 30px;
-            background-color: #4285F4;
+            padding: 12px 24px;
             color: white;
-            font-size: 18px;
+            font-size: 16px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        .role-button:hover {
+        /* Different colors for each student button */
+        .role-button:nth-child(1) {
+            background-color: #4285F4;
+        }
+        .role-button:nth-child(1):hover {
             background-color: #3367D6;
+        }
+        .role-button:nth-child(2) {
+            background-color: #EA4335;
+        }
+        .role-button:nth-child(2):hover {
+            background-color: #C62828;
+        }
+        .role-button:nth-child(3) {
+            background-color: #34A853;
+        }
+        .role-button:nth-child(3):hover {
+            background-color: #2E7D32;
+        }
+        .role-button:nth-child(4) {
+            background-color: #FBBC05;
+        }
+        .role-button:nth-child(4):hover {
+            background-color: #F9A825;
         }
         .card {
             border: 1px solid #000;
-            margin: 20px auto;
-            padding: 15px;
+            margin: 15px auto;
+            padding: 12px;
             background-color: white;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             max-width: 600px;
@@ -55,24 +78,58 @@
             font-size: 18px;
             margin-bottom: 5px;
         }
+        /* Different colors for each student card header */
+        #student-a .card-header {
+            color: #4285F4;
+        }
+        #student-b .card-header {
+            color: #EA4335;
+        }
+        #student-c .card-header {
+            color: #34A853;
+        }
+        #student-d .card-header {
+            color: #FBBC05;
+        }
         .voice-section {
             border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
             text-align: left;
+        }
+        .situation-audio {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .play-situation-btn {
+            padding: 5px 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .play-situation-btn:hover {
+            background-color: #e0e0e0;
         }
         .card-content h2 {
             text-align: center;
-            font-size: 1.2em;
-            margin-top: 10px;
-            margin-bottom: 20px;
+            font-size: 16px;
+            margin-top: 8px;
+            margin-bottom: 12px;
         }
         .two-column {
             display: flex;
         }
         .column-left {
             width: 50%;
-            padding-right: 10px;
+            padding-right: 8px;
             text-align: left;
         }
         .column-right {
@@ -91,45 +148,51 @@
             font-style: italic;
             text-decoration: underline;
             margin-bottom: 5px;
+            font-size: 13px;
         }
         .preferences {
             font-style: italic;
             text-decoration: underline;
             margin-bottom: 5px;
+            font-size: 13px;
         }
         p {
-            margin: 8px 0;
-            line-height: 1.4;
+            margin: 6px 0;
+            line-height: 1.3;
+            font-size: 13px;
         }
         .special-offer {
-            margin-top: 30px;
+            margin-top: 20px;
             font-weight: bold;
             text-decoration: underline;
             text-align: left;
         }
         .lightbulb {
-            font-size: 1.5em;
+            font-size: 16px;
             margin-right: 5px;
             display: inline-block;
             vertical-align: middle;
         }
         .suggestion-prompt {
             font-style: italic;
+            font-size: 12px;
         }
         .instructions {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: left;
-            line-height: 1.5;
+            line-height: 1.4;
+            font-size: 13px;
         }
         .back-button {
             display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
+            margin-top: 15px;
+            padding: 8px 16px;
             background-color: #757575;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 13px;
         }
         .back-button:hover {
             background-color: #616161;
@@ -144,13 +207,14 @@
             border-radius: 5px;
             display: none;
             z-index: 1000;
+            font-size: 12px;
         }
         .voice-selector {
-            padding: 5px;
+            padding: 4px;
             border-radius: 4px;
             border: 1px solid #ccc;
-            font-size: 14px;
-            margin-left: 10px;
+            font-size: 13px;
+            margin-left: 8px;
             width: 240px;
         }
         .voice-container {
@@ -159,13 +223,16 @@
             margin-top: 5px;
         }
         .voice-label {
-            font-size: 14px;
+            font-size: 13px;
             margin-right: 5px;
             font-weight: normal;
         }
         
         /* Mobile-specific adjustments */
         @media (max-width: 600px) {
+            body {
+                font-size: 13px;
+            }
             .two-column {
                 flex-direction: column;
             }
@@ -174,14 +241,14 @@
                 padding-right: 0;
             }
             .column-left {
-                margin-bottom: 20px;
+                margin-bottom: 12px;
             }
             .highlight {
                 padding: 2px 4px;  /* Larger tap target for mobile */
             }
             .card {
-                padding: 10px;
-                margin: 10px;
+                padding: 8px;
+                margin: 8px;
             }
             .voice-container {
                 flex-direction: column;
@@ -189,10 +256,26 @@
             }
             .voice-selector {
                 width: 100%;
-                padding: 8px;
-                font-size: 16px;  /* Larger for mobile */
+                padding: 6px;
+                font-size: 14px;  /* Larger for mobile */
                 margin-left: 0;
                 margin-top: 5px;
+            }
+            p {
+                margin: 4px 0;
+                font-size: 12px;
+            }
+            .suggestions, .preferences {
+                font-size: 12px;
+            }
+            .instructions {
+                font-size: 12px;
+            }
+            .card-content h2 {
+                font-size: 14px;
+            }
+            .special-offer p {
+                font-size: 12px;
             }
         }
 
@@ -209,16 +292,18 @@
             z-index: 999;
             display: none;
             max-width: 300px;
+            font-size: 12px;
         }
         .test-button {
             display: block;
             width: 100%;
             margin: 5px 0;
-            padding: 8px;
+            padding: 6px;
             background-color: #f0f0f0;
             border: 1px solid #ddd;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 12px;
         }
         .test-button:hover {
             background-color: #e0e0e0;
@@ -228,7 +313,7 @@
             top: 5px;
             right: 5px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -252,6 +337,11 @@
                 <span class="voice-label">Select voice for pronunciation:</span>
                 <select id="voice-selector-a" class="voice-selector" onchange="saveVoicePreference()"></select>
             </div>
+            <div class="situation-audio">
+                <button class="play-situation-btn" onclick="speakSituation()">
+                    <span>&#9658;</span> Play Situation
+                </button>
+            </div>
         </div>
         <div class="instructions">
             <p>You work in First Tech Games. Your team is planning to promote the new mobile game.</p>
@@ -276,13 +366,13 @@
                 <div class="column-right">
                     <div class="preferences">My Preferences:</div>
                     
-                    <p>× → <span class="highlight" onclick="speak('show')">show</span> <span class="highlight" onclick="speak('limited')">limited</span> <span class="highlight" onclick="speak('features')">features</span></p>
+                    <p>× <span class="highlight" onclick="speak('show')">show</span> <span class="highlight" onclick="speak('limited')">limited</span> <span class="highlight" onclick="speak('features')">features</span></p>
                     
-                    <p>✓ → <span class="highlight" onclick="speak('easy')">easy</span> to <span class="highlight" onclick="speak('reach')">reach</span> <span class="highlight" onclick="speak('young')">young</span> <span class="highlight" onclick="speak('audience')">audience</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('easy')">easy</span> to <span class="highlight" onclick="speak('reach')">reach</span> <span class="highlight" onclick="speak('young')">young</span> <span class="highlight" onclick="speak('audience')">audience</span></p>
                     
-                    <p>✓/× → <span class="highlight" onclick="speak('reduce')">reduce</span> <span class="highlight" onclick="speak('profit')">profit</span> BUT <span class="highlight" onclick="speak('increase')">increase</span> <span class="highlight" onclick="speak('download')">download</span> <span class="highlight" onclick="speak('rate')">rate</span></p>
+                    <p>×/✓ <span class="highlight" onclick="speak('reduce')">reduce</span> <span class="highlight" onclick="speak('profit')">profit</span> BUT <span class="highlight" onclick="speak('increase')">increase</span> <span class="highlight" onclick="speak('download')">download</span> <span class="highlight" onclick="speak('rate')">rate</span></p>
                     
-                    <p>✓ → <span class="highlight" onclick="speak('affordable')">affordable</span> and <span class="highlight" onclick="speak('common')">common</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('affordable')">affordable</span> and <span class="highlight" onclick="speak('common')">common</span></p>
                 </div>
             </div>
 
@@ -302,6 +392,11 @@
                 <span class="voice-label">Select voice for pronunciation:</span>
                 <select id="voice-selector-b" class="voice-selector" onchange="saveVoicePreference()"></select>
             </div>
+            <div class="situation-audio">
+                <button class="play-situation-btn" onclick="speakSituation()">
+                    <span>&#9658;</span> Play Situation
+                </button>
+            </div>
         </div>
         <div class="instructions">
             <p>You work in First Tech Games. Your team is planning to promote the new mobile game.</p>
@@ -326,13 +421,13 @@
                 <div class="column-right">
                     <div class="preferences">My Preferences:</div>
                     
-                    <p>✓/× → <span class="highlight" onclick="speak('practical')">practical</span> BUT <span class="highlight" onclick="speak('uncertain')">uncertain</span> <span class="highlight" onclick="speak('feedback')">feedback</span> from <span class="highlight" onclick="speak('gamers')">gamers</span></p>
+                    <p>✓/× <span class="highlight" onclick="speak('practical')">practical</span> BUT <span class="highlight" onclick="speak('uncertain')">uncertain</span> <span class="highlight" onclick="speak('feedback')">feedback</span> from <span class="highlight" onclick="speak('gamers')">gamers</span></p>
                     
-                    <p>✓ → <span class="highlight" onclick="speak('interactive')">interactive</span> and <span class="highlight" onclick="speak('fun')">fun</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('interactive')">interactive</span> and <span class="highlight" onclick="speak('fun')">fun</span></p>
                     
-                    <p>✓ → <span class="highlight" onclick="speak('exciting')">exciting</span> and <span class="highlight" onclick="speak('engaging')">engaging</span> <span class="highlight" onclick="speak('experience')">experience</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('exciting')">exciting</span> and <span class="highlight" onclick="speak('engaging')">engaging</span> <span class="highlight" onclick="speak('experience')">experience</span></p>
                     
-                    <p>× → <span class="highlight" onclick="speak('create')">create</span> <span class="highlight" onclick="speak('short-term')">short-term</span> <span class="highlight" onclick="speak('attention')">attention</span> <span class="highlight" onclick="speak('only')">only</span></p>
+                    <p>× <span class="highlight" onclick="speak('create')">create</span> <span class="highlight" onclick="speak('short-term')">short-term</span> <span class="highlight" onclick="speak('attention')">attention</span> <span class="highlight" onclick="speak('only')">only</span></p>
                 </div>
             </div>
 
@@ -352,6 +447,11 @@
                 <span class="voice-label">Select voice for pronunciation:</span>
                 <select id="voice-selector-c" class="voice-selector" onchange="saveVoicePreference()"></select>
             </div>
+            <div class="situation-audio">
+                <button class="play-situation-btn" onclick="speakSituation()">
+                    <span>&#9658;</span> Play Situation
+                </button>
+            </div>
         </div>
         <div class="instructions">
             <p>You work in First Tech Games. Your team is planning to promote the new mobile game.</p>
@@ -376,13 +476,13 @@
                 <div class="column-right">
                     <div class="preferences">My Preferences:</div>
                     
-                    <p>✓ → <span class="highlight" onclick="speak('encourage')">encourage</span> <span class="highlight" onclick="speak('sign-up')">sign-up</span> <span class="highlight" onclick="speak('quickly')">quickly</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('encourage')">encourage</span> <span class="highlight" onclick="speak('sign-up')">sign-up</span> <span class="highlight" onclick="speak('quickly')">quickly</span></p>
                     
-                    <p>× → <span class="highlight" onclick="speak('negative')">negative</span> and <span class="highlight" onclick="speak('unreliable')">unreliable</span> <span class="highlight" onclick="speak('comments')">comments</span></p>
+                    <p>× <span class="highlight" onclick="speak('negative')">negative</span> and <span class="highlight" onclick="speak('unreliable')">unreliable</span> <span class="highlight" onclick="speak('comments')">comments</span></p>
                     
-                    <p>× → <span class="highlight" onclick="speak('only')">only</span> <span class="highlight" onclick="speak('attract')">attract</span> <span class="highlight" onclick="speak('gamers')">gamers</span> who want free <span class="highlight" onclick="speak('games')">games</span></p>
+                    <p>× <span class="highlight" onclick="speak('only')">only</span> <span class="highlight" onclick="speak('attract')">attract</span> <span class="highlight" onclick="speak('gamers')">gamers</span> who want free <span class="highlight" onclick="speak('games')">games</span></p>
                     
-                    <p>✓/× → <span class="highlight" onclick="speak('limited')">limited</span> <span class="highlight" onclick="speak('impact')">impact</span> BUT <span class="highlight" onclick="speak('gain')">gain</span> <span class="highlight" onclick="speak('immediate')">immediate</span> <span class="highlight" onclick="speak('attention')">attention</span></p>
+                    <p>×/✓ <span class="highlight" onclick="speak('limited')">limited</span> <span class="highlight" onclick="speak('impact')">impact</span> BUT <span class="highlight" onclick="speak('gain')">gain</span> <span class="highlight" onclick="speak('immediate')">immediate</span> <span class="highlight" onclick="speak('attention')">attention</span></p>
                 </div>
             </div>
 
@@ -402,6 +502,11 @@
                 <span class="voice-label">Select voice for pronunciation:</span>
                 <select id="voice-selector-d" class="voice-selector" onchange="saveVoicePreference()"></select>
             </div>
+            <div class="situation-audio">
+                <button class="play-situation-btn" onclick="speakSituation()">
+                    <span>&#9658;</span> Play Situation
+                </button>
+            </div>
         </div>
         <div class="instructions">
             <p>You work in First Tech Games. Your team is planning to promote the new mobile game.</p>
@@ -426,13 +531,13 @@
                 <div class="column-right">
                     <div class="preferences">My Preferences:</div>
                     
-                    <p>✓ → <span class="highlight" onclick="speak('attract')">attract</span> <span class="highlight" onclick="speak('game')">game</span> <span class="highlight" onclick="speak('lovers')">lovers</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('attract')">attract</span> <span class="highlight" onclick="speak('game')">game</span> <span class="highlight" onclick="speak('lovers')">lovers</span></p>
                     
-                    <p>✓/× → <span class="highlight" onclick="speak('regular')">regular</span> <span class="highlight" onclick="speak('updates')">updates</span> <span class="highlight" onclick="speak('required')">required</span> BUT <span class="highlight" onclick="speak('effective')">effective</span></p>
+                    <p>×/✓ <span class="highlight" onclick="speak('regular')">regular</span> <span class="highlight" onclick="speak('updates')">updates</span> <span class="highlight" onclick="speak('required')">required</span> BUT <span class="highlight" onclick="speak('effective')">effective</span></p>
                     
-                    <p>✓ → <span class="highlight" onclick="speak('focused')">focused</span> <span class="highlight" onclick="speak('promotional')">promotional</span> <span class="highlight" onclick="speak('effect')">effect</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('focused')">focused</span> <span class="highlight" onclick="speak('promotional')">promotional</span> <span class="highlight" onclick="speak('effect')">effect</span></p>
                     
-                    <p>× → <span class="highlight" onclick="speak('difficult')">difficult</span> to <span class="highlight" onclick="speak('stand')">stand</span> <span class="highlight" onclick="speak('out')">out</span></p>
+                    <p>× <span class="highlight" onclick="speak('difficult')">difficult</span> to <span class="highlight" onclick="speak('stand')">stand</span> <span class="highlight" onclick="speak('out')">out</span></p>
                 </div>
             </div>
 
@@ -720,6 +825,66 @@
             };
             
             // Speak the word
+            synth.speak(utterance);
+        }
+        
+        // Function to speak the situation
+        function speakSituation() {
+            synth.cancel();
+            const statusIndicator = document.getElementById('statusIndicator');
+            statusIndicator.textContent = "Loading situation audio...";
+            statusIndicator.style.display = 'block';
+            
+            const situationText = "You work in First Tech Games. Your team is planning to promote a new mobile game. " +
+                                  "You and your colleagues are holding a discussion to agree on two strategies and one " +
+                                  "special offer to present to management. Use your role card notes to persuade " +
+                                  "your colleagues to agree with your ideas.";
+            
+            let utterance = new SpeechSynthesisUtterance(situationText);
+            
+            // Use the same voice as for words
+            const activeSelector = getActiveVoiceSelector();
+            let selectedVoiceURI = '';
+            
+            if (activeSelector && activeSelector.value) {
+                selectedVoiceURI = activeSelector.value;
+            } else {
+                selectedVoiceURI = localStorage.getItem('preferredVoiceURI');
+            }
+            
+            let selectedVoice = null;
+            if (selectedVoiceURI) {
+                selectedVoice = voices.find(v => v.voiceURI === selectedVoiceURI);
+            }
+            
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+                utterance.lang = selectedVoice.lang;
+            } else {
+                utterance.lang = 'en-GB';
+            }
+            
+            // Slower rate for the situation text
+            utterance.rate = 0.8;
+            utterance.pitch = 1.0;
+            utterance.volume = 1.0;
+            
+            utterance.onstart = function() {
+                statusIndicator.textContent = "Playing situation description...";
+            };
+            
+            utterance.onend = function() {
+                statusIndicator.style.display = 'none';
+            };
+            
+            utterance.onerror = function(event) {
+                console.error('Speech synthesis error:', event);
+                statusIndicator.textContent = 'Error playing situation audio';
+                setTimeout(() => {
+                    statusIndicator.style.display = 'none';
+                }, 2000);
+            };
+            
             synth.speak(utterance);
         }
         
