@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Game Promotion Role Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .card {
+            border: 2px solid #000;
+            padding: 20px;
+            position: relative;
+        }
+        h1 {
+            font-size: 1.3em;
+            text-align: center;
+            margin-top: 0;
+        }
+        .highlight {
+            background-color: #ffff00;
+            cursor: pointer;
+            padding: 2px;
+        }
+        .highlight:hover {
+            background-color: #ffdb58;
+        }
+        .suggestion-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 20px;
+        }
+        .special-offer {
+            margin-top: 30px;
+            font-weight: bold;
+        }
+        .lightbulb {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Promoting the new mobile game</h1>
+
+        <div class="suggestion-grid">
+            <div>
+                <strong>Suggestions:</strong>
+                <p>1. Free <span class="highlight" onclick="playAudio('game')">game</span> <span class="highlight" onclick="playAudio('demo')">demo</span></p>
+                <p>2. <span class="highlight" onclick="playAudio('online')">Online</span> <span class="highlight" onclick="playAudio('promotion')">promotion</span> <span class="highlight" onclick="playAudio('event')">event</span></p>
+                <p>3. 1-month <span class="highlight" onclick="playAudio('game')">game</span> <span class="highlight" onclick="playAudio('trial')">trial</span></p>
+                <p>4. <span class="highlight" onclick="playAudio('lucky')">Lucky</span> <span class="highlight" onclick="playAudio('draw')">draw</span></p>
+            </div>
+            <div>
+                <strong>My Preferences:</strong>
+                <p>× → <span class="highlight" onclick="playAudio('show')">show</span> <span class="highlight" onclick="playAudio('limited')">limited</span> <span class="highlight" onclick="playAudio('features')">features</span></p>
+                <p>✓ → <span class="highlight" onclick="playAudio('easy')">easy</span> to <span class="highlight" onclick="playAudio('reach')">reach</span> <span class="highlight" onclick="playAudio('young')">young</span> <span class="highlight" onclick="playAudio('audience')">audience</span></p>
+                <p>✓/× → <span class="highlight" onclick="playAudio('reduce')">reduce</span> <span class="highlight" onclick="playAudio('profit')">profit</span> BUT <span class="highlight" onclick="playAudio('increase')">increase</span> <span class="highlight" onclick="playAudio('download')">download</span> <span class="highlight" onclick="playAudio('rate')">rate</span></p>
+                <p>✓ → <span class="highlight" onclick="playAudio('affordable')">affordable</span> and <span class="highlight" onclick="playAudio('common')">common</span></p>
+            </div>
+        </div>
+
+        <div class="special-offer">
+            <p>Special Offer to New Gamers:</p>
+            <p><span class="lightbulb">💡</span> Any suggestion? Any reason?</p>
+        </div>
+    </div>
+
+    <audio id="audioPlayer" class="audio-control" controls></audio>
+
+    <script>
+        // Dictionary of words and their audio file paths
+        const audioPaths = {
+            'game': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/game--_gb_1.mp3',
+            'demo': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/demo--_gb_1.mp3',
+            'online': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/online--_gb_1.mp3',
+            'promotion': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/promotion--_gb_1.mp3',
+            'event': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/event--_gb_1.mp3',
+            'trial': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/trial--_gb_1.mp3',
+            'lucky': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/lucky--_gb_1.mp3',
+            'draw': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/draw--_gb_1.mp3',
+            'show': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/show--_gb_1.mp3',
+            'limited': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/limited--_gb_1.mp3',
+            'features': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/features--_gb_1.mp3',
+            'easy': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/easy--_gb_1.mp3',
+            'reach': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/reach--_gb_1.mp3',
+            'young': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/young--_gb_1.mp3',
+            'audience': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/audience--_gb_1.mp3',
+            'reduce': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/reduce--_gb_1.mp3',
+            'profit': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/profit--_gb_1.mp3',
+            'increase': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/increase--_gb_1.mp3',
+            'download': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/download--_gb_1.mp3',
+            'rate': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/rate--_gb_1.mp3',
+            'affordable': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/affordable--_gb_1.mp3',
+            'common': 'https://ssl.gstatic.com/dictionary/static/sounds/20200429/common--_gb_1.mp3'
+        };
+
+        function playAudio(word) {
+            const audioPlayer = document.getElementById('audioPlayer');
+            
+            // Set the audio source
+            if (audioPaths[word]) {
+                audioPlayer.src = audioPaths[word];
+                audioPlayer.style.display = 'block';
+                
+                // Play the audio
+                audioPlayer.play()
+                    .then(() => {
+                        console.log(`Playing: ${word}`);
+                    })
+                    .catch(error => {
+                        console.error(`Error playing audio for ${word}:`, error);
+                        alert(`Unable to play pronunciation for "${word}". Your device may block autoplay.`);
+                    });
+            } else {
+                console.error(`No audio path defined for: ${word}`);
+            }
+        }
+
+        // Add event listener to hide audio player when finished
+        document.getElementById('audioPlayer').addEventListener('ended', function() {
+            this.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
