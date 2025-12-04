@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Pronunciation Patterns</title>
+    <style>
+        /* Main Styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .presentation-container {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Slide Styling */
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            padding: 2rem;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            transform: translateX(100%);
+            transition: transform 0.5s ease;
+            background-color: white;
+            overflow-y: auto;
+        }
+        
+        .slide.active {
+            transform: translateX(0);
+        }
+        
+        .slide-header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-top: 2rem;
+        }
+        
+        .slide-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .slide-subtitle {
+            font-size: 1.5rem;
+            color: #7f8c8d;
+        }
+        
+        .slide-content {
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Word Cards */
+        .word-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 200px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        
+        .word-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .word {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .phonetics {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .word-type {
+            font-size: 0.9rem;
+            color: #fff;
+            background-color: #3498db;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .play-button {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .play-button:hover {
+            background-color: #27ae60;
+        }
+        
+        /* Word Group Styling */
+        .pattern-highlight {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+        }
+        
+        /* Navigation Controls */
+        .nav-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            z-index: 10;
+        }
+        
+        .nav-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .nav-btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        
+        /* Pattern Group Colors */
+        .ly-pattern .pattern-highlight { background-color: #e74c3c; }
+        .tion-pattern .pattern-highlight { background-color: #3498db; }
+        .ive-pattern .pattern-highlight { background-color: #2ecc71; }
+        .ble-pattern .pattern-highlight { background-color: #f39c12; }
+        .al-pattern .pattern-highlight { background-color: #9b59b6; }
+        .ing-pattern .pattern-highlight { background-color: #1abc9c; }
+        .ed-pattern .pattern-highlight { background-color: #d35400; }
+        .er-pattern .pattern-highlight { background-color: #34495e; }
+        .ge-pattern .pattern-highlight { background-color: #16a085; }
+        .compound-pattern .pattern-highlight { background-color: #8e44ad; }
+        .silent-e-pattern .pattern-highlight { background-color: #c0392b; }
+        
+        /* Slide Indicators */
+        .slide-indicators {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            z-index: 10;
+        }
+        
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #bdc3c7;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .indicator.active {
+            background-color: #3498db;
+            transform: scale(1.2);
+        }
+        
+        /* Practice Section */
+        .practice-section {
+            margin-top: 1rem;
+            width: 90%;
+            max-width: 1000px;
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+        
+        .practice-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .practice-activity {
+            padding: 1rem;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        
+        /* Speech Controls */
+        .speech-controls {
+            position: fixed;
+            top: 50px;
+            right: 20px;
+            background-color: rgba(255,255,255,0.9);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        
+        .speech-controls select, .speech-controls button {
+            margin: 5px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        .play-sentence {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        
+        /* Speaking Animation */
+        @keyframes speaking {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .speaking {
+            animation: speaking 0.5s infinite;
+        }
+        
+        /* Intro Slide Patterns */
+        .pattern-box {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            width: 220px;
+            height: 130px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s;
+        }
+        
+        .pattern-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .pattern-box h3 {
+            margin: 0 0 8px 0;
+            color: white;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        
+        .pattern-box p {
+            margin: 0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .slide-content {
+                width: 100%;
+            }
+            
+            .word-card {
+                width: 90%;
+                max-width: 300px;
+            }
+            
+            .slide-title {
+                font-size: 2rem;
+            }
+            
+            .slide-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .speech-controls {
+                top: auto;
+                bottom: 80px;
+                right: 20px;
+            }
+            
+            .pattern-box {
+                width: 100%;
+                height: auto;
+                min-height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Speech Controls -->
+        <div class="speech-controls">
+            <select id="voice-select">
+                <option value="">Select Voice</option>
+                <!-- Will be populated by JavaScript -->
+            </select>
+            <button id="test-voice">Test Voice</button>
+        </div>
+        
+        <!-- Introduction Slide -->
+        <div class="slide active" id="intro-slide">
+            <div class="slide-header">
+                <h1 class="slide-title">English Pronunciation Patterns</h1>
+                <p class="slide-subtitle">Learning Word Endings and Sound Patterns</p>
+            </div>
+            <div class="slide-content">
+                <div style="text-align: center; max-width: 960px; margin-bottom: 20px;">
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                        In this lesson, we'll explore different pronunciation patterns in English words. 
+                        Understanding these patterns will help improve your speaking and listening skills.
+                    </p>
+                    
+                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
+                        <div class="pattern-box">
+                            <h3 style="background-color: #e74c3c;">1. -ly Endings</h3>
+                            <p>Pronounced /li/</p>
+                            <p><i>clearly, only, quickly, likely, costly</i></p>
+                        </div>
+                        
+                        <div class="pattern-box">
+                            <h3 style="background-color: #3498db;">2. -tion/-sion Endings</h3>
+                            <p>Pronounced /ʃən/</p>
+                            <p><i>attention, promotion, information</i></p>
+                        </div>
+                        
+                        <div class="pattern-box">
+                            <h3 style="background-color: #2ecc71;">3. -ive Endings</h3>
+                            <p>Pronounced /ɪv/</p>
+                            <p><i>positive, attractive, expensive</i></p>
+                        </div>
+                        
+                        <div class="pattern-box">
+                            <h3 style="background-color: #f39c12;">4. -ble Endings</h3>
+                            <p>Pronounced /bəl/</p>
+                            <p><i>reliable, affordable, unreliable</i></p>
+                        </div>
+                        
+                        <div class="pattern-box">
+                            <h3 style="background-color: #9b59b6;">5. -al Endings</h3>
+                            <p>Pronounced /əl/</p>
+                            <p><i>practical, economical, trial</i></p>
+                        </div>
+                        
+                        <div class="pattern-box">
+                            <h3 style="background-color: #1abc9c;">6. -ing Endings</h3>
+                            <p>Pronounced /ɪŋ/</p>
+                            <p><i>training, meeting, marketing</i></p>
+                        </div>
+                        
+                        <div class="pattern-box">
+                            <h3 style="background-color: #d35400;">7. -ed Endings</h3>
+                            <p>Pronounced /t/, /d/, or /ɪd/</p>
+                            <p><i>needed, required, focused</i></p>
+                        </div>
+                        
+                        <div class="pattern-box">
+                            <h3 style="background-color: #34495e;">8. -er/-or Endings</h3>
+                            <p>Pronounced /ə/ or /ər/</p>
+                            <p><i>member, visitor, customer</i></p>
+                        </div>
+                        
+                        <div class="pattern-box">
+                            <h3 style="background-color: #16a085;">9. -ge Endings</h3>
+                            <p>Pronounced /dʒ/</p>
+                            <p><i>manage, encourage, image</i></p>
+                        </div>
+                        
+                        <div class="pattern-box">
+                            <h3 style="background-color: #8e44ad;">10. Compound Words</h3>
+                            <p>Stress on first word</p>
+                            <p><i>feedback, workshop, outcome</i></p>
+                        </div>
+                        
+                        <div class="pattern-box">
+                            <h3 style="background-color: #c0392b;">11. Silent -e Endings</h3>
+                            <p>Final 'e' not pronounced</p>
+                            <p><i>promote, update, increase</i></p>
+                        </div>
+                    </div>
+                    
+                    <p style="font-size: 1.2rem; margin-top: 2rem;">
+                        Before starting, select a voice from the options in the top right corner.
+                        Click "Next" to begin exploring each pattern!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. -ly Ending Slide -->
+        <div class="slide" id="ly-slide">
+            <div class="slide-header">
+                <h1 class="slide-title">Words with -ly Ending</h1>
+                <p class="slide-subtitle">Pronounced /li/ - usually forms adverbs or adjectives</p>
+            </div>
+            <div class="slide-content">
+                <div class="word-card ly-pattern">
+                    <div class="word-type">Adverb</div>
+                    <div class="word">clear<span style="color:#e74c3c">ly</span></div>
+                    <div class="phonetics">/ˈklɪər.li/</div>
+                    <button class="play-button" data-word="clearly">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ly-pattern">
+                    <div class="word-type">Adverb</div>
+                    <div class="word">on<span style="color:#e74c3c">ly</span></div>
+                    <div class="phonetics">/ˈəʊn.li/</div>
+                    <button class="play-button" data-word="only">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ly-pattern">
+                    <div class="word-type">Adverb</div>
+                    <div class="word">quick<span style="color:#e74c3c">ly</span></div>
+                    <div class="phonetics">/ˈkwɪk.li/</div>
+                    <button class="play-button" data-word="quickly">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ly-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">like<span style="color:#e74c3c">ly</span></div>
+                    <div class="phonetics">/ˈlaɪk.li/</div>
+                    <button class="play-button" data-word="likely">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ly-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">cost<span style="color:#e74c3c">ly</span></div>
+                    <div class="phonetics">/ˈkɒst.li/</div>
+                    <button class="play-button" data-word="costly">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+            </div>
+            <div class="practice-section">
+                <h3 class="practice-title">Pronunciation Practice</h3>
+                <div class="practice-activity">
+                    <p><strong>Sentence Practice:</strong> The instructions were <u>clearly</u> explained, but we <u>only</u> understood them after reading them <u>quickly</u>. It seems <u>likely</u> that this mistake will be <u>costly</u>.</p>
+                    <button class="play-sentence" data-sentence="The instructions were clearly explained, but we only understood them after reading them quickly. It seems likely that this mistake will be costly.">Listen to Sentence</button>
+                    <p><strong>Tip:</strong> The -ly ending is always pronounced with a short /li/ sound, never reduced to /lə/.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. -tion/-sion Ending Slide -->
+        <div class="slide" id="tion-slide">
+            <div class="slide-header">
+                <h1 class="slide-title">Words with -tion/-sion Ending</h1>
+                <p class="slide-subtitle">Pronounced /ʃən/ - usually forms nouns</p>
+            </div>
+            <div class="slide-content">
+                <div class="word-card tion-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">atten<span style="color:#3498db">tion</span></div>
+                    <div class="phonetics">/əˈten.ʃən/</div>
+                    <button class="play-button" data-word="attention">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card tion-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">connec<span style="color:#3498db">tion</span></div>
+                    <div class="phonetics">/kəˈnek.ʃən/</div>
+                    <button class="play-button" data-word="connection">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card tion-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">informa<span style="color:#3498db">tion</span></div>
+                    <div class="phonetics">/ˌɪn.fəˈmeɪ.ʃən/</div>
+                    <button class="play-button" data-word="information">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card tion-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">interac<span style="color:#3498db">tion</span></div>
+                    <div class="phonetics">/ˌɪn.təˈræk.ʃən/</div>
+                    <button class="play-button" data-word="interaction">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card tion-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">prepara<span style="color:#3498db">tion</span></div>
+                    <div class="phonetics">/ˌprep.əˈreɪ.ʃən/</div>
+                    <button class="play-button" data-word="preparation">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card tion-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">promo<span style="color:#3498db">tion</span></div>
+                    <div class="phonetics">/prəˈməʊ.ʃən/</div>
+                    <button class="play-button" data-word="promotion">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+            </div>
+            <div class="practice-section">
+                <h3 class="practice-title">Pronunciation Practice</h3>
+                <div class="practice-activity">
+                    <p><strong>Sentence Practice:</strong> The <u>promotion</u> needed careful <u>preparation</u> and <u>attention</u> to detail. We shared <u>information</u> through our <u>connection</u> during the <u>interaction</u>.</p>
+                    <button class="play-sentence" data-sentence="The promotion needed careful preparation and attention to detail. We shared information through our connection during the interaction.">Listen to Sentence</button>
+                    <p><strong>Tip:</strong> The -tion/-sion ending is pronounced /ʃən/, not /ti:ɒn/ or /si:ɒn/. The stress usually falls on the syllable before the ending.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. -ive Ending Slide -->
+        <div class="slide" id="ive-slide">
+            <div class="slide-header">
+                <h1 class="slide-title">Words with -ive Ending</h1>
+                <p class="slide-subtitle">Pronounced /ɪv/ - usually forms adjectives</p>
+            </div>
+            <div class="slide-content">
+                <div class="word-card ive-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">attract<span style="color:#2ecc71">ive</span></div>
+                    <div class="phonetics">/əˈtræk.tɪv/</div>
+                    <button class="play-button" data-word="attractive">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ive-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">cost-effect<span style="color:#2ecc71">ive</span></div>
+                    <div class="phonetics">/ˌkɒst.ɪˈfek.tɪv/</div>
+                    <button class="play-button" data-word="cost-effective">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ive-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">expens<span style="color:#2ecc71">ive</span></div>
+                    <div class="phonetics">/ɪkˈspen.sɪv/</div>
+                    <button class="play-button" data-word="expensive">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ive-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">interact<span style="color:#2ecc71">ive</span></div>
+                    <div class="phonetics">/ˌɪn.təˈræk.tɪv/</div>
+                    <button class="play-button" data-word="interactive">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ive-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">negat<span style="color:#2ecc71">ive</span></div>
+                    <div class="phonetics">/ˈneg.ə.tɪv/</div>
+                    <button class="play-button" data-word="negative">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ive-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">posit<span style="color:#2ecc71">ive</span></div>
+                    <div class="phonetics">/ˈpɒz.ə.tɪv/</div>
+                    <button class="play-button" data-word="positive">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+            </div>
+            <div class="practice-section">
+                <h3 class="practice-title">Pronunciation Practice</h3>
+                <div class="practice-activity">
+                    <p><strong>Sentence Practice:</strong> The <u>attractive</u> and <u>interactive</u> website was <u>cost-effective</u> but not <u>expensive</u>. We received <u>positive</u>, not <u>negative</u> feedback.</p>
+                    <button class="play-sentence" data-sentence="The attractive and interactive website was cost-effective but not expensive. We received positive, not negative feedback.">Listen to Sentence</button>
+                    <p><strong>Tip:</strong> The -ive ending is always pronounced with a short /ɪv/ sound, with the vowel always short and unstressed.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. -ble Ending Slide -->
+        <div class="slide" id="ble-slide">
+            <div class="slide-header">
+                <h1 class="slide-title">Words with -ble Ending</h1>
+                <p class="slide-subtitle">Pronounced /bəl/ - usually forms adjectives</p>
+            </div>
+            <div class="slide-content">
+                <div class="word-card ble-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">afforda<span style="color:#f39c12">ble</span></div>
+                    <div class="phonetics">/əˈfɔːr.də.bəl/</div>
+                    <button class="play-button" data-word="affordable">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ble-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">relia<span style="color:#f39c12">ble</span></div>
+                    <div class="phonetics">/rɪˈlaɪ.ə.bəl/</div>
+                    <button class="play-button" data-word="reliable">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ble-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">unrelia<span style="color:#f39c12">ble</span></div>
+                    <div class="phonetics">/ˌʌn.rɪˈlaɪ.ə.bəl/</div>
+                    <button class="play-button" data-word="unreliable">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+            </div>
+            <div class="practice-section">
+                <h3 class="practice-title">Pronunciation Practice</h3>
+                <div class="practice-activity">
+                    <p><strong>Sentence Practice:</strong> The service was <u>affordable</u> but <u>unreliable</u>. We need a more <u>reliable</u> option for our business.</p>
+                    <button class="play-sentence" data-sentence="The service was affordable but unreliable. We need a more reliable option for our business.">Listen to Sentence</button>
+                    <p><strong>Tip:</strong> The -ble ending is pronounced with a schwa sound /bəl/, not /bl/ or /beɪl/.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. -al Ending Slide -->
+        <div class="slide" id="al-slide">
+            <div class="slide-header">
+                <h1 class="slide-title">Words with -al Ending</h1>
+                <p class="slide-subtitle">Pronounced /əl/ - forms adjectives and nouns</p>
+            </div>
+            <div class="slide-content">
+                <div class="word-card al-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">economic<span style="color:#9b59b6">al</span></div>
+                    <div class="phonetics">/ˌiː.kəˈnɒm.ɪ.kəl/</div>
+                    <button class="play-button" data-word="economical">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card al-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">practic<span style="color:#9b59b6">al</span></div>
+                    <div class="phonetics">/ˈpræk.tɪ.kəl/</div>
+                    <button class="play-button" data-word="practical">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card al-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">promotion<span style="color:#9b59b6">al</span></div>
+                    <div class="phonetics">/prəˈməʊ.ʃən.əl/</div>
+                    <button class="play-button" data-word="promotional">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card al-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">referr<span style="color:#9b59b6">al</span></div>
+                    <div class="phonetics">/rɪˈfɜː.rəl/</div>
+                    <button class="play-button" data-word="referral">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card al-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">tri<span style="color:#9b59b6">al</span></div>
+                    <div class="phonetics">/ˈtraɪ.əl/</div>
+                    <button class="play-button" data-word="trial">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+            </div>
+            <div class="practice-section">
+                <h3 class="practice-title">Pronunciation Practice</h3>
+                <div class="practice-activity">
+                    <p><strong>Sentence Practice:</strong> The <u>economical</u> and <u>practical</u> solution was highlighted in the <u>promotional</u> material. We received a <u>referral</u> for a free <u>trial</u>.</p>
+                    <button class="play-sentence" data-sentence="The economical and practical solution was highlighted in the promotional material. We received a referral for a free trial.">Listen to Sentence</button>
+                    <p><strong>Tip:</strong> The -al ending is pronounced with a schwa sound /əl/, never with a full /æl/ sound. The vowel is always reduced.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. -ing Ending Slide -->
+        <div class="slide" id="ing-slide">
+            <div class="slide-header">
+                <h1 class="slide-title">Words with -ing Ending</h1>
+                <p class="slide-subtitle">Pronounced /ɪŋ/ - forms present participles, gerunds, and nouns</p>
+            </div>
+            <div class="slide-content">
+                <!-- Adjectives -->
+                <div class="word-card ing-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">appeal<span style="color:#1abc9c">ing</span></div>
+                    <div class="phonetics">/əˈpiːl.ɪŋ/</div>
+                    <button class="play-button" data-word="appealing">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ing-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">bor<span style="color:#1abc9c">ing</span></div>
+                    <div class="phonetics">/ˈbɔːr.ɪŋ/</div>
+                    <button class="play-button" data-word="boring">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ing-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">engag<span style="color:#1abc9c">ing</span></div>
+                    <div class="phonetics">/ɪnˈɡeɪ.dʒɪŋ/</div>
+                    <button class="play-button" data-word="engaging">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ing-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">exist<span style="color:#1abc9c">ing</span></div>
+                    <div class="phonetics">/ɪɡˈzɪs.tɪŋ/</div>
+                    <button class="play-button" data-word="existing">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ing-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">eye-catch<span style="color:#1abc9c">ing</span></div>
+                    <div class="phonetics">/ˈaɪ.kætʃ.ɪŋ/</div>
+                    <button class="play-button" data-word="eye-catching">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ing-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">time-consum<span style="color:#1abc9c">ing</span></div>
+                    <div class="phonetics">/ˈtaɪm.kən.sjuː.mɪŋ/</div>
+                    <button class="play-button" data-word="time-consuming">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <!-- Nouns -->
+                <div class="word-card ing-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">book<span style="color:#1abc9c">ing</span></div>
+                    <div class="phonetics">/ˈbʊk.ɪŋ/</div>
+                    <button class="play-button" data-word="booking">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ing-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">market<span style="color:#1abc9c">ing</span></div>
+                    <div class="phonetics">/ˈmɑː.kɪ.tɪŋ/</div>
+                    <button class="play-button" data-word="marketing">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ing-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">meet<span style="color:#1abc9c">ing</span></div>
+                    <div class="phonetics">/ˈmiː.tɪŋ/</div>
+                    <button class="play-button" data-word="meeting">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ing-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">plann<span style="color:#1abc9c">ing</span></div>
+                    <div class="phonetics">/ˈplæn.ɪŋ/</div>
+                    <button class="play-button" data-word="planning">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ing-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">tast<span style="color:#1abc9c">ing</span></div>
+                    <div class="phonetics">/ˈteɪ.stɪŋ/</div>
+                    <button class="play-button" data-word="tasting">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ing-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">train<span style="color:#1abc9c">ing</span></div>
+                    <div class="phonetics">/ˈtreɪ.nɪŋ/</div>
+                    <button class="play-button" data-word="training">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ing-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">park<span style="color:#1abc9c">ing</span></div>
+                    <div class="phonetics">/ˈpɑː.kɪŋ/</div>
+                    <button class="play-button" data-word="parking">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ing-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">open<span style="color:#1abc9c">ing</span></div>
+                    <div class="phonetics">/ˈəʊ.pən.ɪŋ/</div>
+                    <button class="play-button" data-word="opening">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+            </div>
+            <div class="practice-section">
+                <h3 class="practice-title">Pronunciation Practice</h3>
+                <div class="practice-activity">
+                    <p><strong>Sentence Practice:</strong> The <u>appealing</u> but <u>time-consuming</u> <u>training</u> was more <u>engaging</u> than <u>boring</u>. We need <u>marketing</u> for the grand <u>opening</u> and <u>booking</u> for the <u>meeting</u>.</p>
+                    <button class="play-sentence" data-sentence="The appealing but time-consuming training was more engaging than boring. We need marketing for the grand opening and booking for the meeting.">Listen to Sentence</button>
+                    <p><strong>Tip:</strong> The -ing ending is pronounced /ɪŋ/ with the 'ng' sound as one unit. Don't add an extra /g/ sound after the /ŋ/. The nasal /ŋ/ sound is made in the back of the throat.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. -ed Ending Slide -->
+        <div class="slide" id="ed-slide">
+            <div class="slide-header">
+                <h1 class="slide-title">Words with -ed Ending</h1>
+                <p class="slide-subtitle">Pronounced /t/, /d/, or /ɪd/ - forms past tense and adjectives</p>
+            </div>
+            <div class="slide-content">
+                <div class="word-card ed-pattern">
+                    <div class="word-type">Verb</div>
+                    <div class="word">need<span style="color:#d35400">ed</span></div>
+                    <div class="phonetics">/ˈniː.dɪd/</div>
+                    <button class="play-button" data-word="needed">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ed-pattern">
+                    <div class="word-type">Verb</div>
+                    <div class="word">requir<span style="color:#d35400">ed</span></div>
+                    <div class="phonetics">/rɪˈkwaɪərd/</div>
+                    <button class="play-button" data-word="required">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ed-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">focus<span style="color:#d35400">ed</span></div>
+                    <div class="phonetics">/ˈfəʊ.kəst/</div>
+                    <button class="play-button" data-word="focused">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ed-pattern">
+                    <div class="word-type">Adjective</div>
+                    <div class="word">limit<span style="color:#d35400">ed</span></div>
+                    <div class="phonetics">/ˈlɪm.ɪ.tɪd/</div>
+                    <button class="play-button" data-word="limited">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+            </div>
+            <div class="practice-section">
+                <h3 class="practice-title">Pronunciation Practice</h3>
+                <div class="practice-activity">
+                    <p><strong>The Three Pronunciations of -ed:</strong></p>
+                    <ol>
+                        <li><strong>/t/ sound</strong> - after voiceless consonants (p, k, s, f, sh, ch, th): "focus<u>ed</u>" /fəʊkəst/</li>
+                        <li><strong>/d/ sound</strong> - after voiced consonants (b, g, v, z, l, m, n, r) and vowels: "requir<u>ed</u>" /rɪkwaɪərd/</li>
+                        <li><strong>/ɪd/ sound</strong> - after t or d sounds: "need<u>ed</u>" /niːdɪd/, "limit<u>ed</u>" /lɪmɪtɪd/</li>
+                    </ol>
+                    <p><strong>Sentence Practice:</strong> We <u>needed</u> and <u>required</u> a <u>focused</u> plan with <u>limited</u> resources.</p>
+                    <button class="play-sentence" data-sentence="We needed and required a focused plan with limited resources.">Listen to Sentence</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. -er/-or Ending Slide -->
+        <div class="slide" id="er-slide">
+            <div class="slide-header">
+                <h1 class="slide-title">Words with -er/-or Ending</h1>
+                <p class="slide-subtitle">Pronounced /ə/ or /ər/ - usually denotes a person who performs an action</p>
+            </div>
+            <div class="slide-content">
+                <div class="word-card er-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">gam<span style="color:#d3540">er</span></div>
+                    <div class="phonetics">/ˈɡeɪ.mər/</div>
+                    <button class="play-button" data-word="gamer">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card er-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">custom<span style="color:#d3540">er</span></div>
+                    <div class="phonetics">/ˈkʌs.tə.mər/</div>
+                    <button class="play-button" data-word="customer">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card er-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">memb<span style="color:#d3540">er</span></div>
+                    <div class="phonetics">/ˈmem.bər/</div>
+                    <button class="play-button" data-word="member">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card er-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">visit<span style="color:#d3540">or</span></div>
+                    <div class="phonetics">/ˈvɪz.ɪ.tər/</div>
+                    <button class="play-button" data-word="visitor">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+            </div>
+            <div class="practice-section">
+                <h3 class="practice-title">Pronunciation Practice</h3>
+                <div class="practice-activity">
+                    <p><strong>Sentence Practice:</strong> The <u>gamer</u> became a regular <u>customer</u> and <u>member</u> of the club. Every <u>visitor</u> receives a welcome package.</p>
+                    <button class="play-sentence" data-sentence="The gamer became a regular customer and member of the club. Every visitor receives a welcome package.">Listen to Sentence</button>
+                    <p><strong>Tip:</strong> The -er/-or ending is usually pronounced with the schwa sound /ə/ in British English and /ər/ in American English. The syllable stress typically falls on an earlier syllable in the word.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. -ge Ending Slide -->
+        <div class="slide" id="ge-slide">
+            <div class="slide-header">
+                <h1 class="slide-title">Words with -ge Ending</h1>
+                <p class="slide-subtitle">Pronounced /dʒ/ - forms verbs and nouns</p>
+            </div>
+            <div class="slide-content">
+                <div class="word-card ge-pattern">
+                    <div class="word-type">Verb</div>
+                    <div class="word">encoura<span style="color:#16a085">ge</span></div>
+                    <div class="phonetics">/ɪnˈkʌr.ɪdʒ/</div>
+                    <button class="play-button" data-word="encourage">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ge-pattern">
+                    <div class="word-type">Verb</div>
+                    <div class="word">enga<span style="color:#16a085">ge</span></div>
+                    <div class="phonetics">/ɪnˈɡeɪdʒ/</div>
+                    <button class="play-button" data-word="engage">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ge-pattern">
+                    <div class="word-type">Verb</div>
+                    <div class="word">mana<span style="color:#16a085">ge</span></div>
+                    <div class="phonetics">/ˈmæn.ɪdʒ/</div>
+                    <button class="play-button" data-word="manage">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ge-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">covera<span style="color:#16a085">ge</span></div>
+                    <div class="phonetics">/ˈkʌv.ər.ɪdʒ/</div>
+                    <button class="play-button" data-word="coverage">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card ge-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">ima<span style="color:#16a085">ge</span></div>
+                    <div class="phonetics">/ˈɪm.ɪdʒ/</div>
+                    <button class="play-button" data-word="image">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+            </div>
+            <div class="practice-section">
+                <h3 class="practice-title">Pronunciation Practice</h3>
+                <div class="practice-activity">
+                    <p><strong>Sentence Practice:</strong> We <u>encourage</u> you to <u>engage</u> with customers and <u>manage</u> the project effectively. Our <u>coverage</u> will help improve the company <u>image</u>.</p>
+                    <button class="play-sentence" data-sentence="We encourage you to engage with customers and manage the project effectively. Our coverage will help improve the company image.">Listen to Sentence</button>
+                    <p><strong>Tip:</strong> The -ge ending is always pronounced /dʒ/, like the 'j' sound in "jump." It's never pronounced with a hard 'g' like in "go."</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10. Compound Words Slide -->
+        <div class="slide" id="compound-slide">
+            <div class="slide-header">
+                <h1 class="slide-title">Compound Words</h1>
+                <p class="slide-subtitle">Words formed by combining two or more words</p>
+            </div>
+            <div class="slide-content">
+                <div class="word-card compound-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word"><span style="color:#8e44ad">every</span>one</div>
+                    <div class="phonetics">/ˈev.ri.wʌn/</div>
+                    <button class="play-button" data-word="everyone">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card compound-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word"><span style="color:#8e44ad">out</span>come</div>
+                    <div class="phonetics">/ˈaʊt.kʌm/</div>
+                    <button class="play-button" data-word="outcome">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card compound-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word"><span style="color:#8e44ad">work</span>shop</div>
+                    <div class="phonetics">/ˈwɜːk.ʃɒp/</div>
+                    <button class="play-button" data-word="workshop">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card compound-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word"><span style="color:#8e44ad">man</span>power</div>
+                    <div class="phonetics">/ˈmæn.paʊər/</div>
+                    <button class="play-button" data-word="manpower">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card compound-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word"><span style="color:#8e44ad">feed</span>back</div>
+                    <div class="phonetics">/ˈfiːd.bæk/</div>
+                    <button class="play-button" data-word="feedback">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+            </div>
+            <div class="practice-section">
+                <h3 class="practice-title">Pronunciation Practice</h3>
+                <div class="practice-activity">
+                    <p><strong>Stress in Compound Words:</strong> In most compound nouns, the stress is on the first word.</p>
+                    <p><strong>Sentence Practice:</strong> <u>Everyone</u> attended the <u>workshop</u> to discuss the <u>outcome</u> of the project. We need more <u>manpower</u> and better <u>feedback</u>.</p>
+                    <button class="play-sentence" data-sentence="Everyone attended the workshop to discuss the outcome of the project. We need more manpower and better feedback.">Listen to Sentence</button>
+                    <p><strong>Tip:</strong> When pronouncing compound words, make sure to emphasize the stressed syllable, usually in the first word of the compound.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 11. Silent -e Ending Slide -->
+        <div class="slide" id="silent-e-slide">
+            <div class="slide-header">
+                <h1 class="slide-title">Words with Silent -e Ending</h1>
+                <p class="slide-subtitle">The 'e' at the end is not pronounced but affects the preceding vowel sound</p>
+            </div>
+            <div class="slide-content">
+                <!-- Verbs -->
+                <div class="word-card silent-e-pattern">
+                    <div class="word-type">Verb</div>
+                    <div class="word">increas<span style="color:#c0392b">e</span></div>
+                    <div class="phonetics">/ɪnˈkriːs/</div>
+                    <button class="play-button" data-word="increase">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card silent-e-pattern">
+                    <div class="word-type">Verb</div>
+                    <div class="word">manag<span style="color:#c0392b">e</span></div>
+                    <div class="phonetics">/ˈmæn.ɪdʒ/</div>
+                    <button class="play-button" data-word="manage">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card silent-e-pattern">
+                    <div class="word-type">Verb</div>
+                    <div class="word">promot<span style="color:#c0392b">e</span></div>
+                    <div class="phonetics">/prəˈməʊt/</div>
+                    <button class="play-button" data-word="promote">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card silent-e-pattern">
+                    <div class="word-type">Verb</div>
+                    <div class="word">updat<span style="color:#c0392b">e</span></div>
+                    <div class="phonetics">/ʌpˈdeɪt/</div>
+                    <button class="play-button" data-word="update">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card silent-e-pattern">
+                    <div class="word-type">Verb</div>
+                    <div class="word">hir<span style="color:#c0392b">e</span></div>
+                    <div class="phonetics">/haɪər/</div>
+                    <button class="play-button" data-word="hire">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card silent-e-pattern">
+                    <div class="word-type">Verb</div>
+                    <div class="word">encourag<span style="color:#c0392b">e</span></div>
+                    <div class="phonetics">/ɪnˈkʌr.ɪdʒ/</div>
+                    <button class="play-button" data-word="encourage">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card silent-e-pattern">
+                    <div class="word-type">Verb</div>
+                    <div class="word">engag<span style="color:#c0392b">e</span></div>
+                    <div class="phonetics">/ɪnˈɡeɪdʒ/</div>
+                    <button class="play-button" data-word="engage">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card silent-e-pattern">
+                    <div class="word-type">Verb</div>
+                    <div class="word">organis<span style="color:#c0392b">e</span></div>
+                    <div class="phonetics">/ˈɔː.ɡə.naɪz/</div>
+                    <button class="play-button" data-word="organise">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <!-- Nouns -->
+                <div class="word-card silent-e-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">imag<span style="color:#c0392b">e</span></div>
+                    <div class="phonetics">/ˈɪm.ɪdʒ/</div>
+                    <button class="play-button" data-word="image">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+                
+                <div class="word-card silent-e-pattern">
+                    <div class="word-type">Noun</div>
+                    <div class="word">rat<span style="color:#c0392b">e</span></div>
+                    <div class="phonetics">/reɪt/</div>
+                    <button class="play-button" data-word="rate">▶</button>
+                    <div class="pattern-highlight"></div>
+                </div>
+            </div>
+            <div class="practice-section">
+                <h3 class="practice-title">Pronunciation Practice</h3>
+                <div class="practice-activity">
+                    <p><strong>The Role of Silent -e:</strong> In many words, the final 'e' is not pronounced but serves to:</p>
+                    <ol>
+                        <li>Make the preceding vowel long (compare "rat" vs "rat<u>e</u>")</li>
+                        <li>Soften the preceding consonant (as with 'g' and 'c')</li>
+                        <li>Distinguish between words (like "us" vs "us<u>e</u>")</li>
+                    </ol>
+                    <p><strong>Sentence Practice:</strong> We need to <u>increase</u> and <u>update</u> the <u>rate</u> regularly. Let's <u>hire</u> experts to <u>manage</u> and <u>promote</u> the brand <u>image</u>.</p>
+                    <button class="play-sentence" data-sentence="We need to increase and update the rate regularly. Let's hire experts to manage and promote the brand image.">Listen to Sentence</button>
+                    <p><strong>Tip:</strong> Remember that the final 'e' is never pronounced, but it affects how the word sounds by changing other letters' pronunciation.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="nav-controls">
+            <button class="nav-btn" id="prev-btn" disabled>Previous</button>
+            <button class="nav-btn" id="next-btn">Next</button>
+        </div>
+        
+        <!-- Slide Indicators -->
+        <div class="slide-indicators" id="slide-indicators">
+            <!-- Will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Speech Synthesis Setup
+            const synth = window.speechSynthesis;
+            const voiceSelect = document.getElementById('voice-select');
+            const testVoiceBtn = document.getElementById('test-voice');
+            let voices = [];
+            
+            // Initialize voices
+            function populateVoiceList() {
+                voices = synth.getVoices();
+                voiceSelect.innerHTML = '<option value="">Select Voice</option>';
+                
+                // Filter for English voices
+                const englishVoices = voices.filter(voice => 
+                    voice.lang.includes('en') || voice.name.includes('English'));
+                
+                englishVoices.forEach(voice => {
+                    const option = document.createElement('option');
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    option.setAttribute('data-name', voice.name);
+                    voiceSelect.appendChild(option);
+                });
+                
+                // Set a default English voice if available
+                if (englishVoices.length > 0) {
+                    for (let i = 0; i < voiceSelect.options.length; i++) {
+                        if (voiceSelect.options[i].getAttribute('data-name') === englishVoices[0].name) {
+                            voiceSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            // Chrome needs a delay for getVoices()
+            if (synth.onvoiceschanged !== undefined) {
+                synth.onvoiceschanged = populateVoiceList;
+            } else {
+                populateVoiceList();
+                // Try again after a short delay for other browsers
+                setTimeout(populateVoiceList, 100);
+            }
+            
+            // Function to speak text with selected voice
+            function speak(text, rate = 0.9) {
+                // Cancel any ongoing speech
+                synth.cancel();
+                
+                if (synth.speaking) {
+                    console.log('Still speaking...');
+                    return;
+                }
+                
+                if (text) {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    
+                    // Set voice
+                    const selectedOption = voiceSelect.selectedOptions[0];
+                    if (selectedOption && selectedOption.getAttribute('data-name')) {
+                        const selectedName = selectedOption.getAttribute('data-name');
+                        for (let i = 0; i < voices.length; i++) {
+                            if (voices[i].name === selectedName) {
+                                utterance.voice = voices[i];
+                                break;
+                            }
+                        }
+                    }
+                    
+                    utterance.pitch = 1;
+                    utterance.rate = rate;
+                    utterance.volume = 1;
+                    
+                    // Add speaking visual indication for individual words
+                    const playButtons = document.querySelectorAll('.play-button');
+                    playButtons.forEach(btn => {
+                        if (btn.dataset.word === text) {
+                            btn.classList.add('speaking');
+                            utterance.onend = () => {
+                                btn.classList.remove('speaking');
+                            };
+                        }
+                    });
+                    
+                    synth.speak(utterance);
+                }
+            }
+            
+            // Test voice button
+            testVoiceBtn.addEventListener('click', () => {
+                speak('This is a test of the selected voice for English pronunciation practice.');
+            });
+            
+            // Get all slides
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const slideIndicators = document.getElementById('slide-indicators');
+            let currentSlideIndex = 0;
+            
+            // Create slide indicators
+            slides.forEach((_, index) => {
+                const indicator = document.createElement('div');
+                indicator.className = 'indicator';
+                if (index === 0) indicator.classList.add('active');
+                indicator.addEventListener('click', () => goToSlide(index));
+                slideIndicators.appendChild(indicator);
+            });
+            
+            // Function to show a specific slide
+            function goToSlide(index) {
+                // Cancel any ongoing speech when changing slides
+                synth.cancel();
+                
+                // Remove active class from current slide
+                slides[currentSlideIndex].classList.remove('active');
+                document.querySelectorAll('.indicator')[currentSlideIndex].classList.remove('active');
+                
+                // Update current slide index
+                currentSlideIndex = index;
+                
+                // Add active class to new current slide
+                slides[currentSlideIndex].classList.add('active');
+                document.querySelectorAll('.indicator')[currentSlideIndex].classList.add('active');
+                
+                // Update button states
+                prevBtn.disabled = currentSlideIndex === 0;
+                nextBtn.disabled = currentSlideIndex === slides.length - 1;
+                
+                // Reset any speaking animations
+                document.querySelectorAll('.speaking').forEach(el => {
+                    el.classList.remove('speaking');
+                });
+            }
+            
+            // Previous button click event
+            prevBtn.addEventListener('click', () => {
+                if (currentSlideIndex > 0) {
+                    goToSlide(currentSlideIndex - 1);
+                }
+            });
+            
+            // Next button click event
+            nextBtn.addEventListener('click', () => {
+                if (currentSlideIndex < slides.length - 1) {
+                    goToSlide(currentSlideIndex + 1);
+                }
+            });
+            
+            // Add keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft' && currentSlideIndex > 0) {
+                    goToSlide(currentSlideIndex - 1);
+                } else if (e.key === 'ArrowRight' && currentSlideIndex < slides.length - 1) {
+                    goToSlide(currentSlideIndex + 1);
+                }
+            });
+            
+            // Add audio play functionality using speech synthesis
+            const playButtons = document.querySelectorAll('.play-button');
+            playButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const word = button.dataset.word;
+                    speak(word);
+                });
+            });
+            
+            // Add sentence play functionality
+            const sentenceButtons = document.querySelectorAll('.play-sentence');
+            sentenceButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const sentence = button.dataset.sentence;
+                    speak(sentence, 0.8);  // Slightly slower for sentences
+                });
+            });
+            
+            // Add clicking on word cards to play the word
+            const wordCards = document.querySelectorAll('.word-card');
+            wordCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    // Don't trigger if clicking on the play button directly
+                    if (!e.target.classList.contains('play-button')) {
+                        const playBtn = card.querySelector('.play-button');
+                        if (playBtn && playBtn.dataset.word) {
+                            speak(playBtn.dataset.word);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
