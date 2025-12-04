@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine Promotion Role Cards</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            font-size: 14px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .role-button {
+            padding: 12px 24px;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        /* Different colors for each student button */
+        .role-button:nth-child(1) {
+            background-color: #722F37; /* Wine red for Student A */
+        }
+        .role-button:nth-child(1):hover {
+            background-color: #5a252c;
+        }
+        .role-button:nth-child(2) {
+            background-color: #8C271E; /* Burgundy for Student B */
+        }
+        .role-button:nth-child(2):hover {
+            background-color: #701e17;
+        }
+        .role-button:nth-child(3) {
+            background-color: #B38040; /* Golden for Student C */
+        }
+        .role-button:nth-child(3):hover {
+            background-color: #8f6633;
+        }
+        .role-button:nth-child(4) {
+            background-color: #2B3A67; /* Deep blue for Student D */
+        }
+        .role-button:nth-child(4):hover {
+            background-color: #222e52;
+        }
+        .card {
+            border: 1px solid #000;
+            margin: 15px auto;
+            padding: 12px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            max-width: 600px;
+            display: none;
+        }
+        .card-header {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        /* Different colors for each student card header */
+        #student-a .card-header {
+            color: #722F37;
+        }
+        #student-b .card-header {
+            color: #8C271E;
+        }
+        #student-c .card-header {
+            color: #B38040;
+        }
+        #student-d .card-header {
+            color: #2B3A67;
+        }
+        .voice-section {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .situation-audio {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .play-situation-btn {
+            padding: 5px 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .play-situation-btn:hover {
+            background-color: #e0e0e0;
+        }
+        .card-content h2 {
+            text-align: center;
+            font-size: 16px;
+            margin-top: 8px;
+            margin-bottom: 12px;
+        }
+        .two-column {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping for very small screens */
+        }
+        .column-left {
+            width: 50%;
+            min-width: 140px; /* Ensure minimum width for readability */
+            padding-right: 8px;
+            box-sizing: border-box; /* Include padding in width calculation */
+            text-align: left;
+        }
+        .column-right {
+            width: 50%;
+            min-width: 140px; /* Ensure minimum width for readability */
+            box-sizing: border-box;
+            text-align: left;
+        }
+        .highlight {
+            background-color: #ffff00;
+            cursor: pointer;
+            padding: 0 2px;
+        }
+        .highlight:hover {
+            background-color: #ffdb58;
+        }
+        .suggestions {
+            font-style: italic;
+            text-decoration: underline;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+        .preferences {
+            font-style: italic;
+            text-decoration: underline;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+        p {
+            margin: 6px 0;
+            line-height: 1.3;
+            font-size: 13px;
+        }
+        .special-offer {
+            margin-top: 20px;
+            font-weight: bold;
+            text-decoration: underline;
+            text-align: left;
+        }
+        .lightbulb {
+            font-size: 16px;
+            margin-right: 5px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .suggestion-prompt {
+            font-style: italic;
+            font-size: 12px;
+        }
+        .instructions {
+            margin-bottom: 15px;
+            text-align: left;
+            line-height: 1.4;
+            font-size: 13px;
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background-color: #757575;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .back-button:hover {
+            background-color: #616161;
+        }
+        .status-indicator {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+            font-size: 12px;
+        }
+        .voice-selector {
+            padding: 4px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 13px;
+            margin-left: 8px;
+            width: 240px;
+        }
+        .voice-container {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        .voice-label {
+            font-size: 13px;
+            margin-right: 5px;
+            font-weight: normal;
+        }
+        
+        /* Mobile-specific adjustments */
+        @media (max-width: 600px) {
+            body {
+                font-size: 13px;
+            }
+            .card {
+                padding: 8px;
+                margin: 8px;
+            }
+            .highlight {
+                padding: 2px 4px;  /* Larger tap target for mobile */
+            }
+            /* Keep the two-column layout but adjust spacing */
+            .column-left, .column-right {
+                padding: 0 4px; /* Smaller padding */
+            }
+            /* Adjust voice selector for mobile */
+            .voice-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .voice-selector {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 5px;
+            }
+            p {
+                margin: 4px 0;
+                font-size: 12px;
+            }
+            .suggestions, .preferences {
+                font-size: 12px;
+            }
+            .instructions {
+                font-size: 12px;
+            }
+        }
+        
+        /* For very small screens, ensure text remains readable */
+        @media (max-width: 340px) {
+            .two-column {
+                justify-content: space-between;
+            }
+            .column-left, .column-right {
+                min-width: 120px;
+                font-size: 11px;
+            }
+            p {
+                font-size: 11px;
+                word-break: break-word;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="landing-page">
+        <h1>IA Practice</h1>
+        <p>Select your role card:</p>
+        <div class="button-container">
+            <button class="role-button" onclick="showCard('student-a')">Student A</button>
+            <button class="role-button" onclick="showCard('student-b')">Student B</button>
+            <button class="role-button" onclick="showCard('student-c')">Student C</button>
+            <button class="role-button" onclick="showCard('student-d')">Student D</button>
+        </div>
+    </div>
+
+    <!-- Student A Card -->
+    <div id="student-a" class="card">
+        <div class="card-header">Student A</div>
+        <div class="voice-section">
+            <div class="voice-container">
+                <span class="voice-label">Select voice for pronunciation:</span>
+                <select id="voice-selector-a" class="voice-selector" onchange="saveVoicePreference()"></select>
+            </div>
+            <div class="situation-audio">
+                <button class="play-situation-btn" onclick="speakSituation()">
+                    <span>&#9658;</span> Play Situation
+                </button>
+            </div>
+        </div>
+        <div class="instructions">
+            <p>You work in East Vineyard. Your team is planning to promote a new wine collection.</p>
+            <p>You and your colleagues hold a discussion. Your aim is to agree on two strategies and one special offer to be given to the management.</p>
+            <p>Use all your notes below to persuade your colleagues to agree with your ideas.</p>
+        </div>
+        <div class="card-content">
+            <h2>Promoting a new wine collection</h2>
+            <div class="two-column">
+                <div class="column-left">
+                    <div class="suggestions">Suggestions:</div>
+                    
+                    <p>1. <span class="highlight" onclick="speak('Email marketing')">Email marketing</span></p>
+                    
+                    <p>2. <span class="highlight" onclick="speak('Social media promotion')">Social media promotion</span></p>
+                    
+                    <p>3. <span class="highlight" onclick="speak('Tasting session')">Tasting session</span></p>
+                    
+                    <p>4. <span class="highlight" onclick="speak('Referral programme')">Referral programme</span></p>
+                </div>
+                
+                <div class="column-right">
+                    <div class="preferences">My Preferences:</div>
+                    
+                    <p>✓/× <span class="highlight" onclick="speak('economical')">economical</span> BUT not <span class="highlight" onclick="speak('useful')">useful</span></p>
+                    
+                    <p>✓ <span class="highlight" onclick="speak('allow real-time interaction')">allow real-time interaction</span></p>
+                    
+                    <p>✓ <span class="highlight" onclick="speak('fun')">fun</span> and <span class="highlight" onclick="speak('positive experience')">positive experience</span></p>
+                    
+                    <p>× <span class="highlight" onclick="speak('hard to show immediate outcome')">hard to show immediate outcome</span></p>
+                </div>
+            </div>
+
+            <div class="special-offer">
+                <p>Special Offer to New Customers:</p>
+                <p><span class="lightbulb">💡</span><span class="suggestion-prompt">Any suggestion? Any reason?</span></p>
+            </div>
+        </div>
+        <button class="back-button" onclick="showLanding()">Back to Selection</button>
+    </div>
+
+    <!-- Student B Card -->
+    <div id="student-b" class="card">
+        <div class="card-header">Student B</div>
+        <div class="voice-section">
+            <div class="voice-container">
+                <span class="voice-label">Select voice for pronunciation:</span>
+                <select id="voice-selector-b" class="voice-selector" onchange="saveVoicePreference()"></select>
+            </div>
+            <div class="situation-audio">
+                <button class="play-situation-btn" onclick="speakSituation()">
+                    <span>&#9658;</span> Play Situation
+                </button>
+            </div>
+        </div>
+        <div class="instructions">
+            <p>You work in East Vineyard. Your team is planning to promote a new wine collection.</p>
+            <p>You and your colleagues hold a discussion. Your aim is to agree on two strategies and one special offer to be given to the management.</p>
+            <p>Use all your notes below to persuade your colleagues to agree with your ideas.</p>
+        </div>
+        <div class="card-content">
+            <h2>Promoting a new wine collection</h2>
+            <div class="two-column">
+                <div class="column-left">
+                    <div class="suggestions">Suggestions:</div>
+                    
+                    <p>1. <span class="highlight" onclick="speak('Email marketing')">Email marketing</span></p>
+                    
+                    <p>2. <span class="highlight" onclick="speak('Social media promotion')">Social media promotion</span></p>
+                    
+                    <p>3. <span class="highlight" onclick="speak('Tasting session')">Tasting session</span></p>
+                    
+                    <p>4. <span class="highlight" onclick="speak('Referral programme')">Referral programme</span></p>
+                </div>
+                
+                <div class="column-right">
+                    <div class="preferences">My Preferences:</div>
+                    
+                    <p>× <span class="highlight" onclick="speak('time-consuming to manage')">time-consuming to manage</span></p>
+                    
+                    <p>✓ <span class="highlight" onclick="speak('attractive for everyone')">attractive for everyone</span></p>
+                    
+                    <p>✓/✓ <span class="highlight" onclick="speak('expensive')">expensive</span> BUT <span class="highlight" onclick="speak('show wine features clearly')">show wine features clearly</span></p>
+                    
+                    <p>✓ <span class="highlight" onclick="speak('practical and reliable')">practical and reliable</span></p>
+                </div>
+            </div>
+
+            <div class="special-offer">
+                <p>Special Offer to New Customers:</p>
+                <p><span class="lightbulb">💡</span><span class="suggestion-prompt">Any suggestion? Any reason?</span></p>
+            </div>
+        </div>
+        <button class="back-button" onclick="showLanding()">Back to Selection</button>
+    </div>
+
+    <!-- Student C Card -->
+    <div id="student-c" class="card">
+        <div class="card-header">Student C</div>
+        <div class="voice-section">
+            <div class="voice-container">
+                <span class="voice-label">Select voice for pronunciation:</span>
+                <select id="voice-selector-c" class="voice-selector" onchange="saveVoicePreference()"></select>
+            </div>
+            <div class="situation-audio">
+                <button class="play-situation-btn" onclick="speakSituation()">
+                    <span>&#9658;</span> Play Situation
+                </button>
+            </div>
+        </div>
+        <div class="instructions">
+            <p>You work in East Vineyard. Your team is planning to promote a new wine collection.</p>
+            <p>You and your colleagues hold a discussion. Your aim is to agree on two strategies and one special offer to be given to the management.</p>
+            <p>Use all your notes below to persuade your colleagues to agree with your ideas.</p>
+        </div>
+        <div class="card-content">
+            <h2>Promoting a new wine collection</h2>
+            <div class="two-column">
+                <div class="column-left">
+                    <div class="suggestions">Suggestions:</div>
+                    
+                    <p>1. <span class="highlight" onclick="speak('Email marketing')">Email marketing</span></p>
+                    
+                    <p>2. <span class="highlight" onclick="speak('Social media promotion')">Social media promotion</span></p>
+                    
+                    <p>3. <span class="highlight" onclick="speak('Tasting session')">Tasting session</span></p>
+                    
+                    <p>4. <span class="highlight" onclick="speak('Referral programme')">Referral programme</span></p>
+                </div>
+                
+                <div class="column-right">
+                    <div class="preferences">My Preferences:</div>
+                    
+                    <p>× <span class="highlight" onclick="speak('boring with limited response rate')">boring with limited response rate</span></p>
+                    
+                    <p>×/✓ <span class="highlight" onclick="speak('regular updates needed')">regular updates needed</span> BUT <span class="highlight" onclick="speak('effective')">effective</span></p>
+                    
+                    <p>✓ <span class="highlight" onclick="speak('appealing to wide audience')">appealing to wide audience</span></p>
+                    
+                    <p>× <span class="highlight" onclick="speak('hard to manage in long term')">hard to manage in long term</span></p>
+                </div>
+            </div>
+
+            <div class="special-offer">
+                <p>Special Offer to New Customers:</p>
+                <p><span class="lightbulb">💡</span><span class="suggestion-prompt">Any suggestion? Any reason?</span></p>
+            </div>
+        </div>
+        <button class="back-button" onclick="showLanding()">Back to Selection</button>
+    </div>
+
+    <!-- Student D Card -->
+    <div id="student-d" class="card">
+        <div class="card-header">Student D</div>
+        <div class="voice-section">
+            <div class="voice-container">
+                <span class="voice-label">Select voice for pronunciation:</span>
+                <select id="voice-selector-d" class="voice-selector" onchange="saveVoicePreference()"></select>
+            </div>
+            <div class="situation-audio">
+                <button class="play-situation-btn" onclick="speakSituation()">
+                    <span>&#9658;</span> Play Situation
+                </button>
+            </div>
+        </div>
+        <div class="instructions">
+            <p>You work in East Vineyard. Your team is planning to promote a new wine collection.</p>
+            <p>You and your colleagues hold a discussion. Your aim is to agree on two strategies and one special offer to be given to the management.</p>
+            <p>Use all your notes below to persuade your colleagues to agree with your ideas.</p>
+        </div>
+        <div class="card-content">
+            <h2>Promoting a new wine collection</h2>
+            <div class="two-column">
+                <div class="column-left">
+                    <div class="suggestions">Suggestions:</div>
+                    
+                    <p>1. <span class="highlight" onclick="speak('Email marketing')">Email marketing</span></p>
+                    
+                    <p>2. <span class="highlight" onclick="speak('Social media promotion')">Social media promotion</span></p>
+                    
+                    <p>3. <span class="highlight" onclick="speak('Tasting session')">Tasting session</span></p>
+                    
+                    <p>4. <span class="highlight" onclick="speak('Referral programme')">Referral programme</span></p>
+                </div>
+                
+                <div class="column-right">
+                    <div class="preferences">My Preferences:</div>
+                    
+                    <p>✓ <span class="highlight" onclick="speak('likely to reach existing customers')">likely to reach existing customers</span></p>
+                    
+                    <p>✓ <span class="highlight" onclick="speak('boost brand awareness')">boost brand awareness</span></p>
+                    
+                    <p>× <span class="highlight" onclick="speak('heavy preparation work required')">heavy preparation work required</span></p>
+                    
+                    <p>×/✓ <span class="highlight" onclick="speak('limited impact')">limited impact</span> but <span class="highlight" onclick="speak('build loyalty quickly')">build loyalty quickly</span></p>
+                </div>
+            </div>
+
+            <div class="special-offer">
+                <p>Special Offer to New Customers:</p>
+                <p><span class="lightbulb">💡</span><span class="suggestion-prompt">Any suggestion? Any reason?</span></p>
+            </div>
+        </div>
+        <button class="back-button" onclick="showLanding()">Back to Selection</button>
+    </div>
+
+    <!-- Status Indicator -->
+    <div id="statusIndicator" class="status-indicator">Playing...</div>
+
+    <script>
+        // Show/hide functions
+        function showCard(cardId) {
+            document.getElementById('landing-page').style.display = 'none';
+            document.getElementById('student-a').style.display = 'none';
+            document.getElementById('student-b').style.display = 'none';
+            document.getElementById('student-c').style.display = 'none';
+            document.getElementById('student-d').style.display = 'none';
+            
+            document.getElementById(cardId).style.display = 'block';
+            window.scrollTo(0, 0);
+            
+            // Initialize the voice selector for this card
+            const selector = document.getElementById(`voice-selector-${cardId.split('-')[1]}`);
+            loadVoiceSelector(selector);
+        }
+        
+        function showLanding() {
+            document.getElementById('student-a').style.display = 'none';
+            document.getElementById('student-b').style.display = 'none';
+            document.getElementById('student-c').style.display = 'none';
+            document.getElementById('student-d').style.display = 'none';
+            document.getElementById('landing-page').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+        
+        // Initialize speech synthesis
+        let synth = window.speechSynthesis;
+        let voices = [];
+        
+        // Load voices when they're available
+        function loadVoices() {
+            voices = synth.getVoices();
+            
+            // Update all voice selectors with the available voices
+            loadVoiceSelector(document.getElementById('voice-selector-a'));
+            loadVoiceSelector(document.getElementById('voice-selector-b'));
+            loadVoiceSelector(document.getElementById('voice-selector-c'));
+            loadVoiceSelector(document.getElementById('voice-selector-d'));
+        }
+        
+        // Fill voice selector dropdown with available voices
+        function loadVoiceSelector(selector) {
+            if (!selector || !voices.length) return;
+            
+            // Clear existing options
+            selector.innerHTML = '';
+            
+            // Add default option
+            let defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Device Default';
+            selector.appendChild(defaultOption);
+            
+            // Filter to just English voices
+            const englishVoices = voices.filter(voice => voice.lang.includes('en'));
+            
+            // Get saved voice preference
+            const savedVoiceURI = localStorage.getItem('preferredVoiceURI');
+            let foundSavedVoice = false;
+            
+            // Create an option for each voice
+            englishVoices.forEach(voice => {
+                const option = document.createElement('option');
+                option.value = voice.voiceURI;
+                
+                // Format the name to be more readable
+                let name = voice.name;
+                if (voice.name.includes('Google')) {
+                    name = `Google ${voice.lang.split('-')[0]} (${voice.lang.split('-')[1]})`;
+                }
+                
+                option.textContent = `${name} (${voice.lang})`;
+                
+                // Select the saved voice if we find it
+                if (savedVoiceURI && voice.voiceURI === savedVoiceURI) {
+                    option.selected = true;
+                    foundSavedVoice = true;
+                }
+                
+                selector.appendChild(option);
+            });
+            
+            // Set special styling for Google voices (often best quality)
+            Array.from(selector.options).forEach(option => {
+                if (option.text.includes('Google')) {
+                    option.style.fontWeight = 'bold';
+                }
+            });
+        }
+        
+        // Save the voice preference when changed
+        function saveVoicePreference() {
+            const selectorA = document.getElementById('voice-selector-a');
+            const selectorB = document.getElementById('voice-selector-b');
+            const selectorC = document.getElementById('voice-selector-c');
+            const selectorD = document.getElementById('voice-selector-d');
+            
+            // Determine which selector was changed
+            const changedSelector = [selectorA, selectorB, selectorC, selectorD].find(s => document.activeElement === s);
+            
+            if (changedSelector && changedSelector.value) {
+                // Save this voice as preferred
+                localStorage.setItem('preferredVoiceURI', changedSelector.value);
+                
+                // Set all selectors to this voice
+                [selectorA, selectorB, selectorC, selectorD].forEach(selector => {
+                    if (selector !== changedSelector) {
+                        const option = Array.from(selector.options).find(opt => opt.value === changedSelector.value);
+                        if (option) {
+                            selector.value = changedSelector.value;
+                        }
+                    }
+                });
+                
+                // Test the voice
+                speak('Voice selected');
+            }
+        }
+        
+        if (synth.onvoiceschanged !== undefined) {
+            synth.onvoiceschanged = loadVoices;
+        }
+        
+        // Load voices immediately as well (for browsers that don't fire the event)
+        loadVoices();
+        
+        // Find the active voice selector for the current card
+        function getActiveVoiceSelector() {
+            if (document.getElementById('student-a').style.display !== 'none') {
+                return document.getElementById('voice-selector-a');
+            } else if (document.getElementById('student-b').style.display !== 'none') {
+                return document.getElementById('voice-selector-b');
+            } else if (document.getElementById('student-c').style.display !== 'none') {
+                return document.getElementById('voice-selector-c');
+            } else if (document.getElementById('student-d').style.display !== 'none') {
+                return document.getElementById('voice-selector-d');
+            }
+            return null;
+        }
+        
+        // Function to speak the word
+        function speak(word) {
+            // Cancel any ongoing speech
+            synth.cancel();
+            
+            // Show loading status
+            const statusIndicator = document.getElementById('statusIndicator');
+            statusIndicator.textContent = `Loading: ${word}...`;
+            statusIndicator.style.display = 'block';
+            
+            // Create new utterance
+            let utterance = new SpeechSynthesisUtterance(word);
+            
+            // Get the selected voice from the active selector
+            const activeSelector = getActiveVoiceSelector();
+            let selectedVoiceURI = '';
+            
+            if (activeSelector && activeSelector.value) {
+                selectedVoiceURI = activeSelector.value;
+            } else {
+                // Use saved preference if available
+                selectedVoiceURI = localStorage.getItem('preferredVoiceURI');
+            }
+            
+            // Find the voice object that matches the URI
+            let selectedVoice = null;
+            if (selectedVoiceURI) {
+                selectedVoice = voices.find(v => v.voiceURI === selectedVoiceURI);
+            }
+            
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+                utterance.lang = selectedVoice.lang;
+            } else {
+                utterance.lang = 'en-GB';
+            }
+            
+            // Set speech parameters
+            utterance.rate = 0.9;
+            utterance.pitch = 1.0;
+            utterance.volume = 1.0;
+            
+            // Update status when playing starts
+            utterance.onstart = function() {
+                statusIndicator.textContent = `Playing: ${word}`;
+            };
+            
+            // Hide status indicator when done speaking
+            utterance.onend = function() {
+                statusIndicator.style.display = 'none';
+            };
+            
+            // Handle errors
+            utterance.onerror = function(event) {
+                console.error('Speech synthesis error:', event);
+                statusIndicator.textContent = 'Error playing pronunciation';
+                setTimeout(() => {
+                    statusIndicator.style.display = 'none';
+                }, 2000);
+            };
+            
+            // Speak the word
+            synth.speak(utterance);
+        }
+        
+        // Function to speak the situation
+        function speakSituation() {
+            synth.cancel();
+            const statusIndicator = document.getElementById('statusIndicator');
+            statusIndicator.textContent = "Loading situation audio...";
+            statusIndicator.style.display = 'block';
+            
+            const situationText = "You work in East Vineyard. Your team is planning to promote a new wine collection. " +
+                                 "You and your colleagues hold a discussion. " +
+                                 "Your aim is to agree on two strategies and one special offer to be given to the management. " +
+                                 "Use all your notes to persuade your colleagues to agree with your ideas.";
+            
+            let utterance = new SpeechSynthesisUtterance(situationText);
+            
+            // Use the same voice as for words
+            const activeSelector = getActiveVoiceSelector();
+            let selectedVoiceURI = '';
+            
+            if (activeSelector && activeSelector.value) {
+                selectedVoiceURI = activeSelector.value;
+            } else {
+                selectedVoiceURI = localStorage.getItem('preferredVoiceURI');
+            }
+            
+            let selectedVoice = null;
+            if (selectedVoiceURI) {
+                selectedVoice = voices.find(v => v.voiceURI === selectedVoiceURI);
+            }
+            
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+                utterance.lang = selectedVoice.lang;
+            } else {
+                utterance.lang = 'en-GB';
+            }
+            
+            // Slower rate for the situation text
+            utterance.rate = 0.8;
+            utterance.pitch = 1.0;
+            utterance.volume = 1.0;
+            
+            utterance.onstart = function() {
+                statusIndicator.textContent = "Playing situation description...";
+            };
+            
+            utterance.onend = function() {
+                statusIndicator.style.display = 'none';
+            };
+            
+            utterance.onerror = function(event) {
+                console.error('Speech synthesis error:', event);
+                statusIndicator.textContent = 'Error playing situation audio';
+                setTimeout(() => {
+                    statusIndicator.style.display = 'none';
+                }, 2000);
+            };
+            
+            synth.speak(utterance);
+        }
+        
+        // Force voice loading after a short delay
+        setTimeout(() => {
+            if (voices.length === 0) {
+                loadVoices();
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
