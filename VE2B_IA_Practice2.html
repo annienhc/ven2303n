@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile Game Promotion Role Cards</title>
+    <title>Wine Promotion Role Cards</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,28 +41,28 @@
         }
         /* Different colors for each student button */
         .role-button:nth-child(1) {
-            background-color: #4285F4;
+            background-color: #722F37; /* Wine red for Student A */
         }
         .role-button:nth-child(1):hover {
-            background-color: #3367D6;
+            background-color: #5a252c;
         }
         .role-button:nth-child(2) {
-            background-color: #EA4335;
+            background-color: #8C271E; /* Burgundy for Student B */
         }
         .role-button:nth-child(2):hover {
-            background-color: #C62828;
+            background-color: #701e17;
         }
         .role-button:nth-child(3) {
-            background-color: #34A853;
+            background-color: #B38040; /* Golden for Student C */
         }
         .role-button:nth-child(3):hover {
-            background-color: #2E7D32;
+            background-color: #8f6633;
         }
         .role-button:nth-child(4) {
-            background-color: #FBBC05;
+            background-color: #2B3A67; /* Deep blue for Student D */
         }
         .role-button:nth-child(4):hover {
-            background-color: #F9A825;
+            background-color: #222e52;
         }
         .card {
             border: 1px solid #000;
@@ -80,16 +80,16 @@
         }
         /* Different colors for each student card header */
         #student-a .card-header {
-            color: #4285F4;
+            color: #722F37;
         }
         #student-b .card-header {
-            color: #EA4335;
+            color: #8C271E;
         }
         #student-c .card-header {
-            color: #34A853;
+            color: #B38040;
         }
         #student-d .card-header {
-            color: #FBBC05;
+            color: #2B3A67;
         }
         .voice-section {
             border-bottom: 1px solid #eee;
@@ -126,14 +126,19 @@
         }
         .two-column {
             display: flex;
+            flex-wrap: wrap; /* Allow wrapping for very small screens */
         }
         .column-left {
             width: 50%;
+            min-width: 140px; /* Ensure minimum width for readability */
             padding-right: 8px;
+            box-sizing: border-box; /* Include padding in width calculation */
             text-align: left;
         }
         .column-right {
             width: 50%;
+            min-width: 140px; /* Ensure minimum width for readability */
+            box-sizing: border-box;
             text-align: left;
         }
         .highlight {
@@ -233,31 +238,24 @@
             body {
                 font-size: 13px;
             }
-            .two-column {
-                flex-direction: column;
-            }
-            .column-left, .column-right {
-                width: 100%;
-                padding-right: 0;
-            }
-            .column-left {
-                margin-bottom: 12px;
-            }
-            .highlight {
-                padding: 2px 4px;  /* Larger tap target for mobile */
-            }
             .card {
                 padding: 8px;
                 margin: 8px;
             }
+            .highlight {
+                padding: 2px 4px;  /* Larger tap target for mobile */
+            }
+            /* Keep the two-column layout but adjust spacing */
+            .column-left, .column-right {
+                padding: 0 4px; /* Smaller padding */
+            }
+            /* Adjust voice selector for mobile */
             .voice-container {
                 flex-direction: column;
                 align-items: flex-start;
             }
             .voice-selector {
                 width: 100%;
-                padding: 6px;
-                font-size: 14px;  /* Larger for mobile */
                 margin-left: 0;
                 margin-top: 5px;
             }
@@ -271,55 +269,27 @@
             .instructions {
                 font-size: 12px;
             }
-            .card-content h2 {
-                font-size: 14px;
+        }
+        
+        /* For very small screens, ensure text remains readable */
+        @media (max-width: 340px) {
+            .two-column {
+                justify-content: space-between;
             }
-            .special-offer p {
-                font-size: 12px;
+            .column-left, .column-right {
+                min-width: 120px;
+                font-size: 11px;
             }
-        }
-
-        /* Testing panel for mobile */
-        .testing-panel {
-            position: fixed;
-            bottom: 50px;
-            right: 10px;
-            background-color: rgba(255,255,255,0.9);
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            z-index: 999;
-            display: none;
-            max-width: 300px;
-            font-size: 12px;
-        }
-        .test-button {
-            display: block;
-            width: 100%;
-            margin: 5px 0;
-            padding: 6px;
-            background-color: #f0f0f0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        .test-button:hover {
-            background-color: #e0e0e0;
-        }
-        .close-panel {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            cursor: pointer;
-            font-size: 16px;
+            p {
+                font-size: 11px;
+                word-break: break-word;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container" id="landing-page">
-        <h1>VE2B IA Practice 2</h1>
+        <h1>IA Practice</h1>
         <p>Select your role card:</p>
         <div class="button-container">
             <button class="role-button" onclick="showCard('student-a')">Student A</button>
@@ -344,40 +314,40 @@
             </div>
         </div>
         <div class="instructions">
-            <p>You work in Zero Tech Games. Your team is planning to promote the new video game.</p>
+            <p>You work in East Vineyard. Your team is planning to promote a new wine collection.</p>
             <p>You and your colleagues hold a discussion. Your aim is to agree on two strategies and one special offer to be given to the management.</p>
             <p>Use all your notes below to persuade your colleagues to agree with your ideas.</p>
         </div>
         <div class="card-content">
-            <h2>Promoting the new video game</h2>
+            <h2>Promoting a new wine collection</h2>
             <div class="two-column">
                 <div class="column-left">
                     <div class="suggestions">Suggestions:</div>
                     
-                    <p>1. Free <span class="highlight" onclick="speak('game')">game</span> <span class="highlight" onclick="speak('demo')">demo</span></p>
+                    <p>1. <span class="highlight" onclick="speak('Email marketing')">Email marketing</span></p>
                     
-                    <p>2. <span class="highlight" onclick="speak('Online')">Online</span> <span class="highlight" onclick="speak('promotion')">promotion</span> <span class="highlight" onclick="speak('event')">event</span></p>
+                    <p>2. <span class="highlight" onclick="speak('Social media promotion')">Social media promotion</span></p>
                     
-                    <p>3. 1-month <span class="highlight" onclick="speak('game')">game</span> <span class="highlight" onclick="speak('trial')">trial</span></p>
+                    <p>3. <span class="highlight" onclick="speak('Tasting session')">Tasting session</span></p>
                     
-                    <p>4. <span class="highlight" onclick="speak('Lucky')">Lucky</span> <span class="highlight" onclick="speak('draw')">draw</span></p>
+                    <p>4. <span class="highlight" onclick="speak('Referral programme')">Referral programme</span></p>
                 </div>
                 
                 <div class="column-right">
                     <div class="preferences">My Preferences:</div>
                     
-                    <p>× <span class="highlight" onclick="speak('show')">show</span> <span class="highlight" onclick="speak('limited')">limited</span> <span class="highlight" onclick="speak('features')">features</span></p>
+                    <p>✓/× <span class="highlight" onclick="speak('economical')">economical</span> BUT not <span class="highlight" onclick="speak('useful')">useful</span></p>
                     
-                    <p>✓ <span class="highlight" onclick="speak('easy')">easy</span> to <span class="highlight" onclick="speak('reach')">reach</span> <span class="highlight" onclick="speak('young')">young</span> <span class="highlight" onclick="speak('audience')">audience</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('allow real-time interaction')">allow real-time interaction</span></p>
                     
-                    <p>×/✓ <span class="highlight" onclick="speak('reduce')">reduce</span> <span class="highlight" onclick="speak('profit')">profit</span> BUT <span class="highlight" onclick="speak('increase')">increase</span> <span class="highlight" onclick="speak('download')">download</span> <span class="highlight" onclick="speak('rate')">rate</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('fun')">fun</span> and <span class="highlight" onclick="speak('positive experience')">positive experience</span></p>
                     
-                    <p>✓ <span class="highlight" onclick="speak('affordable')">affordable</span> and <span class="highlight" onclick="speak('common')">common</span></p>
+                    <p>× <span class="highlight" onclick="speak('hard to show immediate outcome')">hard to show immediate outcome</span></p>
                 </div>
             </div>
 
             <div class="special-offer">
-                <p>Special Offer to New Gamers:</p>
+                <p>Special Offer to New Customers:</p>
                 <p><span class="lightbulb">💡</span><span class="suggestion-prompt">Any suggestion? Any reason?</span></p>
             </div>
         </div>
@@ -399,40 +369,40 @@
             </div>
         </div>
         <div class="instructions">
-            <p>You work in Zero Tech Games. Your team is planning to promote the new video game.</p>
+            <p>You work in East Vineyard. Your team is planning to promote a new wine collection.</p>
             <p>You and your colleagues hold a discussion. Your aim is to agree on two strategies and one special offer to be given to the management.</p>
             <p>Use all your notes below to persuade your colleagues to agree with your ideas.</p>
         </div>
         <div class="card-content">
-            <h2>Promoting the new video game</h2>
+            <h2>Promoting a new wine collection</h2>
             <div class="two-column">
                 <div class="column-left">
                     <div class="suggestions">Suggestions:</div>
                     
-                    <p>1. Free <span class="highlight" onclick="speak('game')">game</span> <span class="highlight" onclick="speak('demo')">demo</span></p>
+                    <p>1. <span class="highlight" onclick="speak('Email marketing')">Email marketing</span></p>
                     
-                    <p>2. <span class="highlight" onclick="speak('Online')">Online</span> <span class="highlight" onclick="speak('promotion')">promotion</span> <span class="highlight" onclick="speak('event')">event</span></p>
+                    <p>2. <span class="highlight" onclick="speak('Social media promotion')">Social media promotion</span></p>
                     
-                    <p>3. 1-month <span class="highlight" onclick="speak('game')">game</span> <span class="highlight" onclick="speak('trial')">trial</span></p>
+                    <p>3. <span class="highlight" onclick="speak('Tasting session')">Tasting session</span></p>
                     
-                    <p>4. <span class="highlight" onclick="speak('Lucky')">Lucky</span> <span class="highlight" onclick="speak('draw')">draw</span></p>
+                    <p>4. <span class="highlight" onclick="speak('Referral programme')">Referral programme</span></p>
                 </div>
                 
                 <div class="column-right">
                     <div class="preferences">My Preferences:</div>
                     
-                    <p>✓/× <span class="highlight" onclick="speak('practical')">practical</span> BUT <span class="highlight" onclick="speak('uncertain')">uncertain</span> <span class="highlight" onclick="speak('feedback')">feedback</span> from <span class="highlight" onclick="speak('gamers')">gamers</span></p>
+                    <p>× <span class="highlight" onclick="speak('time-consuming to manage')">time-consuming to manage</span></p>
                     
-                    <p>✓ <span class="highlight" onclick="speak('interactive')">interactive</span> and <span class="highlight" onclick="speak('fun')">fun</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('attractive for everyone')">attractive for everyone</span></p>
                     
-                    <p>✓ <span class="highlight" onclick="speak('exciting')">exciting</span> and <span class="highlight" onclick="speak('engaging')">engaging</span> <span class="highlight" onclick="speak('experience')">experience</span></p>
+                    <p>✓/✓ <span class="highlight" onclick="speak('expensive')">expensive</span> BUT <span class="highlight" onclick="speak('show food features clearly')">show food features clearly</span></p>
                     
-                    <p>× <span class="highlight" onclick="speak('create')">create</span> <span class="highlight" onclick="speak('short-term')">short-term</span> <span class="highlight" onclick="speak('attention')">attention</span> <span class="highlight" onclick="speak('only')">only</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('practical and reliable')">practical and reliable</span></p>
                 </div>
             </div>
 
             <div class="special-offer">
-                <p>Special Offer to New Gamers:</p>
+                <p>Special Offer to New Customers:</p>
                 <p><span class="lightbulb">💡</span><span class="suggestion-prompt">Any suggestion? Any reason?</span></p>
             </div>
         </div>
@@ -454,40 +424,40 @@
             </div>
         </div>
         <div class="instructions">
-            <p>You work in Zero Tech Games. Your team is planning to promote the new video game.</p>
+            <p>You work in East Vineyard. Your team is planning to promote a new wine collection.</p>
             <p>You and your colleagues hold a discussion. Your aim is to agree on two strategies and one special offer to be given to the management.</p>
             <p>Use all your notes below to persuade your colleagues to agree with your ideas.</p>
         </div>
         <div class="card-content">
-            <h2>Promoting the new video game</h2>
+            <h2>Promoting a new wine collection</h2>
             <div class="two-column">
                 <div class="column-left">
                     <div class="suggestions">Suggestions:</div>
                     
-                    <p>1. Free <span class="highlight" onclick="speak('game')">game</span> <span class="highlight" onclick="speak('demo')">demo</span></p>
+                    <p>1. <span class="highlight" onclick="speak('Email marketing')">Email marketing</span></p>
                     
-                    <p>2. <span class="highlight" onclick="speak('Online')">Online</span> <span class="highlight" onclick="speak('promotion')">promotion</span> <span class="highlight" onclick="speak('event')">event</span></p>
+                    <p>2. <span class="highlight" onclick="speak('Social media promotion')">Social media promotion</span></p>
                     
-                    <p>3. 1-month <span class="highlight" onclick="speak('game')">game</span> <span class="highlight" onclick="speak('trial')">trial</span></p>
+                    <p>3. <span class="highlight" onclick="speak('Tasting session')">Tasting session</span></p>
                     
-                    <p>4. <span class="highlight" onclick="speak('Lucky')">Lucky</span> <span class="highlight" onclick="speak('draw')">draw</span></p>
+                    <p>4. <span class="highlight" onclick="speak('Referral programme')">Referral programme</span></p>
                 </div>
                 
                 <div class="column-right">
                     <div class="preferences">My Preferences:</div>
                     
-                    <p>✓ <span class="highlight" onclick="speak('encourage')">encourage</span> <span class="highlight" onclick="speak('sign-up')">sign-up</span> <span class="highlight" onclick="speak('quickly')">quickly</span></p>
+                    <p>× <span class="highlight" onclick="speak('boring with limited response rate')">boring with limited response rate</span></p>
                     
-                    <p>× <span class="highlight" onclick="speak('negative')">negative</span> and <span class="highlight" onclick="speak('unreliable')">unreliable</span> <span class="highlight" onclick="speak('comments')">comments</span></p>
+                    <p>×/✓ <span class="highlight" onclick="speak('regular updates needed')">regular updates needed</span> BUT <span class="highlight" onclick="speak('effective')">effective</span></p>
                     
-                    <p>× <span class="highlight" onclick="speak('only')">only</span> <span class="highlight" onclick="speak('attract')">attract</span> <span class="highlight" onclick="speak('gamers')">gamers</span> who want free <span class="highlight" onclick="speak('games')">games</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('appealing to wide audience')">appealing to wide audience</span></p>
                     
-                    <p>×/✓ <span class="highlight" onclick="speak('limited')">limited</span> <span class="highlight" onclick="speak('impact')">impact</span> BUT <span class="highlight" onclick="speak('gain')">gain</span> <span class="highlight" onclick="speak('immediate')">immediate</span> <span class="highlight" onclick="speak('attention')">attention</span></p>
+                    <p>× <span class="highlight" onclick="speak('hard to manage in long term')">hard to manage in long term</span></p>
                 </div>
             </div>
 
             <div class="special-offer">
-                <p>Special Offer to New Gamers:</p>
+                <p>Special Offer to New Customers:</p>
                 <p><span class="lightbulb">💡</span><span class="suggestion-prompt">Any suggestion? Any reason?</span></p>
             </div>
         </div>
@@ -509,40 +479,40 @@
             </div>
         </div>
         <div class="instructions">
-            <p>You work in Zero Tech Games. Your team is planning to promote the new video game.</p>
+            <p>You work in East Vineyard. Your team is planning to promote a new wine collection.</p>
             <p>You and your colleagues hold a discussion. Your aim is to agree on two strategies and one special offer to be given to the management.</p>
             <p>Use all your notes below to persuade your colleagues to agree with your ideas.</p>
         </div>
         <div class="card-content">
-            <h2>Promoting the new video game</h2>
+            <h2>Promoting a new wine collection</h2>
             <div class="two-column">
                 <div class="column-left">
                     <div class="suggestions">Suggestions:</div>
                     
-                    <p>1. Free <span class="highlight" onclick="speak('game')">game</span> <span class="highlight" onclick="speak('demo')">demo</span></p>
+                    <p>1. <span class="highlight" onclick="speak('Email marketing')">Email marketing</span></p>
                     
-                    <p>2. <span class="highlight" onclick="speak('Online')">Online</span> <span class="highlight" onclick="speak('promotion')">promotion</span> <span class="highlight" onclick="speak('event')">event</span></p>
+                    <p>2. <span class="highlight" onclick="speak('Social media promotion')">Social media promotion</span></p>
                     
-                    <p>3. 1-month <span class="highlight" onclick="speak('game')">game</span> <span class="highlight" onclick="speak('trial')">trial</span></p>
+                    <p>3. <span class="highlight" onclick="speak('Tasting session')">Tasting session</span></p>
                     
-                    <p>4. <span class="highlight" onclick="speak('Lucky')">Lucky</span> <span class="highlight" onclick="speak('draw')">draw</span></p>
+                    <p>4. <span class="highlight" onclick="speak('Referral programme')">Referral programme</span></p>
                 </div>
                 
                 <div class="column-right">
                     <div class="preferences">My Preferences:</div>
                     
-                    <p>✓ <span class="highlight" onclick="speak('attract')">attract</span> <span class="highlight" onclick="speak('game')">game</span> <span class="highlight" onclick="speak('lovers')">lovers</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('likely to reach existing customers')">likely to reach existing customers</span></p>
                     
-                    <p>×/✓ <span class="highlight" onclick="speak('regular')">regular</span> <span class="highlight" onclick="speak('updates')">updates</span> <span class="highlight" onclick="speak('required')">required</span> BUT <span class="highlight" onclick="speak('effective')">effective</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('boost brand awareness')">boost brand awareness</span></p>
                     
-                    <p>✓ <span class="highlight" onclick="speak('focused')">focused</span> <span class="highlight" onclick="speak('promotional')">promotional</span> <span class="highlight" onclick="speak('effect')">effect</span></p>
+                    <p>× <span class="highlight" onclick="speak('heavy preparation work required')">heavy preparation work required</span></p>
                     
-                    <p>× <span class="highlight" onclick="speak('difficult')">difficult</span> to <span class="highlight" onclick="speak('stand')">stand</span> <span class="highlight" onclick="speak('out')">out</span></p>
+                    <p>×/✓ <span class="highlight" onclick="speak('limited impact')">limited impact</span> but <span class="highlight" onclick="speak('build loyalty quickly')">build loyalty quickly</span></p>
                 </div>
             </div>
 
             <div class="special-offer">
-                <p>Special Offer to New Gamers:</p>
+                <p>Special Offer to New Customers:</p>
                 <p><span class="lightbulb">💡</span><span class="suggestion-prompt">Any suggestion? Any reason?</span></p>
             </div>
         </div>
@@ -552,19 +522,7 @@
     <!-- Status Indicator -->
     <div id="statusIndicator" class="status-indicator">Playing...</div>
 
-    <!-- Testing Panel for Mobile Users -->
-    <div id="testingPanel" class="testing-panel">
-        <span class="close-panel" onclick="document.getElementById('testingPanel').style.display='none'">×</span>
-        <h3>Test Voice</h3>
-        <button class="test-button" onclick="testSpeak('Welcome to the mobile game promotion activity.')">Test Voice</button>
-        <button class="test-button" onclick="testSpeak('Click on yellow words to hear pronunciation.')">Test Instructions</button>
-        <div id="device-info"></div>
-    </div>
-
     <script>
-        // Detect if user is on mobile
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        
         // Show/hide functions
         function showCard(cardId) {
             document.getElementById('landing-page').style.display = 'none';
@@ -575,18 +533,6 @@
             
             document.getElementById(cardId).style.display = 'block';
             window.scrollTo(0, 0);
-            
-            // For mobile devices, show the testing panel on first view
-            if (isMobile && localStorage.getItem('testedVoice') !== 'true') {
-                setTimeout(() => {
-                    document.getElementById('testingPanel').style.display = 'block';
-                    document.getElementById('device-info').textContent = 
-                        `Device: ${navigator.userAgent.includes('iPhone') ? 'iPhone' : 
-                                  navigator.userAgent.includes('iPad') ? 'iPad' : 
-                                  navigator.userAgent.includes('Android') ? 'Android' : 'Mobile device'}`;
-                    localStorage.setItem('testedVoice', 'true');
-                }, 1000);
-            }
             
             // Initialize the voice selector for this card
             const selector = document.getElementById(`voice-selector-${cardId.split('-')[1]}`);
@@ -656,21 +602,6 @@
                     foundSavedVoice = true;
                 }
                 
-                // For mobile, prioritize certain voices
-                if (isMobile && !foundSavedVoice) {
-                    // Prefer Google voices on Android
-                    if (navigator.userAgent.includes('Android') && voice.name.includes('Google')) {
-                        option.selected = true;
-                        foundSavedVoice = true;
-                    }
-                    
-                    // Prefer Samantha on iOS
-                    if (navigator.userAgent.includes('iPhone') && voice.name.includes('Samantha')) {
-                        option.selected = true;
-                        foundSavedVoice = true;
-                    }
-                }
-                
                 selector.appendChild(option);
             });
             
@@ -707,7 +638,7 @@
                 });
                 
                 // Test the voice
-                testSpeak('Voice selected');
+                speak('Voice selected');
             }
         }
         
@@ -732,7 +663,7 @@
             return null;
         }
         
-        // Function to speak the word with enhanced mobile support
+        // Function to speak the word
         function speak(word) {
             // Cancel any ongoing speech
             synth.cancel();
@@ -762,39 +693,17 @@
                 selectedVoice = voices.find(v => v.voiceURI === selectedVoiceURI);
             }
             
-            if (!selectedVoice) {
-                // If no voice is selected or found, try to find a good default
-                if (isMobile) {
-                    // For mobile, prefer Google or default to any English voice
-                    selectedVoice = voices.find(v => v.name.includes('Google') && v.lang.includes('en')) || 
-                                   voices.find(v => v.lang.includes('en-GB')) ||
-                                   voices.find(v => v.lang.includes('en'));
-                } else {
-                    // For desktop, prefer UK English
-                    selectedVoice = voices.find(v => v.lang.includes('en-GB')) || 
-                                   voices.find(v => v.lang.includes('en'));
-                }
-            }
-            
             if (selectedVoice) {
                 utterance.voice = selectedVoice;
-                // Match language to voice for best results
                 utterance.lang = selectedVoice.lang;
             } else {
-                // Fallback
                 utterance.lang = 'en-GB';
             }
             
-            // Set optimized speech parameters for device type
-            if (isMobile) {
-                utterance.rate = 0.8;  // Slower for better clarity on mobile
-                utterance.pitch = 1.1; // Slightly higher pitch works better on mobile
-                utterance.volume = 1.0; // Full volume
-            } else {
-                utterance.rate = 0.9;
-                utterance.pitch = 1.0;
-                utterance.volume = 1.0;
-            }
+            // Set speech parameters
+            utterance.rate = 0.9;
+            utterance.pitch = 1.0;
+            utterance.volume = 1.0;
             
             // Update status when playing starts
             utterance.onstart = function() {
@@ -806,19 +715,10 @@
                 statusIndicator.style.display = 'none';
             };
             
-            // Handle errors more robustly
+            // Handle errors
             utterance.onerror = function(event) {
                 console.error('Speech synthesis error:', event);
                 statusIndicator.textContent = 'Error playing pronunciation';
-                
-                // For mobile errors, suggest trying another voice
-                if (isMobile) {
-                    statusIndicator.textContent += ' - Try a different voice';
-                    setTimeout(() => {
-                        document.getElementById('testingPanel').style.display = 'block';
-                    }, 1500);
-                }
-                
                 setTimeout(() => {
                     statusIndicator.style.display = 'none';
                 }, 2000);
@@ -835,10 +735,10 @@
             statusIndicator.textContent = "Loading situation audio...";
             statusIndicator.style.display = 'block';
             
-            const situationText = "You work in First Tech Games. Your team is planning to promote the new mobile game. " +
-                                  "You and your colleagues hold a discussion. " +
-                                  "Your aim is to agree on two strategies and one special offer to be given to the management." +
-                                  "Use all your notes below to persuade your colleagues to agree with your ideas.";
+            const situationText = "You work in East Vineyard. Your team is planning to promote a new wine collection. " +
+                                 "You and your colleagues hold a discussion. " +
+                                 "Your aim is to agree on two strategies and one special offer to be given to the management. " +
+                                 "Use all your notes to persuade your colleagues to agree with your ideas.";
             
             let utterance = new SpeechSynthesisUtterance(situationText);
             
@@ -888,25 +788,12 @@
             synth.speak(utterance);
         }
         
-        // Function to test voice with a sample phrase
-        function testSpeak(text) {
-            speak(text);
-        }
-        
         // Force voice loading after a short delay
         setTimeout(() => {
             if (voices.length === 0) {
                 loadVoices();
-                
-                // If still no voices, try one more time
-                setTimeout(() => {
-                    if (voices.length === 0) {
-                        loadVoices();
-                    }
-                }, 2000);
             }
         }, 1000);
     </script>
 </body>
 </html>
-
