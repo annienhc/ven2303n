@@ -145,9 +145,16 @@
             background-color: #ffff00;
             cursor: pointer;
             padding: 0 2px;
+            position: relative;
         }
         .highlight:hover {
             background-color: #ffdb58;
+        }
+        .highlight.correct {
+            background-color: #90EE90; /* Light green */
+        }
+        .highlight.incorrect {
+            background-color: #ffb6c1; /* Light pink */
         }
         .suggestions {
             font-style: italic;
@@ -233,6 +240,78 @@
             font-weight: normal;
         }
         
+        /* Speech recognition styles */
+        .speech-recognition-container {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .record-button {
+            padding: 8px 15px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+        }
+        .record-button.recording {
+            background-color: #4CAF50;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+        }
+        .recognition-result {
+            font-size: 13px;
+            color: #666;
+            margin-left: 10px;
+            min-height: 20px;
+        }
+        .result-feedback {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 6px;
+        }
+        .feedback-icon {
+            font-size: 18px;
+        }
+        .feedback-text {
+            font-size: 12px;
+        }
+        .feedback-match {
+            color: #2E8B57;
+        }
+        .feedback-nomatch {
+            color: #d32f2f;
+        }
+        .tooltip {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .highlight:hover .tooltip {
+            opacity: 1;
+        }
+        
         /* Mobile-specific adjustments */
         @media (max-width: 600px) {
             body {
@@ -268,6 +347,10 @@
             }
             .instructions {
                 font-size: 12px;
+            }
+            .speech-recognition-container {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
         
@@ -312,6 +395,16 @@
                     <span>&#9658;</span> Play Situation
                 </button>
             </div>
+            <div class="speech-recognition-container">
+                <button id="record-btn-a" class="record-button" onclick="toggleRecording('a')">
+                    <span id="record-icon-a">🎤</span> Record
+                </button>
+                <div id="recognition-result-a" class="recognition-result"></div>
+            </div>
+            <div id="result-feedback-a" class="result-feedback" style="display: none;">
+                <span id="feedback-icon-a" class="feedback-icon"></span>
+                <span id="feedback-text-a" class="feedback-text"></span>
+            </div>
         </div>
         <div class="instructions">
             <p>You work in Eco Travel Agency. Your team is planning to promote a new travel package.</p>
@@ -324,25 +417,25 @@
                 <div class="column-left">
                     <div class="suggestions">Suggestions:</div>
                     
-                    <p>1. <span class="highlight" onclick="speak('Interactive online video')">Interactive online video</span></p>
+                    <p>1. <span class="highlight" onclick="speak('Interactive online video')" data-text="Interactive online video">Interactive online video</span></p>
                     
-                    <p>2. <span class="highlight" onclick="speak('School visit')">School visit</span></p>
+                    <p>2. <span class="highlight" onclick="speak('School visit')" data-text="School visit">School visit</span></p>
                     
-                    <p>3. <span class="highlight" onclick="speak('Ad via travel app')">Ad via travel app</span></p>
+                    <p>3. <span class="highlight" onclick="speak('Ad via travel app')" data-text="Ad via travel app">Ad via travel app</span></p>
                     
-                    <p>4. <span class="highlight" onclick="speak('VR travel demo')">VR travel demo</span></p>
+                    <p>4. <span class="highlight" onclick="speak('VR travel demo')" data-text="VR travel demo">VR travel demo</span></p>
                 </div>
                 
                 <div class="column-right">
                     <div class="preferences">My Preferences:</div>
                     
-                    <p>× <span class="highlight" onclick="speak('time-consuming to create')">time-consuming to create</span></p>
+                    <p>× <span class="highlight" onclick="speak('time-consuming to create')" data-text="time-consuming to create">time-consuming to create</span></p>
                     
-                    <p>✓/× <span class="highlight" onclick="speak('build connection')">build connection</span> BUT <span class="highlight" onclick="speak('uncertain outcome')">uncertain outcome</span></p>
+                    <p>✓/× <span class="highlight" onclick="speak('build connection')" data-text="build connection">build connection</span> BUT <span class="highlight" onclick="speak('uncertain outcome')" data-text="uncertain outcome">uncertain outcome</span></p>
                     
-                    <p>✓ <span class="highlight" onclick="speak('cost-effective way to reach customers')">cost-effective way to reach customers</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('cost-effective way to reach customers')" data-text="cost-effective way to reach customers">cost-effective way to reach customers</span></p>
                     
-                    <p>× <span class="highlight" onclick="speak('large budget needed')">large budget needed</span></p>
+                    <p>× <span class="highlight" onclick="speak('large budget needed')" data-text="large budget needed">large budget needed</span></p>
                 </div>
             </div>
 
@@ -367,6 +460,16 @@
                     <span>&#9658;</span> Play Situation
                 </button>
             </div>
+            <div class="speech-recognition-container">
+                <button id="record-btn-b" class="record-button" onclick="toggleRecording('b')">
+                    <span id="record-icon-b">🎤</span> Record
+                </button>
+                <div id="recognition-result-b" class="recognition-result"></div>
+            </div>
+            <div id="result-feedback-b" class="result-feedback" style="display: none;">
+                <span id="feedback-icon-b" class="feedback-icon"></span>
+                <span id="feedback-text-b" class="feedback-text"></span>
+            </div>
         </div>
         <div class="instructions">
             <p>You work in Eco Travel Agency. Your team is planning to promote a new travel package.</p>
@@ -379,25 +482,25 @@
                 <div class="column-left">
                     <div class="suggestions">Suggestions:</div>
                     
-                    <p>1. <span class="highlight" onclick="speak('Interactive online video')">Interactive online video</span></p>
+                    <p>1. <span class="highlight" onclick="speak('Interactive online video')" data-text="Interactive online video">Interactive online video</span></p>
                     
-                    <p>2. <span class="highlight" onclick="speak('School visit')">School visit</span></p>
+                    <p>2. <span class="highlight" onclick="speak('School visit')" data-text="School visit">School visit</span></p>
                     
-                    <p>3. <span class="highlight" onclick="speak('Ad via travel app')">Ad via travel app</span></p>
+                    <p>3. <span class="highlight" onclick="speak('Ad via travel app')" data-text="Ad via travel app">Ad via travel app</span></p>
                     
-                    <p>4. <span class="highlight" onclick="speak('VR travel demo')">VR travel demo</span></p>
+                    <p>4. <span class="highlight" onclick="speak('VR travel demo')" data-text="VR travel demo">VR travel demo</span></p>
                 </div>
                 
                 <div class="column-right">
                     <div class="preferences">My Preferences:</div>
                     
-                    <p>✓ <span class="highlight" onclick="speak('engage wide range of audience')">engage wide range of audience</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('engage wide range of audience')" data-text="engage wide range of audience">engage wide range of audience</span></p>
                     
-                    <p>× <span class="highlight" onclick="speak('difficult to arrange')">difficult to arrange</span></p>
+                    <p>× <span class="highlight" onclick="speak('difficult to arrange')" data-text="difficult to arrange">difficult to arrange</span></p>
                     
-                    <p>✓/× <span class="highlight" onclick="speak('limited response rate')">limited response rate</span> BUT <span class="highlight" onclick="speak('enhance brand image')">enhance brand image</span></p>
+                    <p>✓/× <span class="highlight" onclick="speak('limited response rate')" data-text="limited response rate">limited response rate</span> BUT <span class="highlight" onclick="speak('enhance brand image')" data-text="enhance brand image">enhance brand image</span></p>
                     
-                    <p>✓ <span class="highlight" onclick="speak('create immediate media coverage')">create immediate media coverage</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('create immediate media coverage')" data-text="create immediate media coverage">create immediate media coverage</span></p>
                 </div>
             </div>
 
@@ -422,6 +525,16 @@
                     <span>&#9658;</span> Play Situation
                 </button>
             </div>
+            <div class="speech-recognition-container">
+                <button id="record-btn-c" class="record-button" onclick="toggleRecording('c')">
+                    <span id="record-icon-c">🎤</span> Record
+                </button>
+                <div id="recognition-result-c" class="recognition-result"></div>
+            </div>
+            <div id="result-feedback-c" class="result-feedback" style="display: none;">
+                <span id="feedback-icon-c" class="feedback-icon"></span>
+                <span id="feedback-text-c" class="feedback-text"></span>
+            </div>
         </div>
         <div class="instructions">
             <p>You work in Eco Travel Agency. Your team is planning to promote a new travel package.</p>
@@ -434,25 +547,25 @@
                 <div class="column-left">
                     <div class="suggestions">Suggestions:</div>
                     
-                    <p>1. <span class="highlight" onclick="speak('Interactive online video')">Interactive online video</span></p>
+                    <p>1. <span class="highlight" onclick="speak('Interactive online video')" data-text="Interactive online video">Interactive online video</span></p>
                     
-                    <p>2. <span class="highlight" onclick="speak('School visit')">School visit</span></p>
+                    <p>2. <span class="highlight" onclick="speak('School visit')" data-text="School visit">School visit</span></p>
                     
-                    <p>3. <span class="highlight" onclick="speak('Ad via travel app')">Ad via travel app</span></p>
+                    <p>3. <span class="highlight" onclick="speak('Ad via travel app')" data-text="Ad via travel app">Ad via travel app</span></p>
                     
-                    <p>4. <span class="highlight" onclick="speak('VR travel demo')">VR travel demo</span></p>
+                    <p>4. <span class="highlight" onclick="speak('VR travel demo')" data-text="VR travel demo">VR travel demo</span></p>
                 </div>
                 
                 <div class="column-right">
                     <div class="preferences">My Preferences:</div>
                     
-                    <p>✓ <span class="highlight" onclick="speak('allow real-time feedback')">allow real-time feedback</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('allow real-time feedback')" data-text="allow real-time feedback">allow real-time feedback</span></p>
                     
-                    <p>✓ <span class="highlight" onclick="speak('affordable way to reach customers')">affordable way to reach customers</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('affordable way to reach customers')" data-text="affordable way to reach customers">affordable way to reach customers</span></p>
                     
-                    <p>× <span class="highlight" onclick="speak('short-term impact')">short-term impact</span></p>
+                    <p>× <span class="highlight" onclick="speak('short-term impact')" data-text="short-term impact">short-term impact</span></p>
                     
-                    <p>×/✓ <span class="highlight" onclick="speak('more manpower needed')">more manpower needed</span> BUT <span class="highlight" onclick="speak('attract people\'s attention')">attract people's attention</span></p>
+                    <p>×/✓ <span class="highlight" onclick="speak('more manpower needed')" data-text="more manpower needed">more manpower needed</span> BUT <span class="highlight" onclick="speak('attract people\'s attention')" data-text="attract people's attention">attract people's attention</span></p>
                 </div>
             </div>
 
@@ -477,6 +590,16 @@
                     <span>&#9658;</span> Play Situation
                 </button>
             </div>
+            <div class="speech-recognition-container">
+                <button id="record-btn-d" class="record-button" onclick="toggleRecording('d')">
+                    <span id="record-icon-d">🎤</span> Record
+                </button>
+                <div id="recognition-result-d" class="recognition-result"></div>
+            </div>
+            <div id="result-feedback-d" class="result-feedback" style="display: none;">
+                <span id="feedback-icon-d" class="feedback-icon"></span>
+                <span id="feedback-text-d" class="feedback-text"></span>
+            </div>
         </div>
         <div class="instructions">
             <p>You work in Eco Travel Agency. Your team is planning to promote a new travel package.</p>
@@ -489,25 +612,25 @@
                 <div class="column-left">
                     <div class="suggestions">Suggestions:</div>
                     
-                    <p>1. <span class="highlight" onclick="speak('Interactive online video')">Interactive online video</span></p>
+                    <p>1. <span class="highlight" onclick="speak('Interactive online video')" data-text="Interactive online video">Interactive online video</span></p>
                     
-                    <p>2. <span class="highlight" onclick="speak('School visit')">School visit</span></p>
+                    <p>2. <span class="highlight" onclick="speak('School visit')" data-text="School visit">School visit</span></p>
                     
-                    <p>3. <span class="highlight" onclick="speak('Ad via travel app')">Ad via travel app</span></p>
+                    <p>3. <span class="highlight" onclick="speak('Ad via travel app')" data-text="Ad via travel app">Ad via travel app</span></p>
                     
-                    <p>4. <span class="highlight" onclick="speak('VR travel demo')">VR travel demo</span></p>
+                    <p>4. <span class="highlight" onclick="speak('VR travel demo')" data-text="VR travel demo">VR travel demo</span></p>
                 </div>
                 
                 <div class="column-right">
                     <div class="preferences">My Preferences:</div>
                     
-                    <p>✓/× <span class="highlight" onclick="speak('attractive')">attractive</span> BUT <span class="highlight" onclick="speak('regular updates required')">regular updates required</span></p>
+                    <p>✓/× <span class="highlight" onclick="speak('attractive')" data-text="attractive">attractive</span> BUT <span class="highlight" onclick="speak('regular updates required')" data-text="regular updates required">regular updates required</span></p>
                     
-                    <p>✓ <span class="highlight" onclick="speak('gain feedback from participants')">gain feedback from participants</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('gain feedback from participants')" data-text="gain feedback from participants">gain feedback from participants</span></p>
                     
-                    <p>✓ <span class="highlight" onclick="speak('eye-catching and economical')">eye-catching and economical</span></p>
+                    <p>✓ <span class="highlight" onclick="speak('eye-catching and economical')" data-text="eye-catching and economical">eye-catching and economical</span></p>
                     
-                    <p>× <span class="highlight" onclick="speak('heavy efforts required')">heavy efforts required</span></p>
+                    <p>× <span class="highlight" onclick="speak('heavy efforts required')" data-text="heavy efforts required">heavy efforts required</span></p>
                 </div>
             </div>
 
@@ -537,6 +660,9 @@
             // Initialize the voice selector for this card
             const selector = document.getElementById(`voice-selector-${cardId.split('-')[1]}`);
             loadVoiceSelector(selector);
+            
+            // Reset any previous speech recognition results
+            resetSpeechRecognition(cardId.split('-')[1]);
         }
         
         function showLanding() {
@@ -546,11 +672,20 @@
             document.getElementById('student-d').style.display = 'none';
             document.getElementById('landing-page').style.display = 'block';
             window.scrollTo(0, 0);
+            
+            // Stop any ongoing recognition
+            stopRecognition();
         }
         
         // Initialize speech synthesis
         let synth = window.speechSynthesis;
         let voices = [];
+        
+        // Speech Recognition variables
+        let recognition = null;
+        let isRecording = false;
+        let activeStudent = null; // To track which student is currently recording
+        let currentHighlightElement = null; // Track which highlight is currently being tested
         
         // Load voices when they're available
         function loadVoices() {
@@ -787,6 +922,305 @@
             
             synth.speak(utterance);
         }
+        
+        // Toggle recording for speech recognition
+        function toggleRecording(student) {
+            if (isRecording) {
+                stopRecognition();
+            } else {
+                startRecognition(student);
+            }
+        }
+        
+        // Start speech recognition
+        function startRecognition(student) {
+            // If already recording for a different student, stop it first
+            if (isRecording && activeStudent !== student) {
+                stopRecognition();
+            }
+            
+            // Set the active student
+            activeStudent = student;
+            
+            // Update the button state
+            const recordBtn = document.getElementById(`record-btn-${student}`);
+            const recordIcon = document.getElementById(`record-icon-${student}`);
+            recordBtn.classList.add('recording');
+            recordBtn.innerHTML = `<span id="record-icon-${student}">⏹️</span> Stop`;
+            
+            // Reset the result display
+            const resultElement = document.getElementById(`recognition-result-${student}`);
+            resultElement.textContent = "Listening...";
+            
+            // Hide the feedback if it was showing
+            document.getElementById(`result-feedback-${student}`).style.display = 'none';
+            
+            // Clear any previous highlight classes
+            resetHighlightClasses();
+            
+            // Create a new SpeechRecognition instance if needed
+            if (!recognition) {
+                // Check browser support
+                if ('webkitSpeechRecognition' in window) {
+                    recognition = new webkitSpeechRecognition();
+                } else if ('SpeechRecognition' in window) {
+                    recognition = new SpeechRecognition();
+                } else {
+                    alert("Speech recognition is not supported in this browser.");
+                    return;
+                }
+                
+                // Configure recognition settings
+                recognition.continuous = false;
+                recognition.interimResults = true;
+                recognition.lang = 'en-US';
+                
+                // Set up the recognition events
+                recognition.onresult = handleRecognitionResult;
+                recognition.onerror = handleRecognitionError;
+                recognition.onend = handleRecognitionEnd;
+            }
+            
+            // Start the recognition
+            try {
+                recognition.start();
+                isRecording = true;
+            } catch (e) {
+                console.error("Speech recognition error:", e);
+                alert("Error starting speech recognition. Please try again.");
+                stopRecognition();
+            }
+        }
+        
+        // Stop speech recognition
+        function stopRecognition() {
+            if (recognition) {
+                try {
+                    recognition.stop();
+                } catch (e) {
+                    console.error("Error stopping recognition:", e);
+                }
+            }
+            
+            // Update the UI to show we're not recording
+            if (activeStudent) {
+                const recordBtn = document.getElementById(`record-btn-${activeStudent}`);
+                recordBtn.classList.remove('recording');
+                recordBtn.innerHTML = `<span id="record-icon-${activeStudent}">🎤</span> Record`;
+            }
+            
+            isRecording = false;
+        }
+        
+        // Handle recognition results
+        function handleRecognitionResult(event) {
+            if (!activeStudent) return;
+            
+            const resultElement = document.getElementById(`recognition-result-${activeStudent}`);
+            
+            // Get the transcript of what was spoken
+            let interimTranscript = '';
+            let finalTranscript = '';
+            
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                const transcript = event.results[i][0].transcript;
+                if (event.results[i].isFinal) {
+                    finalTranscript += transcript;
+                } else {
+                    interimTranscript += transcript;
+                }
+            }
+            
+            // Update the display with what was heard
+            if (finalTranscript) {
+                resultElement.textContent = finalTranscript;
+                // Compare with highlighted text
+                compareWithHighlighted(finalTranscript);
+            } else if (interimTranscript) {
+                resultElement.textContent = interimTranscript + '...';
+            }
+        }
+        
+        // Compare spoken text with highlighted items
+        function compareWithHighlighted(transcript) {
+            if (!activeStudent) return;
+            
+            // Get all highlighted items in the active card
+            const studentCard = document.getElementById(`student-${activeStudent}`);
+            const highlightedItems = studentCard.querySelectorAll('.highlight');
+            
+            // Initialize variables to track best match
+            let bestMatchElement = null;
+            let bestMatchScore = 0;
+            const threshold = 0.6; // Similarity threshold (0-1)
+            
+            // Normalize the transcript for comparison
+            const normalizedTranscript = transcript.toLowerCase().trim();
+            
+            // Check each highlighted item
+            highlightedItems.forEach(item => {
+                const targetText = item.getAttribute('data-text').toLowerCase();
+                const similarity = calculateSimilarity(normalizedTranscript, targetText);
+                
+                if (similarity > bestMatchScore) {
+                    bestMatchScore = similarity;
+                    bestMatchElement = item;
+                }
+            });
+            
+            // Reset classes on all highlighted items
+            resetHighlightClasses();
+            
+            // Show feedback
+            const feedbackElement = document.getElementById(`result-feedback-${activeStudent}`);
+            const feedbackIcon = document.getElementById(`feedback-icon-${activeStudent}`);
+            const feedbackText = document.getElementById(`feedback-text-${activeStudent}`);
+            
+            if (bestMatchScore >= threshold) {
+                // Good match
+                bestMatchElement.classList.add('correct');
+                currentHighlightElement = bestMatchElement;
+                
+                feedbackIcon.textContent = '✓';
+                feedbackIcon.className = 'feedback-icon feedback-match';
+                feedbackText.textContent = `Match: "${bestMatchElement.getAttribute('data-text')}"`;
+                feedbackText.className = 'feedback-text feedback-match';
+            } else {
+                // No good match
+                feedbackIcon.textContent = '✗';
+                feedbackIcon.className = 'feedback-icon feedback-nomatch';
+                feedbackText.textContent = 'No match found. Try again.';
+                feedbackText.className = 'feedback-text feedback-nomatch';
+            }
+            
+            feedbackElement.style.display = 'flex';
+        }
+        
+        // Calculate similarity between two strings (simple Levenshtein-based metric)
+        function calculateSimilarity(str1, str2) {
+            // Simple contains check first
+            if (str1.includes(str2) || str2.includes(str1)) {
+                return 0.8; // High similarity if one contains the other
+            }
+            
+            const longer = str1.length > str2.length ? str1 : str2;
+            const shorter = str1.length > str2.length ? str2 : str1;
+            
+            if (longer.length === 0) {
+                return 1.0;
+            }
+            
+            // Calculate Levenshtein distance
+            const levenshtein = levenshteinDistance(longer, shorter);
+            
+            // Convert to similarity score (1 is perfect match, 0 is completely different)
+            return (longer.length - levenshtein) / longer.length;
+        }
+        
+        // Levenshtein distance calculation
+        function levenshteinDistance(str1, str2) {
+            const track = Array(str2.length + 1).fill(null).map(() => 
+                Array(str1.length + 1).fill(null));
+            
+            for (let i = 0; i <= str1.length; i += 1) {
+                track[0][i] = i;
+            }
+            
+            for (let j = 0; j <= str2.length; j += 1) {
+                track[j][0] = j;
+            }
+            
+            for (let j = 1; j <= str2.length; j += 1) {
+                for (let i = 1; i <= str1.length; i += 1) {
+                    const indicator = str1[i - 1] === str2[j - 1] ? 0 : 1;
+                    track[j][i] = Math.min(
+                        track[j][i - 1] + 1, // deletion
+                        track[j - 1][i] + 1, // insertion
+                        track[j - 1][i - 1] + indicator, // substitution
+                    );
+                }
+            }
+            
+            return track[str2.length][str1.length];
+        }
+        
+        // Handle speech recognition errors
+        function handleRecognitionError(event) {
+            console.error("Speech Recognition Error:", event.error);
+            
+            if (!activeStudent) return;
+            
+            const resultElement = document.getElementById(`recognition-result-${activeStudent}`);
+            
+            switch (event.error) {
+                case 'no-speech':
+                    resultElement.textContent = "No speech detected. Please try again.";
+                    break;
+                case 'aborted':
+                    resultElement.textContent = "Recognition stopped.";
+                    break;
+                case 'audio-capture':
+                    resultElement.textContent = "No microphone detected.";
+                    break;
+                case 'not-allowed':
+                    resultElement.textContent = "Microphone access denied.";
+                    break;
+                case 'network':
+                    resultElement.textContent = "Network error. Please check your connection.";
+                    break;
+                default:
+                    resultElement.textContent = `Error: ${event.error}`;
+            }
+            
+            stopRecognition();
+        }
+        
+        // Handle recognition end
+        function handleRecognitionEnd() {
+            // Only update UI if we're still in recording state (not manually stopped)
+            if (isRecording) {
+                stopRecognition();
+            }
+        }
+        
+        // Reset highlight classes
+        function resetHighlightClasses() {
+            if (currentHighlightElement) {
+                currentHighlightElement.classList.remove('correct');
+                currentHighlightElement.classList.remove('incorrect');
+                currentHighlightElement = null;
+            }
+            
+            document.querySelectorAll('.highlight').forEach(item => {
+                item.classList.remove('correct');
+                item.classList.remove('incorrect');
+            });
+        }
+        
+        // Reset speech recognition display
+        function resetSpeechRecognition(student) {
+            document.getElementById(`recognition-result-${student}`).textContent = '';
+            document.getElementById(`result-feedback-${student}`).style.display = 'none';
+            
+            // Ensure we're not recording
+            if (isRecording && activeStudent === student) {
+                stopRecognition();
+            }
+            
+            // Reset highlight classes
+            resetHighlightClasses();
+        }
+        
+        // Add tooltips to highlighted items showing the expected text
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.highlight').forEach(item => {
+                const text = item.getAttribute('data-text');
+                const tooltip = document.createElement('div');
+                tooltip.classList.add('tooltip');
+                tooltip.textContent = 'Tap to hear pronunciation';
+                item.appendChild(tooltip);
+            });
+        });
         
         // Force voice loading after a short delay
         setTimeout(() => {
