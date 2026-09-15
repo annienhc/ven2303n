@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VE2C TA Practice Paper</title>
+    <style>
+        /* Modern System Fonts & Encouraging Palette */
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-soft: #f8fafc;
+            --text-main: #1e293b;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+            --accent-yellow: #fef3c7;
+            --accent-orange: #d97706;
+        }
+
+        body { 
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
+            background-color: #f1f5f9; 
+            color: var(--text-main); 
+            margin: 0; 
+            padding: 0; 
+            height: 100vh;
+            overflow: hidden; 
+        }
+        
+        .top-nav { 
+            background-color: #0f172a; 
+            color: white; 
+            padding: 12px 40px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+            z-index: 100;
+        }
+        .top-nav h1 { 
+            margin: 0; 
+            font-size: 18px; 
+            font-weight: 500; 
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+
+        .main-layout { 
+            display: flex; 
+            gap: 24px; 
+            padding: 24px; 
+            max-width: 1800px; 
+            margin: 0 auto; 
+            height: calc(100vh - 60px); 
+            box-sizing: border-box; 
+        }
+        
+        .task-panel, .editor-panel { 
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .task-panel { 
+            flex: 1; 
+            border-top: 6px solid var(--primary); 
+        }
+
+        .editor-panel { 
+            flex: 1.2; 
+            border-top: 6px solid #64748b; 
+        }
+
+        .scroll-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+        }
+
+        .scroll-content::-webkit-scrollbar { width: 8px; }
+        .scroll-content::-webkit-scrollbar-track { background: transparent; }
+        .scroll-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .scroll-content::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .task-header { 
+            display: flex; 
+            justify-content: space-between; 
+            border-bottom: 1px solid var(--border-color); 
+            padding-bottom: 15px; 
+            margin-bottom: 25px; 
+            font-weight: 600; 
+            font-size: 13px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .task-title { font-size: 22px; color: #0f172a; margin: 0 0 15px 0; font-weight: 700; }
+        .task-instructions { font-size: 15px; line-height: 1.6; color: #475569; margin-bottom: 30px; }
+        
+        /* --- ENHANCED EMAIL MOCKUP STYLES --- */
+        .email-mockup { 
+            border: 1px solid #e2e8f0; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            margin-bottom: 30px; 
+            background: white; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05); 
+        }
+        .email-header { 
+            background: #ffffff; 
+            padding: 20px; 
+            border-bottom: 1px solid #f1f5f9; 
+        }
+        .email-subject-line {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .email-meta-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .email-avatar {
+            width: 42px;
+            height: 42px;
+            background: #64748b;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .email-info-text {
+            flex-grow: 1;
+            font-size: 14px;
+        }
+        .email-header-row { 
+            display: flex; 
+            align-items: baseline;
+            margin-bottom: 2px; 
+        }
+        .email-header-label { 
+            width: 45px; 
+            font-weight: 500; 
+            color: var(--text-light); 
+        }
+        .email-timestamp {
+            font-size: 12px;
+            color: var(--text-light);
+            text-align: right;
+        }
+        .email-body { 
+            padding: 25px 25px 40px 25px; 
+            font-size: 15px; 
+            line-height: 1.7; 
+            color: var(--text-main); 
+        }
+        /* ------------------------------------ */
+        
+        .notes-section { background: #fffcf0; border: 1px dashed #fcd34d; padding: 25px; border-radius: 12px; }
+        .notes-title { font-weight: bold; color: #b45309; margin-bottom: 15px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
+        .handwritten { font-family: 'Segoe Print', 'Bradley Hand', cursive; color: #0369a1; font-size: 16px; margin-bottom: 12px; line-height: 1.5; padding-left: 15px; border-left: 3px solid #7dd3fc; }
+        .handwritten-red { color: #be123c; font-weight: 500; }
+
+        .editor-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .editor-header { 
+            font-size: 18px; 
+            font-weight: 600; 
+            color: #1e293b; 
+            margin-bottom: 15px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        
+        textarea { 
+            width: 100%; 
+            min-height: 350px; 
+            padding: 20px; 
+            border: 2px solid var(--border-color); 
+            border-radius: 12px; 
+            font-size: 16px; 
+            font-family: inherit; 
+            resize: none; 
+            box-sizing: border-box; 
+            line-height: 1.6; 
+            transition: all 0.2s; 
+            background: #fdfdfd;
+        }
+        textarea:focus { outline: none; border-color: var(--primary); background: white; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08); }
+        
+        .action-area { 
+            margin-top: 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            gap: 15px; 
+            margin-bottom: 10px;
+        }
+        .submit-btn { 
+            background-color: var(--primary); 
+            color: white; 
+            border: none; 
+            padding: 14px 32px; 
+            font-size: 16px; 
+            font-weight: 600; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2); 
+        }
+        .submit-btn:hover { background-color: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 6px 12px rgba(37, 99, 235, 0.25); }
+        
+        #loading { 
+            display: none; 
+            color: #b45309; 
+            font-weight: 600; 
+            font-size: 14px;
+            background-color: var(--accent-yellow); 
+            padding: 10px 20px; 
+            border-radius: 8px; 
+            border: 1px solid #fde68a; 
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .feedback-overlay { 
+            display: block; 
+            margin-top: 25px; 
+            background-color: #f8fafc; 
+            padding: 25px; 
+            border-radius: 12px; 
+            border-left: 6px solid var(--primary); 
+            font-size: 16px; 
+            line-height: 2.2; 
+            color: var(--text-main); 
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); 
+            white-space: pre-wrap; 
+            position: relative;
+            text-align: left; 
+        }
+
+        .ai-feedback {
+            background-color: var(--accent-yellow);
+            border-bottom: 2px dashed var(--accent-orange);
+            cursor: help;
+            position: relative;
+            display: inline; 
+            padding: 0 2px;
+            border-radius: 2px;
+            font-weight: 500;
+        }
+
+        .ai-feedback::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 140%;
+            left: 0; 
+            transform: none; 
+            background-color: #0f172a;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            width: 280px;
+            white-space: normal;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        .ai-feedback::before {
+            content: "";
+            position: absolute;
+            bottom: 125%;
+            left: 10px; 
+            transform: none;
+            border: 8px solid transparent;
+            border-top-color: #0f172a;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .ai-feedback:hover::after, .ai-feedback:hover::before {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .feedback-header {
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-nav">
+    <h1>VE2C TA Practice Paper</h1>
+</div>
+
+<div class="main-layout">
+    <div class="task-panel">
+        <div class="scroll-content">
+            <h2 class="task-title">Task</h2>
+            <div class="task-instructions">
+                You are <strong>Tony So</strong>, an Executive Assistant at Star Trading Company. You have just received the following email from your supervisor, Boris Lee.<br><br>
+                Based on the email, your handwritten notes, and your ideas in your preparatory task, write a reply to Boris. You should elaborate on your ideas when necessary and/or appropriate.<br><br>
+                <strong>Write at least 120 words in the editor provided.</strong>
+            </div>
+
+            <div class="email-mockup">
+                <div class="email-header">
+                    <span class="email-subject-line">RE: Suggestions on Community Activities</span>
+                    <div class="email-meta-wrapper">
+                        <div class="email-avatar">BL</div>
+                        <div class="email-info-text">
+                            <div class="email-header-row">
+                                <span class="email-header-label">From:</span>
+                                <span><strong>Boris Lee</strong> &lt;borislee@star.com&gt;</span>
+                            </div>
+                            <div class="email-header-row">
+                                <span class="email-header-label">To:</span>
+                                <span>Tony So &lt;tonyso@star.com&gt;</span>
+                            </div>
+                        </div>
+                        <div class="email-timestamp">
+                            Today, 10:45 AM
+                        </div>
+                    </div>
+                </div>
+                <div class="email-body">
+                    Dear Tony,<br><br>
+                    Thank you for your suggestions about the community activities. Both of them sound good. Which one would you prefer? Could you also suggest the venue and date for the preferred activity? Please make necessary follow-up actions, if needed.<br><br>
+                    Regards,<br>
+                    <strong>Boris</strong>
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <div class="notes-title">
+                    <span>📝 My Preparatory Notes</span>
+                </div>
+                <div class="handwritten">Preference on community activity: <br><span class="handwritten-red">Use researched information and elaborate</span></div>
+                <div class="handwritten">Suggestion on venue: <br><span class="handwritten-red">Use researched information and elaborate</span></div>
+                <div class="handwritten">Suggestion on date: <br><span class="handwritten-red">10 Jan (Friday) (attract potential participants)</span></div>
+                <div class="handwritten">Offer: <br><span class="handwritten-red">Ask secretary ➔ schedule meeting</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="editor-panel">
+        <div class="scroll-content" id="editor-scroller">
+            <div class="editor-container">
+                <div class="editor-header">
+                    ✉️ Your Email Draft
+                </div>
+                
+                <textarea id="student-input" placeholder="Start typing your reply to Boris here..."></textarea>
+                
+                <div class="action-area">
+                    <div id="loading">✨ Analyzing your writing... please wait a moment</div>
+                    <button class="submit-btn" onclick="submitToAI()">Submit for AI Coaching</button>
+                </div>
+
+                <div id="feedback-area" style="display:none; padding: 0; flex: none;">
+                    <div class="feedback-overlay" id="feedback-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const POWER_AUTOMATE_URL = "https://9141a0c58d52e2349be7cac164949c.8e.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/4916278f935b444ebcab7a9ab2532b53/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8t_OM6bNUMYnLL0tStL6FPCCnnwinKuIerqVqBSEBhg";
+
+    async function submitToAI() {
+        const studentText = document.getElementById("student-input").value;
+        const loadingDiv = document.getElementById("loading");
+        const feedbackArea = document.getElementById("feedback-area");
+        const feedbackContent = document.getElementById("feedback-content");
+        
+        if (!studentText.trim()) { 
+            alert("Please type your email draft in the editor first."); 
+            return; 
+        }
+
+        loadingDiv.style.display = "block";
+        feedbackArea.style.display = "none";
+        feedbackContent.innerHTML = ""; 
+
+        try {
+            const response = await fetch(POWER_AUTOMATE_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ essay: studentText })
+            });
+
+            if (!response.ok) throw new Error("Connection issue. Please try again.");
+
+            const aiFeedback = await response.text();
+
+            loadingDiv.style.display = "none";
+            feedbackArea.style.display = "block";
+            
+            const header = '<div class="feedback-header">🎯 Personalized Coaching Feedback</div>';
+            const tip = '<div style="margin-bottom: 10px; font-size: 14px; color: #64748b;">Hover over the yellow highlights to see suggestions:</div>';
+            
+            feedbackContent.innerHTML = header + tip + aiFeedback;
+
+            setTimeout(() => {
+                feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+
+        } catch (error) {
+            loadingDiv.style.display = "none";
+            alert(`Error: ${error.message}`);
+        }
+    }
+</script>
+
+</body>
+</html>
